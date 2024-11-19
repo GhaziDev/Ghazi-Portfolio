@@ -12,6 +12,10 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+
+      fontFamily: {
+        myfont: ['Lacquer', 'Cavaet'], // Add your custom font here
+      },
     },
   },
   plugins: [],

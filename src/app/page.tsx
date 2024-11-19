@@ -1,101 +1,114 @@
+'use client';
 import Image from "next/image";
+import {motion} from 'motion/react'
+import { FaFileArrowDown } from "react-icons/fa6";
+
+
+
+import {useState} from 'react'
+
+
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+
+  const [isHover, setIsHover] = useState<boolean>(false)
+  return (
+    <div id='mainpage' className="flex flex-wrap flex-col p-[100px]">
+      
+      <div id='headersec' className='flex flex-row flex-nowrap  '>
+      <div className="bubbles">
+      <div className="bubble"></div>
+    <div className="bubble"></div>
+    <div className="bubble"></div>
+    <div className="bubble"></div>
+    <div className="bubble"></div>
+    <div className="bubble"></div>
+    <div className="bubble"></div>
+    <div className="bubble"></div>
+    <div className="bubble"></div>
+    <div className="bubble"></div>
+    
+  </div>
+        <div id='left' className='flex flex-col flex-wrap gap-5'>
+          <div id='fullname' className="flex flex-col flex-wrap text-[70px]">
+            <motion.div id='firstname' className='flex flex-row flex-nowrap relative' >
+
+              <motion.p className='relative' initial={{left:'-1000px', opacity:0}} animate={{left:'0px',opacity:1}} transition={{duration:2}}>
+                A
+                </motion.p>
+                <motion.p className='relative' initial={{top:'-1000px'}} animate={{top:'0px'}} transition={{duration:2.5}}>
+                B
+                </motion.p>
+                <motion.p className='relative' initial={{top:'-1000px'}} animate={{top:'0px'}} transition={{duration:2.6}}>
+                C
+                </motion.p>
+                <motion.p className='relative' initial={{top:'-1000px'}} animate={{top:'0px'}} transition={{duration:2.7}}>
+                D
+                </motion.p>
+                <motion.p className='relative' initial={{top:'-1000px'}} animate={{top:'0px'}} transition={{duration:2.8}}>
+                E
+                </motion.p>
+              
+            </motion.div>
+            <div id='lastname' className="flex">
+            <motion.p className='relative' initial={{bottom:'-1000px'}} animate={{bottom:'0px'}} transition={{duration:2}}>
+                F
+                </motion.p>
+                <motion.p className='relative' initial={{bottom:'-1000px'}} animate={{bottom:'0px'}} transition={{duration:2.5}}>
+                A
+                </motion.p>
+                <motion.p className='relative' initial={{bottom:'-1000px'}} animate={{bottom:'0px'}} transition={{duration:2.6}}>
+                S
+                </motion.p>
+                <motion.p className='relative' initial={{bottom:'-1000px'}} animate={{bottom:'0px'}} transition={{duration:2.7}}>
+                A
+                </motion.p>
+                <motion.p className='relative' initial={{bottom:'-1000px'}} animate={{bottom:'0px'}} transition={{duration:2.8}}>
+                A
+                </motion.p>
+
+                <motion.p className='relative' initial={{bottom:'-1000px'}} animate={{bottom:'0px'}} transition={{duration:2}}>
+                A
+                </motion.p>
+                <motion.p className='relative' initial={{bottom:'-1000px'}} animate={{bottom:'0px'}} transition={{duration:2.5}}>
+                N
+                </motion.p>
+                <motion.p className='relative' initial={{right:'-2000px'}} animate={{right:'0px'}} transition={{duration:2.6}}>
+                I
+                </motion.p>
+               
+
+            </div>
+
+          </div>
+          <motion.div id='job' className=' gap-1 flex flex-row flex-nowrap '>
+            <motion.div className='text-blue-300 overflow-hidden whitespace-nowrap text-[30px]'  initial={{width:0}} animate={{width:'250px'}}
+           transition={{duration:3}}>Software Engineer</motion.div>
+            <motion.div className='w-[2px] h-[40px] bg-slate-100' initial={{opacity:0}} animate={{opacity:1}} transition={{repeat:Infinity,duration:1}}></motion.div>
+
+          </motion.div>
+          <motion.div id='cvdownload' className='flex'>
+
+            <button onMouseLeave={()=>{setIsHover(false)}} onMouseEnter={()=>{setIsHover(true)}} className={` text-[20px] gap-3 flex w-[300px] h-[50px] text-slate-50 hover:scale-105 hover:bg-slate-[rgba(3, 85, 145, 0.98)]  cursor-pointer `}>Download CV {isHover?<motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{duration:1.5, ease:'linear'}} exit={{opacity:0}}><FaFileArrowDown size={'30px'}></FaFileArrowDown></motion.div>:null}</button>
+
+          </motion.div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div id='right'>
+          <div id='img'>
+            IMAGE HERE
+          </div>
+        </div>
+      </div>
+
+      <div id='aboutme' className='flex flex-col flex-wrap gap-5'>
+        <div id='top' className='text-[60px]'>About Me</div>
+        <div id='bottom' className=' text-[20px] font-[Lacquer]'>
+          <div id='introduction' className=''>Hello, My name is Ghazi</div>
+
+        </div>
+
+      </div>
     </div>
   );
 }
