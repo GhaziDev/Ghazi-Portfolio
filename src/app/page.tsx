@@ -4,6 +4,9 @@ import {motion} from 'motion/react'
 import { FaFileArrowDown } from "react-icons/fa6";
 import { FaSquareGithub } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
+import { FaAngleDoubleUp } from "react-icons/fa";
+import { FaAngleDoubleDown } from "react-icons/fa";
+
 
 
 
@@ -21,17 +24,20 @@ interface Click {
 }
   const [hoverELement, setHoverElement] = useState<string>('')
   const [clickElement,setClickElement] = useState<string>("")
-  const controlHover = (e,id:string)=>{
-    setHoverElement(e.target.id)
+  const controlHover = (id:string)=>{
+    setHoverElement(id)
   }
 
-  const controlClick = (e)=>{
+  const controlClick = (id:string)=>{
+    console.log(id)
 
-    setClickElement(e.target.id)
+    setClickElement(id)
+    console.log(clickElement)
+
 
   }
   return (
-    <div id='mainpage' className="flex flex-wrap flex-col p-[100px] gap-[500px] overflow-x-hidden">
+    <div id='mainpage' className="flex flex-wrap flex-col p-[100px] gap-[500px] overflow-hidden ">
       
       <div id='headersec' className='flex flex-row flex-nowrap  '>
       <div className="bubbles">
@@ -123,7 +129,7 @@ interface Click {
         <div id='left' className='text-slate-950 bg-slate-200 w-fit h-[450px] rounded-lg p-7'>
           <div id='introduction' className='text-slate-950 text-[30px] font-cavaet'>Hello, My name is George St-Pierre</div>
        
-        <div id="description" className=' w-[60ch] h-[400px] break-words leading-[180%] text-[16px] '>
+        <div id="description" className=' w-[60ch] h-[400px] break-words  text-[16px] '>
           I am passionate software engineer, with experience in tech field, 
           In my last job I had worked as a teacher assistant for Auckland University of Technology, 
           where I taught a programming based paper to students in lab sessions, 
@@ -134,7 +140,7 @@ interface Click {
 
            <div id='socialbtns' className='flex gap-10 w-[100%] justify-center items-center'>
           <div onMouseEnter={()=>setHoverElement('linkedin')} onMouseLeave={()=>{setHoverElement('')}} id='linkedinwrapper' className=' cursor-pointer flex bg-incolor rounded box-border border-[1.5px] border-outcolor '><motion.div animate={{rotateY:hoverELement=='linkedin'?'360deg':'0'}} transition={{duration:1.5}}><FaLinkedin size='30'  className='' color='white' ></FaLinkedin></motion.div><motion.button id='linkedin' initial={{width:'0px',height:'30px'}} animate={{width:hoverELement=='linkedin'?'150px':'0px',color:hoverELement=='linkedin'?'white':'transparent'}} transition={{type:'spring', stiffness:200,duration:1.5, damping:10}}  className=' border-solid border-1 bg-incolor border-outcolor rounded-sm flex text-slate-50 pr-4 justify-center items-center text-[12px]'>Visit my LinkedIn</motion.button></div>
-          <div onMouseEnter={(e)=>{controlHover(e,'github')}} onMouseLeave={()=>{setHoverElement('')}} id='githubinwrapper' className=' cursor-pointer flex bg-black rounded box-border border-[1.5px] border-black '><motion.div animate={{rotateY:hoverELement=='github'?'360deg':'0'}} transition={{duration:1.5}}><FaSquareGithub size='30'  className='' color='white' ></FaSquareGithub></motion.div><motion.button id='github' initial={{width:'0px',height:'30px'}} animate={{width:hoverELement=='github'?'150px':'0px',color:hoverELement=='github'?'white':'transparent'}} transition={{type:'spring', stiffness:200,duration:1.5, damping:10}}  className=' border-solid border-1 bg-black border-black rounded-sm flex text-slate-50 pr-4 justify-center items-center text-[12px]'>Visit my Github</motion.button></div>
+          <div onMouseEnter={()=>{controlHover('github')}} onMouseLeave={()=>{setHoverElement('')}} id='githubinwrapper' className=' cursor-pointer flex bg-black rounded box-border border-[1.5px] border-black '><motion.div animate={{rotateY:hoverELement=='github'?'360deg':'0'}} transition={{duration:1.5}}><FaSquareGithub size='30'  className='' color='white' ></FaSquareGithub></motion.div><motion.button id='github' initial={{width:'0px',height:'30px'}} animate={{width:hoverELement=='github'?'150px':'0px',color:hoverELement=='github'?'white':'transparent'}} transition={{type:'spring', stiffness:200,duration:1.5, damping:10}}  className=' border-solid border-1 bg-black border-black rounded-sm flex text-slate-50 pr-4 justify-center items-center text-[12px]'>Visit my Github</motion.button></div>
         </div>
 
         </div>
@@ -146,13 +152,13 @@ interface Click {
       <motion.div className='fonts-serif' id='expsec'>
 
       <motion.div  whileInView={{scale:1}} transition={{duration:1.5, type:'spring',stiffness:100,damp:10,bounce:10}} initial={{scale:0.01}} id='exptitle' className='text-[60px] font-serif'>Experience</motion.div>
-      <div id='innerwrapper' className='flex flex-col flex-wrap gap-6 justify-center items-center pt-[100px] '>
+      <div id='innerwrapper' className='flex flex-col flex-wrap gap-6 justify-center items-center pt-[150px] '>
       
-      <motion.div whileHover={{scale:1.03}} whileInView={{opacity:1}} transition={{duration:1}} initial={{opacity:0}} className='flex rounded-md gap-5 ' id='ta'>
+      <motion.div  whileHover={{scale:1.03}} whileInView={{opacity:1}} transition={{duration:1}} initial={{opacity:0}} className='flex rounded-md gap-5 w-[600px] ' id='ta'>
         <motion.div className='bg-slate-50 p-[10px] rounded-md h-fit w-fit' id='left'>
           <img   className=' w-[40px] h-[40px] rounded-md'  src='/images/AUT.png' alt='ta'></img>
         </motion.div>
-        <motion.div id='right' className=' '>
+        <motion.div id='right' className='w-[600px]'>
         <motion.div id='title' className='text-[16px]'>
           Teacher Assistant at <b>Auckland Univeristy of Technology</b>
 
@@ -161,17 +167,106 @@ interface Click {
         Period: July 2023 - November 2023
 
         </motion.div>
-
+        <div className='flex w-[100%] justify-center items-center cursor-pointer pt-4'>{clickElement =='ta'?<FaAngleDoubleUp onClick={()=>{controlClick('')}}></FaAngleDoubleUp>:<FaAngleDoubleDown onClick={()=>controlClick('ta')}></FaAngleDoubleDown>}</div>
         </motion.div>
+        
       </motion.div>
-      <div className='bg-gray-500 w-[500px] h-[1px]' id='separator'></div>
-      <motion.div id='description' initial={{height:0,width:200}} >
+      <div className='bg-gray-500 w-[600px] h-[1px]' id='separator'></div>
+      <motion.div className='bg-white text-slate-950 rounded-md p-4 overflow-hidden' id='description' initial={{height:'0px',width:'65ch',opacity:0}} animate={{height:clickElement=='ta'?'180px':'0px',opacity:clickElement=='ta'?1:0}} transition={{duration:1}} >
         As a teacher assistant I was responsible for teaching students the correct approaches to solve problems, in addition to help TA's peers and the lecturer to provide seamless educational experience to all students. I was also responsible for grading students assignments.
 
       </motion.div>
+
+
+      <motion.div  whileHover={{scale:1.03}} whileInView={{opacity:1}} transition={{duration:1}} initial={{opacity:0}} className='flex rounded-md gap-5 w-[600px] ' id='wd'>
+        <motion.div className='bg-slate-50 p-[10px] rounded-md h-fit w-fit' id='left'>
+          <img   className=' w-[40px] h-[40px] rounded-md'  src='/images/un.png' alt='un'></img>
+        </motion.div>
+        <motion.div id='right' className=' w-[600px]'>
+        <motion.div id='title' className='text-[16px]'>
+          Web Developr at <b>United Nations-ESCWA</b>
+
+        </motion.div>
+        <motion.div id='date' className='text-[12px] text-gray-400'>
+        Period: July 2020 - October 2020
+
+        </motion.div>
+        <div className='flex w-[100%] justify-center items-center cursor-pointer pt-4'>{clickElement =='wd'?<FaAngleDoubleUp onClick={()=>{controlClick('')}}></FaAngleDoubleUp>:<FaAngleDoubleDown onClick={()=>controlClick('wd')}></FaAngleDoubleDown>}</div>
+        </motion.div>
+        
+      </motion.div>
+      <div className='bg-gray-500 w-[600px] h-[1px]' id='separator'></div>
+      <motion.div className='bg-white text-slate-950 rounded-md p-4 overflow-hidden' id='description' initial={{height:'0px',width:'65ch',opacity:0}} animate={{height:clickElement=='wd'?'180px':'0px',opacity:clickElement=='wd'?1:0}} transition={{duration:1}} >
+        As a Web Developer, I worked with a proffesional team to develop an SME-Toolkit website using variety of tools such as Javascript, PHP, HTML, and CSS. In addition to meeting with clients on weekly basis to get feedback and requirements for the project. Throughout this job, Agile methodology has been utilized for project planning and task making.
+
+      </motion.div>
+
+
+      <motion.div  whileHover={{scale:1.03}} whileInView={{opacity:1}} transition={{duration:1}} initial={{opacity:0}} className='flex rounded-md gap-5 w-[600px] ' id='sa'>
+        <motion.div className='bg-slate-50 p-[10px] rounded-md h-fit w-fit' id='left'>
+          <img   className=' w-[40px] h-[40px] rounded-md'  src='/images/AUT.png' alt='aut'></img>
+        </motion.div>
+        <motion.div id='right' className=' w-[600px]'>
+        <motion.div id='title' className='text-[16px]'>
+          Student Ambassador at <b>Auckland University of Technology</b>
+
+        </motion.div>
+        <motion.div id='date' className='text-[12px] text-gray-400'>
+        Period: July 2023 - July 2024
+
+        </motion.div>
+        <div className='flex w-[100%] justify-center items-center cursor-pointer pt-4'>{clickElement =='sa'?<FaAngleDoubleUp onClick={()=>{controlClick('')}}></FaAngleDoubleUp>:<FaAngleDoubleDown onClick={()=>controlClick('sa')}></FaAngleDoubleDown>}</div>
+        </motion.div>
+        
+      </motion.div>
+
+      <div className='bg-gray-500 w-[600px] h-[1px]' id='separator'></div>
+      <motion.div className='bg-white text-slate-950 rounded-md p-4 overflow-hidden' id='description' initial={{height:'0px',width:'65ch',opacity:0}} animate={{height:clickElement=='sa'?'180px':'0px',opacity:clickElement=='sa'?1:0}} transition={{duration:1}} >
+        As a Student Ambassador, I was tasked to help students during their first day at the university, from leading them to their destinations, to helping them with study materials, also, collaborated with fellow ambassadors and seniors to organize events, in addition to demonstrating effective communication and team-work. 
+      </motion.div>
+
+      
       </div>
-      <motion.div></motion.div>
-      <motion.div></motion.div>
+
+
+      
+      </motion.div>
+
+      <motion.div className='' id='projectsec'>
+      <motion.div  whileInView={{opacity:1,bottom:'0px'}} transition={{duration:1.1}} initial={{opacity:0,bottom:'-200px'}} id='exptitle' className='relative text-[60px] font-serif'>Project</motion.div>
+
+      <div id='projectWrapper' className='flex gap-5 justify-center items-center pt-[200px]'>
+        <motion.div initial={{left:'540px'}} whileInView={{left:'0px'}} transition={{duration:2.5}} id='project1'  className='relative w-[250px] h-[250px] rounded-md border-[2px] border-outcolor'>
+          <div id='icon'></div>
+          <div id='title'>Backend Project</div>
+          <div id='stack'></div>
+
+
+        </motion.div>
+
+        <motion.div initial={{left:'270px'}} whileInView={{left:'0px'}} transition={{duration:2.5}} id='project2' className=' relative w-[250px] h-[250px] rounded-md border-[2px] border-outcolor'>
+        <div id='icon'></div>
+          <div id='title'>Frontend Project</div>
+          <div id='stack'></div>
+          
+        </motion.div>
+        
+        <motion.div id='project3' className='relative w-[250px] h-[250px] rounded-md border-[2px] border-outcolor'>
+        <div id='icon'></div>
+          <div id='title'>Full-Stack Project</div>
+          <div id='stack'></div>
+          
+        </motion.div>
+
+        
+        <motion.div id='project4' initial={{right:'270px'}} whileInView={{right:'0px'}} transition={{duration:2.5}} className='relative w-[250px] h-[250px] rounded-md border-[2px] border-outcolor'>
+        <div id='icon'></div>
+          <div id='title'>AI Project</div>
+          <div id='stack'></div>
+          
+        </motion.div>
+      </div>
+
       </motion.div>
     </div>
   );
