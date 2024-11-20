@@ -27,16 +27,16 @@ body {
 }
 
 
-@font-face {
-  font-family: 'Cavaet';
-  src: url('/fonts/cavaet.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+
+@font-face{
+  font-family:'lacquer';
+  src:url('./fonts/Lacquer-Regular.ttf') format('truetype');
+
 }
 
 @font-face{
-  font-family:'Lacquer';
-  src:url('/fonts/Lacquer-Regular.ttf') format('truetype');
+  font-family:'cavaet';
+  src:url('./fonts/cavaet.ttf') format('truetype');
 
 }
 
@@ -45,7 +45,7 @@ body {
   position:absolute;
   width:100%;
   height: 100%;
-  z-index:0;
+  z-index:-1;
   overflow:hidden;
   top:0;
   left:0;

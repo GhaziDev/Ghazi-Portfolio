@@ -11,10 +11,15 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        incolor:'rgba(3, 85, 145, 0.98)',
+        outcolor:'rgba(58, 147, 211, 0.98)',
+        glasscolor:'rgba(58, 147, 211, 1)',
+        transparent:'rgba(0,0,0,0.1)'
       },
 
       fontFamily: {
-        myfont: ['Lacquer', 'Cavaet'], // Add your custom font here
+        lacquer: ['lacquer'], // Add your custom font here,
+        cavaet:['cavaet']
       },
     },
   },
