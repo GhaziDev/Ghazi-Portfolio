@@ -6,7 +6,10 @@ import { FaSquareGithub } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
 import { FaAngleDoubleUp } from "react-icons/fa";
 import { FaAngleDoubleDown } from "react-icons/fa";
-
+import { CiServer } from "react-icons/ci";
+import { SiNextui } from "react-icons/si";
+import { GoStack } from "react-icons/go";
+import { PiRobot } from "react-icons/pi";
 
 
 
@@ -14,6 +17,7 @@ import { FaAngleDoubleDown } from "react-icons/fa";
 
 
 import {useState} from 'react'
+import Link from "next/link";
 
 
 
@@ -125,7 +129,7 @@ interface Click {
       </div>
 
       <motion.div initial={{scale:0.1}} whileInView={{scale:1}} transition={{duration:1,type:'spring',stifness:200, damp:20}} id='aboutme' className='flex flex-row flex-wrap  content-center w-full items-center '>
-        <div id='right' className='  relative left-[200px] bottom-[200px] z-[-1] bg-glasscolor w-[350px] h-[350px] text-[60px] p-7 rounded-lg shadow-outcolor shadow-md'><div className=''>About Me</div> <div className=''></div> </div>
+        <div id='right' className='  relative left-[200px] bottom-[200px] z-[-1] border-[2px] border-outcolor bg-incolor w-[350px] h-[350px] text-[60px] p-7 rounded-lg '><div className=''>About Me</div> <div className=''></div> </div>
         <div id='left' className='text-slate-950 bg-slate-200 w-fit h-[450px] rounded-lg p-7'>
           <div id='introduction' className='text-slate-950 text-[30px] font-cavaet'>Hello, My name is George St-Pierre</div>
        
@@ -152,9 +156,9 @@ interface Click {
       <motion.div className='fonts-serif' id='expsec'>
 
       <motion.div  whileInView={{scale:1}} transition={{duration:1.5, type:'spring',stiffness:100,damp:10,bounce:10}} initial={{scale:0.01}} id='exptitle' className='text-[60px] font-serif'>Experience</motion.div>
-      <div id='innerwrapper' className='flex flex-col flex-wrap gap-6 justify-center items-center pt-[150px] '>
+      <div id='expwrapper' className='flex flex-col flex-wrap gap-6 justify-center items-center pt-[350px] '>
       
-      <motion.div  whileHover={{scale:1.03}} whileInView={{opacity:1}} transition={{duration:1}} initial={{opacity:0}} className='flex rounded-md gap-5 w-[600px] ' id='ta'>
+      <motion.div  whileHover={{scale:1.03}} whileInView={{opacity:1}} transition={{duration:1}} initial={{opacity:0}} className='flex rounded-md gap-6 w-[600px] ' id='ta'>
         <motion.div className='bg-slate-50 p-[10px] rounded-md h-fit w-fit' id='left'>
           <img   className=' w-[40px] h-[40px] rounded-md'  src='/images/AUT.png' alt='ta'></img>
         </motion.div>
@@ -178,7 +182,7 @@ interface Click {
       </motion.div>
 
 
-      <motion.div  whileHover={{scale:1.03}} whileInView={{opacity:1}} transition={{duration:1}} initial={{opacity:0}} className='flex rounded-md gap-5 w-[600px] ' id='wd'>
+      <motion.div  whileHover={{scale:1.03}} whileInView={{opacity:1}} transition={{duration:1}} initial={{opacity:0}} className='flex rounded-md gap-6 w-[600px] ' id='wd'>
         <motion.div className='bg-slate-50 p-[10px] rounded-md h-fit w-fit' id='left'>
           <img   className=' w-[40px] h-[40px] rounded-md'  src='/images/un.png' alt='un'></img>
         </motion.div>
@@ -202,7 +206,7 @@ interface Click {
       </motion.div>
 
 
-      <motion.div  whileHover={{scale:1.03}} whileInView={{opacity:1}} transition={{duration:1}} initial={{opacity:0}} className='flex rounded-md gap-5 w-[600px] ' id='sa'>
+      <motion.div  whileHover={{scale:1.03}} whileInView={{opacity:1}} transition={{duration:1}} initial={{opacity:0}} className='flex rounded-md gap-6 w-[600px] ' id='sa'>
         <motion.div className='bg-slate-50 p-[10px] rounded-md h-fit w-fit' id='left'>
           <img   className=' w-[40px] h-[40px] rounded-md'  src='/images/AUT.png' alt='aut'></img>
         </motion.div>
@@ -235,35 +239,72 @@ interface Click {
       <motion.div className='' id='projectsec'>
       <motion.div  whileInView={{opacity:1,bottom:'0px'}} transition={{duration:1.1}} initial={{opacity:0,bottom:'-200px'}} id='exptitle' className='relative text-[60px] font-serif'>Project</motion.div>
 
-      <div id='projectWrapper' className='flex gap-5 justify-center items-center pt-[200px]'>
-        <motion.div initial={{left:'540px'}} whileInView={{left:'0px'}} transition={{duration:2.5}} id='project1'  className='relative w-[250px] h-[250px] rounded-md border-[2px] border-outcolor'>
-          <div id='icon'></div>
-          <div id='title'>Backend Project</div>
-          <div id='stack'></div>
+      <div id='projectWrapper' className='flex gap-5 justify-center items-center flex-wrap pt-[350px]'>
+        <motion.div  whileInView={{left:'0px'}} transition={{delay:0.5,duration:2.5}} id='project1'  className='flex flex-col flex-wrap items-center justify-center gap-5 p-2 relative w-[350px] h-[350px] rounded-md border-[2px] border-outcolor hover:bg-incolor cursor-pointer'>
+          <div id='icon'><CiServer size='170' color='#3a93d3fa' ></CiServer></div>
+          
+          <div id='title' className='text-[20px] '>Backend Project</div>
+
+          <div id='stack' className='flex gap-5 flex-wrap justify-center'>
+            <div className=' pt-1 text-center align-middle text-[12px] w-[70px] h-[30px] bg-[#6cc24a] text-slate-50 rounded-sm'>Node.ts</div>
+            <div className=' pt-1 text-[12px] text-center align-middle w-[70px] h-[30px] bg-[#3178C6] text-slate-50 rounded-sm'>Typescript</div>
+            <div className='pt-1 text-[12px] text-center align-middle w-[70px] h-[30px] bg-[#646cff] text-slate-50 rounded-sm'>Vite</div>
+            <div className='pt-1 text-[12px] text-center align-middle w-[70px] h-[30px] bg-black text-slate-50 rounded-sm'>Express</div>
+            <div className=' pt-1 text-[12px] text-center align-middle w-[70px] h-[30px] bg-[#336791] text-slate-50 rounded-sm'>Postgres</div>
+          </div>
 
 
         </motion.div>
 
-        <motion.div initial={{left:'270px'}} whileInView={{left:'0px'}} transition={{duration:2.5}} id='project2' className=' relative w-[250px] h-[250px] rounded-md border-[2px] border-outcolor'>
-        <div id='icon'></div>
-          <div id='title'>Frontend Project</div>
-          <div id='stack'></div>
+        <motion.div  whileInView={{left:'0px'}} transition={{delay:0.5,duration:2.5}} id='project1'  className='flex flex-col flex-wrap items-center justify-center gap-5 p-2 relative w-[350px] h-[350px] rounded-md border-[2px] border-outcolor hover:bg-incolor cursor-pointer'>
+          <div id='icon'><SiNextui size='170' color='#3a93d3fa' ></SiNextui></div>
           
+
+          <div id='title' className='text-[20px] '>Frontend Project</div>
+
+          <div id='stack' className='flex gap-5 flex-wrap justify-center'>
+            <div className=' pt-1 text-[12px] text-center align-middle w-[70px] h-[30px] bg-[#3178C6] text-slate-50 rounded-sm'>Typescript</div>
+            <div className='pt-1 text-[12px] text-center align-middle w-[70px] h-[30px] bg-[#646cff] text-slate-50 rounded-sm'>Vite</div>
+            <div className='pt-1 text-[12px] text-center align-middle w-[70px] h-[30px] bg-black text-slate-50 rounded-sm'>Next</div>
+            <div className='pt-1 text-[12px] text-center align-middle w-[70px] h-[30px] bg-[#61dafb] text-slate-50 rounded-sm'>React</div>
+            <div className='pt-1 text-[12px] text-center align-middle w-[70px] h-[30px] bg-[#FF9900] text-slate-50 rounded-sm'>AWS</div>
+          </div>
+
+
         </motion.div>
         
-        <motion.div id='project3' className='relative w-[250px] h-[250px] rounded-md border-[2px] border-outcolor'>
-        <div id='icon'></div>
-          <div id='title'>Full-Stack Project</div>
-          <div id='stack'></div>
+        <motion.div whileInView={{left:'0px'}} transition={{delay:0.5,duration:2.5}} id='project1'  className='flex flex-col flex-wrap items-center justify-center gap-5 p-2 relative w-[350px] h-[350px] rounded-md border-[2px] border-outcolor hover:bg-incolor cursor-pointer'>
+          <div id='icon'><GoStack size='170' color='#3a93d3fa' ></GoStack></div>
           
-        </motion.div>
 
+          <div id='title' className='text-[20px] '>Fullstack Project</div>
+
+          <div id='stack' className='flex gap-5 flex-wrap justify-center'>
+          <div className=' pt-1 text-[12px] text-center align-middle w-[70px] h-[30px] bg-[#3178C6] text-slate-50 rounded-sm'>Javascript</div>
+            <div className='pt-1 text-[12px] text-center align-middle w-[70px] h-[30px] bg-black text-slate-50 rounded-sm'>Next</div>
+            <div className='pt-1 text-[12px] text-center align-middle w-[70px] h-[30px] bg-[#61dafb] text-slate-50 rounded-sm'>React</div>
+            <div className='pt-1 text-[12px] text-center align-middle w-[70px] h-[30px] bg-[#FF9900] text-slate-50 rounded-sm'>AWS</div>
+            <div className=' pt-1 text-[12px] text-center align-middle w-[70px] h-[30px] bg-[#092E20] text-slate-50 rounded-sm'>Django</div>
+            <div className=' pt-1 text-[12px] text-center align-middle w-[70px] h-[30px] bg-[#336791] text-slate-50 rounded-sm'>Postgres</div>
+          </div>
+
+
+        </motion.div>
         
-        <motion.div id='project4' initial={{right:'270px'}} whileInView={{right:'0px'}} transition={{duration:2.5}} className='relative w-[250px] h-[250px] rounded-md border-[2px] border-outcolor'>
-        <div id='icon'></div>
-          <div id='title'>AI Project</div>
-          <div id='stack'></div>
+        <motion.div  whileInView={{left:'0px'}} transition={{delay:0.5,duration:2.5}} id='project1'  className='flex flex-col flex-wrap items-center justify-center gap-5 p-2 relative w-[350px] h-[350px] rounded-md border-[2px] border-outcolor hover:bg-incolor cursor-pointer'>
+          <div id='icon'><PiRobot size='170' color='#3a93d3fa' ></PiRobot></div>
           
+          <div id='title' className='text-[20px] '>AI Project</div>
+
+          <div id='stack' className='flex gap-5 flex-wrap justify-center'>
+          <div className=' pt-1 text-[12px] text-center align-middle w-[70px] h-[30px] bg-[#FFD43B] text-slate-50 rounded-sm'>Python</div>
+            <div className='pt-1 text-[12px] text-center align-middle w-[70px] h-[30px] bg-[#150458] text-slate-50 rounded-sm'>Pandas</div>
+            <div className='pt-1 text-[12px] text-center align-middle w-[70px] h-[30px] bg-[#61dafb] text-slate-50 rounded-sm'>React</div>
+            <div className='pt-1 text-[12px] text-center align-middle w-[70px] h-[30px] bg-[#FF6F00] text-slate-50 rounded-sm'>Tensorflow</div>
+            <div className=' pt-1 text-[12px] text-center align-middle w-[70px] h-[30px] bg-[#EA4335] text-slate-50 rounded-sm'>BERT</div>
+          </div>
+
+
         </motion.div>
       </div>
 
