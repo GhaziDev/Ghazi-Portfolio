@@ -171,12 +171,12 @@ interface Click {
         Period: July 2023 - November 2023
 
         </motion.div>
-        <div className='flex w-[100%] justify-center items-center cursor-pointer pt-4'>{clickElement =='ta'?<FaAngleDoubleUp onClick={()=>{controlClick('')}}></FaAngleDoubleUp>:<FaAngleDoubleDown onClick={()=>controlClick('ta')}></FaAngleDoubleDown>}</div>
+        <div className='flex w-[100%] justify-center items-center cursor-pointer pt-4'>{clickElement =='ta'?<FaAngleDoubleUp className='text-outcolor' onClick={()=>{controlClick('')}}></FaAngleDoubleUp>:<FaAngleDoubleDown className='text-outcolor' onClick={()=>controlClick('ta')}></FaAngleDoubleDown>}</div>
         </motion.div>
         
       </motion.div>
-      <div className='bg-gray-500 w-[600px] h-[1px]' id='separator'></div>
-      <motion.div className='bg-white text-slate-950 rounded-md p-4 overflow-hidden' id='description' initial={{height:'0px',width:'65ch',opacity:0}} animate={{height:clickElement=='ta'?'180px':'0px',opacity:clickElement=='ta'?1:0}} transition={{duration:1}} >
+      <div className='bg-outcolor w-[600px] h-[1px]' id='separator'></div>
+      <motion.div className='bg-incolor border-[2px] border-outcolor rounded-md p-4 overflow-hidden' id='description' initial={{height:'0px',width:'65ch',opacity:0}} animate={{height:clickElement=='ta'?'180px':'0px',opacity:clickElement=='ta'?1:0}} transition={{duration:1}} >
         As a teacher assistant I was responsible for teaching students the correct approaches to solve problems, in addition to help TA's peers and the lecturer to provide seamless educational experience to all students. I was also responsible for grading students assignments.
 
       </motion.div>
@@ -195,12 +195,12 @@ interface Click {
         Period: July 2020 - October 2020
 
         </motion.div>
-        <div className='flex w-[100%] justify-center items-center cursor-pointer pt-4'>{clickElement =='wd'?<FaAngleDoubleUp onClick={()=>{controlClick('')}}></FaAngleDoubleUp>:<FaAngleDoubleDown onClick={()=>controlClick('wd')}></FaAngleDoubleDown>}</div>
+        <div className='flex w-[100%] justify-center items-center cursor-pointer pt-4'>{clickElement =='wd'?<FaAngleDoubleUp className='text-outcolor' onClick={()=>{controlClick('')}}></FaAngleDoubleUp>:<FaAngleDoubleDown className='text-outcolor' onClick={()=>controlClick('wd')}></FaAngleDoubleDown>}</div>
         </motion.div>
         
       </motion.div>
-      <div className='bg-gray-500 w-[600px] h-[1px]' id='separator'></div>
-      <motion.div className='bg-white text-slate-950 rounded-md p-4 overflow-hidden' id='description' initial={{height:'0px',width:'65ch',opacity:0}} animate={{height:clickElement=='wd'?'180px':'0px',opacity:clickElement=='wd'?1:0}} transition={{duration:1}} >
+      <div className='bg-outcolor w-[600px] h-[1px]' id='separator'></div>
+      <motion.div className='bg-incolor rounded-md border-[2px] border-outcolor  p-4 overflow-hidden' id='description' initial={{height:'0px',width:'65ch',opacity:0}} animate={{height:clickElement=='wd'?'180px':'0px',opacity:clickElement=='wd'?1:0}} transition={{duration:1}} >
         As a Web Developer, I worked with a proffesional team to develop an SME-Toolkit website using variety of tools such as Javascript, PHP, HTML, and CSS. In addition to meeting with clients on weekly basis to get feedback and requirements for the project. Throughout this job, Agile methodology has been utilized for project planning and task making.
 
       </motion.div>
@@ -219,13 +219,13 @@ interface Click {
         Period: July 2023 - July 2024
 
         </motion.div>
-        <div className='flex w-[100%] justify-center items-center cursor-pointer pt-4'>{clickElement =='sa'?<FaAngleDoubleUp onClick={()=>{controlClick('')}}></FaAngleDoubleUp>:<FaAngleDoubleDown onClick={()=>controlClick('sa')}></FaAngleDoubleDown>}</div>
+        <div className='flex w-[100%] justify-center items-center cursor-pointer pt-4'>{clickElement =='sa'?<FaAngleDoubleUp className='text-outcolor' onClick={()=>{controlClick('')}}></FaAngleDoubleUp>:<FaAngleDoubleDown className='text-outcolor' onClick={()=>controlClick('sa')}></FaAngleDoubleDown>}</div>
         </motion.div>
         
       </motion.div>
 
-      <div className='bg-gray-500 w-[600px] h-[1px]' id='separator'></div>
-      <motion.div className='bg-white text-slate-950 rounded-md p-4 overflow-hidden' id='description' initial={{height:'0px',width:'65ch',opacity:0}} animate={{height:clickElement=='sa'?'180px':'0px',opacity:clickElement=='sa'?1:0}} transition={{duration:1}} >
+      <div className='bg-outcolor w-[600px] h-[1px]' id='separator'></div>
+      <motion.div className='bg-incolor border-[2px] border-outcolor rounded-md p-4 overflow-hidden' id='description' initial={{height:'0px',width:'65ch',opacity:0}} animate={{height:clickElement=='sa'?'180px':'0px',opacity:clickElement=='sa'?1:0}} transition={{duration:1}} >
         As a Student Ambassador, I was tasked to help students during their first day at the university, from leading them to their destinations, to helping them with study materials, also, collaborated with fellow ambassadors and seniors to organize events, in addition to demonstrating effective communication and team-work. 
       </motion.div>
 
@@ -237,10 +237,10 @@ interface Click {
       </motion.div>
 
       <motion.div className='' id='projectsec'>
-      <motion.div  whileInView={{opacity:1,bottom:'0px'}} transition={{duration:1.1}} initial={{opacity:0,bottom:'-200px'}} id='exptitle' className='relative text-[60px] font-serif'>Project</motion.div>
+      <motion.div  whileInView={{opacity:1,bottom:'0px'}} transition={{duration:0.6}} initial={{opacity:0,bottom:'-200px'}} id='exptitle' className='relative text-[60px] font-serif'>Project</motion.div>
 
       <div id='projectWrapper' className='flex gap-5 justify-center items-center flex-wrap pt-[350px]'>
-        <motion.div  whileInView={{left:'0px'}} transition={{delay:0.5,duration:2.5}} id='project1'  className='flex flex-col flex-wrap items-center justify-center gap-5 p-2 relative w-[350px] h-[350px] rounded-md border-[2px] border-outcolor hover:bg-incolor cursor-pointer'>
+        <motion.div  whileInView={{opacity:1,left:'0px'}} initial={{opacity:0,left:'-100px'}} transition={{duration:1.5,type:'spring',bounce:5, stiffness:100,damp:20}} id='project1'  className='flex flex-col flex-wrap items-center justify-center gap-5 p-2 relative w-[350px] h-[350px] rounded-md border-[2px] border-outcolor hover:bg-incolor cursor-pointer'>
           <div id='icon'><CiServer size='170' color='#3a93d3fa' ></CiServer></div>
           
           <div id='title' className='text-[20px] '>Backend Project</div>
@@ -256,7 +256,7 @@ interface Click {
 
         </motion.div>
 
-        <motion.div  whileInView={{left:'0px'}} transition={{delay:0.5,duration:2.5}} id='project1'  className='flex flex-col flex-wrap items-center justify-center gap-5 p-2 relative w-[350px] h-[350px] rounded-md border-[2px] border-outcolor hover:bg-incolor cursor-pointer'>
+        <motion.div   whileInView={{opacity:1,left:'0px'}} initial={{opacity:0,left:'-100px'}} transition={{duration:1.5,delay:0.5,type:'spring',bounce:5, stiffness:100,damp:20}} id='project1'  className='flex flex-col flex-wrap items-center justify-center gap-5 p-2 relative w-[350px] h-[350px] rounded-md border-[2px] border-outcolor hover:bg-incolor cursor-pointer'>
           <div id='icon'><SiNextui size='170' color='#3a93d3fa' ></SiNextui></div>
           
 
@@ -273,7 +273,7 @@ interface Click {
 
         </motion.div>
         
-        <motion.div whileInView={{left:'0px'}} transition={{delay:0.5,duration:2.5}} id='project1'  className='flex flex-col flex-wrap items-center justify-center gap-5 p-2 relative w-[350px] h-[350px] rounded-md border-[2px] border-outcolor hover:bg-incolor cursor-pointer'>
+        <motion.div  whileInView={{opacity:1,left:'0px'}} initial={{opacity:0,left:'-100px'}} transition={{duration:1.5,delay:0.7,type:'spring',bounce:5, stiffness:100,damp:20}} id='project1'  className='flex flex-col flex-wrap items-center justify-center gap-5 p-2 relative w-[350px] h-[350px] rounded-md border-[2px] border-outcolor hover:bg-incolor cursor-pointer'>
           <div id='icon'><GoStack size='170' color='#3a93d3fa' ></GoStack></div>
           
 
@@ -291,7 +291,7 @@ interface Click {
 
         </motion.div>
         
-        <motion.div  whileInView={{left:'0px'}} transition={{delay:0.5,duration:2.5}} id='project1'  className='flex flex-col flex-wrap items-center justify-center gap-5 p-2 relative w-[350px] h-[350px] rounded-md border-[2px] border-outcolor hover:bg-incolor cursor-pointer'>
+        <motion.div  whileInView={{opacity:1,left:'0px'}} initial={{opacity:0,left:'-100px'}} transition={{duration:1.5,delay:0.9,type:'spring',bounce:5, stiffness:100,damp:20}} id='project1'  className='flex flex-col flex-wrap items-center justify-center gap-5 p-2 relative w-[350px] h-[350px] rounded-md border-[2px] border-outcolor hover:bg-incolor cursor-pointer'>
           <div id='icon'><PiRobot size='170' color='#3a93d3fa' ></PiRobot></div>
           
           <div id='title' className='text-[20px] '>AI Project</div>
@@ -308,6 +308,13 @@ interface Click {
         </motion.div>
       </div>
 
+      </motion.div>
+
+      <motion.div className='' id='skillsec'>
+        <div className='' id='skillwrapper'>
+
+
+        </div>
       </motion.div>
     </div>
   );
