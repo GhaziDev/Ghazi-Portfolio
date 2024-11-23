@@ -3,6 +3,13 @@
 @tailwind utilities;
 
 
+::selection{
+  color:#88dded;
+  background-color: #171616;
+
+}
+
+
 
 *{
   line-height: 180%;
@@ -11,6 +18,7 @@
   letter-spacing: 0.15%;
   white-space: normal;
   text-align: justify;
+
   
 }
 :root {
