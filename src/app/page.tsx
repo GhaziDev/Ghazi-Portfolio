@@ -10,6 +10,17 @@ import { CiServer } from "react-icons/ci";
 import { SiNextui } from "react-icons/si";
 import { GoStack } from "react-icons/go";
 import { PiRobot } from "react-icons/pi";
+import { FaLongArrowAltDown } from "react-icons/fa";
+import { TbBrandTypescript } from "react-icons/tb";
+import { FaReact } from "react-icons/fa";
+import { TbBrandDjango } from "react-icons/tb";
+import { RiNextjsLine } from "react-icons/ri";
+import { AiOutlinePython } from "react-icons/ai";
+import { RiTailwindCssLine } from "react-icons/ri";
+import { TbBrandAws } from "react-icons/tb";
+import { PiFileSqlThin } from "react-icons/pi";
+
+
 
 
 
@@ -30,6 +41,9 @@ interface Click {
   const [clickElement,setClickElement] = useState<string>("")
   const controlHover = (id:string)=>{
     setHoverElement(id)
+  }
+  const controlHoverx = (e)=>{
+    setHoverElement(e.target.id)
   }
 
   const controlClick = (id:string)=>{
@@ -59,7 +73,7 @@ interface Click {
   </div>
         <div id='left' className='flex flex-col flex-wrap gap-5'>
           <div id='fullname' className="flex flex-col flex-wrap text-[70px]">
-            <motion.div initial={{width:0}} animate={{width:'100%'}} transition={{duration:2, delay:2}} id='firstname' className=' bg-outcolor  p-3 flex flex-row flex-nowrap relative' >
+            <motion.div initial={{width:'0%'}} animate={{width:'100%'}} transition={{duration:2, delay:2}} id='firstname' className=' bg-incolor pl-5 flex flex-row flex-nowrap relative rounded-[2%] border-[1px] border-outcolor' >
 
               <motion.p className='relative' initial={{left:'-100px', opacity:0}} animate={{left:'0px',opacity:1}} transition={{type:'spring',stifness:200,damp:20,duration:2}}>
                 A
@@ -111,7 +125,7 @@ interface Click {
           </div>
           <motion.div id='job' className=' gap-1 flex flex-row flex-nowrap '>
             <motion.div className='text-blue-300 overflow-hidden whitespace-nowrap text-[30px]'  initial={{width:0}} animate={{width:'250px'}}
-           transition={{duration:3}}>Software Engineer</motion.div>
+           transition={{duration:2,delay:3}}>Software Engineer</motion.div>
             <motion.div className='w-[2px] h-[40px] bg-slate-100' initial={{opacity:0}} animate={{opacity:1}} transition={{repeat:Infinity,duration:1}}></motion.div>
 
           </motion.div>
@@ -129,8 +143,8 @@ interface Click {
         </div>
       </div>
 
-      <motion.div initial={{scale:0.1}} whileInView={{scale:1}} transition={{bounce:0.4,duration:2,type:'spring',stifness:200, damp:20}} id='aboutme' className='flex flex-row flex-wrap  content-center w-full items-center '>
-        <div id='right' className='  relative left-[200px] bottom-[200px] z-[-1] border-[2px] border-outcolor bg-incolor w-[350px] h-[350px] text-[60px] p-7 rounded-lg '><div className=''>About Me</div> <div className=''></div> </div>
+      <motion.div initial={{opacity:0,bottom:'-100px'}} whileInView={{opacity:1,bottom:'0px'}} transition={{duration:0.6}} id='aboutme' className='relative  flex flex-row flex-wrap  content-center w-full items-center '>
+        <motion.div whileInView={{boxShadow:'10px 10px 2px rgba(58, 147, 211, 0.98)'}} transition={{duration:0.6,delay:1}} id='right' className=' relative left-[200px] bottom-[200px] z-[-1] border-[2px] border-outcolor bg-incolor w-[350px] h-[350px] text-[60px] p-7 rounded-lg '><div className=''>About Me</div> <div className=''></div> </motion.div>
         <div id='left' className='text-slate-950 bg-slate-200 w-fit h-[450px] rounded-lg p-7'>
           <div id='introduction' className='text-slate-950 text-[30px] font-cavaet'>Hello, My name is George St-Pierre</div>
        
@@ -274,7 +288,7 @@ interface Click {
 
         </motion.div>
         
-        <motion.div  whileInView={{opacity:1,left:'0px'}} initial={{opacity:0,left:'-100px'}} transition={{duration:1.5,delay:0.5,type:'spring',bounce:5, stiffness:100,damp:20}} id='project1'  className='flex flex-col flex-wrap items-center justify-center gap-5 p-2 relative w-[350px] h-[350px] rounded-md border-[2px] border-outcolor hover:bg-incolor cursor-pointer'>
+        <motion.div whileHover={{boxShadow:'10px 10px 2px red'}}  whileInView={{opacity:1,left:'0px'}} initial={{opacity:0,left:'-100px'}} transition={{duration:1,delay:0.5,type:'spring',bounce:5, stiffness:100,damp:20}} id='project1'  className='flex flex-col flex-wrap items-center justify-center gap-5 p-2 relative w-[350px] h-[350px] rounded-md border-[2px] border-outcolor hover:bg-incolor cursor-pointer'>
           <div id='icon'><GoStack size='170' color='#3a93d3fa' ></GoStack></div>
           
 
@@ -331,8 +345,41 @@ interface Click {
         </div>
       </motion.div>
 
-      <motion.div id='skillsec' className=''>
+      <motion.div id='skillsec' className='flex flex-col flex-wrap gap-5'>
+      <motion.div id='title' className=''>Skills</motion.div>
+      <motion.div id='skills' className='relative flex w-[40%]'>
+      <motion.div onMouseEnter={(e)=>controlHoverx(e)} onMouseLeave={(e)=>controlHoverx(e)} whileHover={{flexGrow:10}}  id='nextskill' className=' bg-incolor relative  justify-center items-center flex flex-col flex-wrap gap-2 w-[140px] h-[140px] border-[1px] rounded-[5px] border-outcolor'>
+     
+      <div><RiNextjsLine size='40px'></RiNextjsLine></div>
+      <div>Next</div>
+      </motion.div>
 
+      <motion.div  onMouseEnter={(e)=>controlHoverx(e)} onMouseLeave={(e)=>controlHoverx(e)} whileHover={{width:'200px'}} id='ts' className='bg-incolor relative  justify-center items-center flex flex-col flex-wrap gap-2 w-[140px] h-[140px] border-[1px] rounded-[5px] border-outcolor'>
+      <div><TbBrandTypescript size='40px'></TbBrandTypescript></div>
+      <div>Typescript</div>
+      </motion.div>
+
+      <motion.div  id='reactskill' className='bg-incolor relative  justify-center items-center flex flex-col flex-wrap gap-2 w-[140px] h-[140px] border-[1px] rounded-[5px] border-outcolor'>
+      <div><FaReact size='40px'></FaReact></div>
+      <div>React</div>
+      </motion.div>
+      <motion.div id='awskill'   className='bg-incolor relative justify-center items-center flex flex-col flex-wrap gap-2 w-[140px] h-[140px] border-[1px] rounded-[5px] border-outcolor'>
+      <div><TbBrandAws size='40px'></TbBrandAws></div>
+      <div>AWS</div>
+      </motion.div>
+
+      <motion.div id='tailwindskill'   className='bg-incolor relative justify-center items-center flex flex-col flex-wrap gap-2 w-[140px] h-[140px] border-[1px] rounded-[5px] border-outcolor'>
+      <div><RiTailwindCssLine size='40px'></RiTailwindCssLine></div>
+      <div>Tailwind</div>
+      </motion.div>
+
+      
+      <motion.div  id='sqlskill'  className='bg-incolor relative justify-center items-center flex flex-col flex-wrap gap-2 w-[140px] h-[140px] border-[1px] rounded-[5px] border-outcolor'>
+      <div><PiFileSqlThin size='40px'></PiFileSqlThin></div>
+      <div>SQL</div>
+      </motion.div>
+
+      </motion.div>
       </motion.div>
     </div>
   );
