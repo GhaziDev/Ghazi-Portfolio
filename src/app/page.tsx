@@ -54,6 +54,9 @@ interface Click {
 
 
   }
+  const controlClickx = (e)=>{
+    setClickElement(e.target.id)
+  }
   return (
     <div id='mainpage' className="  flex flex-wrap flex-col p-[100px] gap-[500px] overflow-hidden ">
       
@@ -325,61 +328,99 @@ interface Click {
 
       </motion.div>
 
-      <motion.div className='' id='certsec'>
-        <motion.div className='text-[60px]' id='title'>Certificates</motion.div>
-        <div className='flex gap-5 justify-center items-center' id='certwrapper'>
-          <motion.div onMouseEnter={()=>{controlHover('autcert')}} onMouseLeave={()=>{controlHover('')}} className=' w-[300px] h-[300px] rounded-[5px] border-[1px] border-outcolor' id='autcert'>
-          <motion.div className=' flex flex-col flex-wrap gap-7 w-[300px]  rounded-[5px] border-[1px] border-outcolor bg-incolor' initial={{opacity:1,height:'0px'}}
-           animate={{height:hoverELement =='autcert'?'300px':'0px'}} transition={{delay:0.2,duration:1}} >
-            <div id='provider'>Provider: Auckland University of Technology</div>
-            <div id='obtained'>Obtained: 2nd of August 2024</div>
-
-           </motion.div>
-          </motion.div>
-          
-          <motion.div className='w-[300px] h-[300px] rounded-[5px] border-[1px] border-outcolor' id='AWS'></motion.div>
-          <motion.div className=' w-[300px] h-[300px] rounded-[5px] border-[1px] border-outcolor' id='PMI'></motion.div>
-
-
-
-        </div>
-      </motion.div>
-
-      <motion.div id='skillsec' className='flex flex-col flex-wrap gap-5'>
+      <motion.div id='skillsec' className='flex flex-col flex-wrap gap-5 p-5'>
       <motion.div id='title' className=''>Skills</motion.div>
-      <motion.div id='skills' className='relative flex w-[40%]'>
-      <motion.div onMouseEnter={(e)=>controlHoverx(e)} onMouseLeave={(e)=>controlHoverx(e)} whileHover={{flexGrow:10}}  id='nextskill' className=' bg-incolor relative  justify-center items-center flex flex-col flex-wrap gap-2 w-[140px] h-[140px] border-[1px] rounded-[5px] border-outcolor'>
-     
-      <div><RiNextjsLine size='40px'></RiNextjsLine></div>
-      <div>Next</div>
+
+      <div className='flex justify-center items-center w-[100%]'>
+      <motion.div id='skills' className=' grid grid-cols-[repeat(6,0fr)] '>
+        
+      <motion.div  onClick={(e)=>controlClickx(e)} animate={{width:clickElement=='nextskill'?'300px':'140px',zIndex:clickElement=='nextskill'?3:0}} whileTap={{scale:0.9, borderBottom:'0px'}} onMouseEnter={(e)=>controlHoverx(e)} onMouseLeave={(e)=>controlHoverx(e)} whileHover={{width:'300px'}}  id='nextskill' className={` pt-4 col-start-1 col-end-4 row-start-1 row-end-1 bg-incolor relative  justify-center items-center flex flex-row flex-wrap gap-2 w-[140px] h-[140px] border-t-[1px] rounded-tl-[5px] rounded-tr-[5px]  border-r-[1px] border-l-[1px] border-b-[0px]  border-outcolor`}>
+        
+      <div ><RiNextjsLine size='40px'></RiNextjsLine></div>
+      <div >Next</div>
+
+      <motion.div id='nextskilldesc' className=' bg-incolor border-[1px] border-r-outcolor border-l-outcolor border-b-[1px] border-b-outcolor border-t-[0px] p-4 ' initial={{width:'300px',height:'0px',opacity:0}}  animate={{opacity:clickElement=='nextskill'?1:0,height:clickElement=='nextskill'?'300px':'0px'}} transition={{duration:0.7,}}>
+        I decided to get into Next framework when I realised I needed a powerful tool for server side rendering, and to make a full-stack application in one place.
+        <FaAngleDoubleUp onClick={(e)=>controlClickx(e)} className='text-outcolor'></FaAngleDoubleUp>
       </motion.div>
 
-      <motion.div  onMouseEnter={(e)=>controlHoverx(e)} onMouseLeave={(e)=>controlHoverx(e)} whileHover={{width:'200px'}} id='ts' className='bg-incolor relative  justify-center items-center flex flex-col flex-wrap gap-2 w-[140px] h-[140px] border-[1px] rounded-[5px] border-outcolor'>
-      <div><TbBrandTypescript size='40px'></TbBrandTypescript></div>
-      <div>Typescript</div>
       </motion.div>
 
-      <motion.div  id='reactskill' className='bg-incolor relative  justify-center items-center flex flex-col flex-wrap gap-2 w-[140px] h-[140px] border-[1px] rounded-[5px] border-outcolor'>
-      <div><FaReact size='40px'></FaReact></div>
-      <div>React</div>
-      </motion.div>
-      <motion.div id='awskill'   className='bg-incolor relative justify-center items-center flex flex-col flex-wrap gap-2 w-[140px] h-[140px] border-[1px] rounded-[5px] border-outcolor'>
-      <div><TbBrandAws size='40px'></TbBrandAws></div>
-      <div>AWS</div>
+   
+
+      <motion.div onClick={(e)=>controlClickx(e)} animate={{width:clickElement=='tskill'?'300px':'140px',zIndex:clickElement=='tskill'?3:0}} whileTap={{scale:0.9, borderBottom:'0px'}} onMouseEnter={(e)=>controlHoverx(e)} onMouseLeave={(e)=>controlHoverx(e)} whileHover={{width:'300px'}}  id='tskill' className={` pt-4 col-start-3 col-end-6 row-start-1 row-end-1 bg-incolor relative  justify-center items-center flex flex-row flex-wrap gap-2 w-[140px] h-[140px] border-t-[1px] rounded-tl-[5px] rounded-tr-[5px]  border-r-[1px] border-l-[1px] border-b-[0px]  border-outcolor`}>
+        
+        <div ><TbBrandTypescript size='40px'></TbBrandTypescript></div>
+        <div >Typescript</div>
+        <motion.div id='tskilldesc' className='bg-incolor border-[1px] border-r-outcolor border-l-outcolor border-b-[1px] border-b-outcolor border-t-[0px] p-4 ' initial={{width:'300px',height:'0px',opacity:0}}  animate={{opacity:clickElement=='tskill'?1:0,height:clickElement=='tskill'?'300px':'0px'}} transition={{duration:0.7,}}>
+          I decided to get into Next framework when I realised I needed a powerful tool for server side rendering, and to make a full-stack application in one place.
+          <FaAngleDoubleUp onClick={(e)=>controlClickx(e)} className='text-outcolor'></FaAngleDoubleUp>
+        </motion.div>
+
+  
+        </motion.div>
+  
+        
+        
+        <motion.div onClick={(e)=>controlClickx(e)} animate={{width:clickElement=='reactskill'?'300px':'140px',zIndex:clickElement=='reactskill'?3:0}} whileTap={{scale:0.9, borderBottom:'0px'}} onMouseEnter={(e)=>controlHoverx(e)} onMouseLeave={(e)=>controlHoverx(e)} whileHover={{width:'300px'}}  id='reactskill' className={` pt-4 col-start-5 col-end-8 row-start-1 row-end-1 bg-incolor relative  justify-center items-center flex flex-row flex-wrap gap-2 w-[140px] h-[140px] border-t-[1px] rounded-tl-[5px] rounded-tr-[5px]  border-r-[1px] border-l-[1px] border-b-[0px]  border-outcolor`}>
+        
+        <div ><FaReact size='40px'></FaReact></div>
+        <div >React</div>
+        <motion.div id='reactskilldesc' className='bg-incolor border-[1px] border-r-outcolor border-l-outcolor border-b-[1px] border-b-outcolor border-t-[0px] p-4 ' initial={{width:'300px',height:'0px',opacity:0}}  animate={{opacity:clickElement=='reactskill'?1:0,height:clickElement=='reactskill'?'300px':'0px'}} transition={{duration:0.7,}}>
+          I decided to get into Next framework when I realised I needed a powerful tool for server side rendering, and to make a full-stack application in one place.
+          <FaAngleDoubleUp onClick={(e)=>controlClickx(e)} className='text-outcolor'></FaAngleDoubleUp>
+        </motion.div>
+  
+        </motion.div>
+  
+        
+        
+        <motion.div onClick={(e)=>controlClickx(e)} animate={{width:clickElement=='awskill'?'300px':'140px',zIndex:clickElement=='awskill'?3:0}} whileTap={{scale:0.9, borderBottom:'0px'}} onMouseEnter={(e)=>controlHoverx(e)} onMouseLeave={(e)=>controlHoverx(e)} whileHover={{width:'300px'}}  id='awskill' className={` pt-4 col-start-7 col-end-10 row-start-1 row-end-1 bg-incolor relative  justify-center items-center flex flex-row flex-wrap gap-2 w-[140px] h-[140px] border-t-[1px] rounded-tl-[5px] rounded-tr-[5px]  border-r-[1px] border-l-[1px] border-b-[0px]  border-outcolor`}>
+        
+        <div ><TbBrandAws size='40px'></TbBrandAws></div>
+        <div >AWS</div>
+        <motion.div id='awskilldesc' className='bg-incolor border-[1px] border-r-outcolor border-l-outcolor border-b-[1px] border-b-outcolor border-t-[0px] p-4 ' initial={{width:'300px',height:'0px',opacity:0}}  animate={{opacity:clickElement=='awskill'?1:0,height:clickElement=='awskill'?'300px':'0px'}} transition={{duration:0.7,}}>
+          I decided to get into Next framework when I realised I needed a powerful tool for server side rendering, and to make a full-stack application in one place.
+          <FaAngleDoubleUp onClick={(e)=>controlClickx(e)} className='text-outcolor'></FaAngleDoubleUp>
+        </motion.div>
+        </motion.div>
+  
+        
+        
+
+      <motion.div onClick={(e)=>controlClickx(e)} animate={{width:clickElement=='twskill'?'300px':'140px',zIndex:clickElement=='twskill'?3:0}} whileTap={{scale:0.9, borderBottom:'0px'}} onMouseEnter={(e)=>controlHoverx(e)} onMouseLeave={(e)=>controlHoverx(e)} whileHover={{width:'300px'}}  id='twskill' className={` pt-4 col-start-8 col-end-11 row-start-1 row-end-1 bg-incolor relative  justify-center items-center flex flex-row flex-wrap gap-2 w-[140px] h-[140px] border-t-[1px] rounded-tl-[5px] rounded-tr-[5px]  border-r-[1px] border-l-[1px] border-b-[0px]  border-outcolor`}>
+        
+      <div ><RiTailwindCssLine size='40px'></RiTailwindCssLine></div>
+      <div >Tailwind</div>
+      <motion.div id='twskilldesc' className='bg-incolor border-[1px] border-r-outcolor border-l-outcolor border-b-[1px] border-b-outcolor border-t-[0px] p-4 ' initial={{width:'300px',height:'0px',opacity:0}}  animate={{opacity:clickElement=='twskill'?1:0,height:clickElement=='twskill'?'300px':'0px'}} transition={{duration:0.7,}}>
+        I decided to get into Next framework when I realised I needed a powerful tool for server side rendering, and to make a full-stack application in one place.
+        <FaAngleDoubleUp onClick={(e)=>controlClickx(e)} className='text-outcolor'></FaAngleDoubleUp>
       </motion.div>
 
-      <motion.div id='tailwindskill'   className='bg-incolor relative justify-center items-center flex flex-col flex-wrap gap-2 w-[140px] h-[140px] border-[1px] rounded-[5px] border-outcolor'>
-      <div><RiTailwindCssLine size='40px'></RiTailwindCssLine></div>
-      <div>Tailwind</div>
       </motion.div>
 
       
-      <motion.div  id='sqlskill'  className='bg-incolor relative justify-center items-center flex flex-col flex-wrap gap-2 w-[140px] h-[140px] border-[1px] rounded-[5px] border-outcolor'>
-      <div><PiFileSqlThin size='40px'></PiFileSqlThin></div>
-      <div>SQL</div>
+     
+
+      <motion.div onClick={(e)=>controlClickx(e)} animate={{width:clickElement=='sqlskill'?'300px':'140px',zIndex:clickElement=='twskill'?3:0}} whileTap={{scale:0.9, borderBottom:'0px'}} onMouseEnter={(e)=>controlHoverx(e)} onMouseLeave={(e)=>controlHoverx(e)} whileHover={{width:'300px'}}  id='sqlskill' className={` pt-4 col-start-10 col-end-13 row-start-1 row-end-1 bg-incolor relative  justify-center items-center flex flex-row flex-wrap gap-2 w-[140px] h-[140px] border-t-[1px] rounded-tl-[5px] rounded-tr-[5px]  border-r-[1px] border-l-[1px] border-b-[0px]  border-outcolor`}>
+        
+      <div ><PiFileSqlThin size='40px'></PiFileSqlThin></div>
+      <div >SQL</div>
+      <motion.div id='sqlskilldesc' className='bg-incolor border-[1px] border-r-outcolor border-l-outcolor border-b-[1px] border-b-outcolor border-t-[0px] p-4 ' initial={{height:'0px',opacity:0,width:'300px'}}  animate={{opacity:clickElement=='sqlskill'?1:0,height:clickElement=='sqlskill'?'300px':'0px'}} transition={{duration:0.7,}}>
+        I decided to get into Next framework when I realised I needed a powerful tool for server side rendering, and to make a full-stack application in one place.
+        <FaAngleDoubleUp onClick={(e)=>controlClickx(e)} className='text-outcolor'></FaAngleDoubleUp>
       </motion.div>
 
       </motion.div>
+  
+
+
+      
+      
+
+
+      </motion.div>
+      </div>
       </motion.div>
     </div>
   );
