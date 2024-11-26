@@ -29,6 +29,8 @@ import { PiFileSqlThin } from "react-icons/pi";
 
 import {useState} from 'react'
 import Link from "next/link";
+import AboutMe from "./sections/aboutme";
+import Experience from "./sections/experience";
 
 
 
@@ -145,31 +147,7 @@ interface Click {
           </div>
         </div>
       </div>
-
-      <motion.div initial={{opacity:0,bottom:'-100px'}} whileInView={{opacity:1,bottom:'0px'}} transition={{duration:0.6}} id='aboutme' className='relative  flex flex-row flex-wrap  content-center w-full items-center '>
-        <motion.div whileInView={{boxShadow:'10px 10px 2px rgba(58, 147, 211, 0.98)'}} transition={{duration:0.6,delay:1}} id='right' className=' relative left-[200px] bottom-[200px] z-[-1] border-[2px] border-outcolor bg-incolor w-[350px] h-[350px] text-[60px] p-7 rounded-lg '><div className=''>About Me</div> <div className=''></div> </motion.div>
-        <div id='left' className='text-slate-950 bg-slate-200 w-fit h-[450px] rounded-lg p-7'>
-          <div id='introduction' className='text-slate-950 text-[30px] font-cavaet'>Hello, My name is George St-Pierre</div>
-       
-        <div id="description" className=' w-[60ch] h-[400px] break-words  text-[16px] '>
-          I am passionate software engineer, with experience in tech field, 
-          In my last job I had worked as a teacher assistant for Auckland University of Technology, 
-          where I taught a programming based paper to students in lab sessions, 
-          I had an internship before that as a Web Developer for United Nation, 
-          where I had to develop an SME-Toolkit website using javascript, php tools like Drupal, HTML and CSS,
-           I have experience in full-stack development, 
-           as I have developed number of websites using different tools, like node.js, Django, React, Next, HTML, CSS, and Tailwind CSS, in addition to my experience in database both in sql and non-sql such as postgreSQL and MongoDB. I also deploy most of my websites using AWS tools.
-
-           <div id='socialbtns' className='flex gap-10 w-[100%] justify-center items-center'>
-          <div onMouseEnter={()=>setHoverElement('linkedin')} onMouseLeave={()=>{setHoverElement('')}} id='linkedinwrapper' className=' cursor-pointer flex bg-incolor rounded box-border border-[1.5px] border-outcolor '><motion.div animate={{rotateY:hoverELement=='linkedin'?'360deg':'0'}} transition={{duration:1.5}}><FaLinkedin size='30'  className='' color='white' ></FaLinkedin></motion.div><motion.button id='linkedin' initial={{width:'0px',height:'30px'}} animate={{width:hoverELement=='linkedin'?'150px':'0px',color:hoverELement=='linkedin'?'white':'transparent'}} transition={{type:'spring', stiffness:100,duration:1.5, damping:20}}  className=' border-solid border-1 bg-incolor border-outcolor rounded-sm flex text-slate-50 pr-4 justify-center items-center text-[12px]'>Visit my LinkedIn</motion.button></div>
-          <div onMouseEnter={()=>{controlHover('github')}} onMouseLeave={()=>{setHoverElement('')}} id='githubinwrapper' className=' cursor-pointer flex bg-black rounded box-border border-[1.5px] border-black '><motion.div animate={{rotateY:hoverELement=='github'?'360deg':'0'}} transition={{duration:1.5}}><FaSquareGithub size='30'  className='' color='white' ></FaSquareGithub></motion.div><motion.button id='github' initial={{width:'0px',height:'30px'}} animate={{width:hoverELement=='github'?'150px':'0px',color:hoverELement=='github'?'white':'transparent'}} transition={{type:'spring', stiffness:100,duration:1.5, damping:20}}  className=' border-solid border-1 bg-black border-black rounded-sm flex text-slate-50 pr-4 justify-center items-center text-[12px]'>Visit my Github</motion.button></div>
-        </div>
-
-        </div>
-
-        </div>
-
-      </motion.div>
+      <AboutMe></AboutMe>
 
       <motion.div className='fonts-serif' id='expsec'>
 
@@ -253,6 +231,9 @@ interface Click {
 
       
       </motion.div>
+
+      <div>TEST SECTION UNDERNEATH</div>
+      <Experience></Experience>
 
       <motion.div className='' id='projectsec'>
       <motion.div  whileInView={{opacity:[0.2,0.4,0.6,0.8,1],left:['-80px','-60px','-40px','-20px','0px']}} transition={{duration:0.7}} initial={{opacity:0,left:'-100px'}} id='projecttitle' className='relative text-[60px] font-serif'>Project</motion.div>
