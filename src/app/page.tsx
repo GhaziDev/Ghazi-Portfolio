@@ -32,6 +32,7 @@ import Link from "next/link";
 import AboutMe from "./sections/aboutme";
 import Experience from "./sections/experience";
 import Projects from "./sections/projects";
+import Footer from "./sections/footer";
 
 
 
@@ -162,14 +163,14 @@ interface Click {
       <motion.div id='title' className=''>Skills</motion.div>
 
       <div className='flex justify-center items-center w-[100%]'>
-      <motion.div id='skills' className=' grid grid-cols-[repeat(6,0fr)] '>
+      <motion.div id='skills' className=' grid grid-cols-[repeat(20,0fr)] '>
         
-      <motion.div  onClick={(e)=>controlClickx(e)} animate={{width:clickElement=='nextskill'?'300px':'140px',zIndex:clickElement=='nextskill'?3:0}} whileTap={{scale:0.9, borderBottom:'0px'}} onMouseEnter={(e)=>controlHoverx(e)} onMouseLeave={(e)=>controlHoverx(e)} whileHover={{width:'300px'}}  id='nextskill' className={` pt-4 col-start-1 col-end-4 row-start-1 row-end-1 bg-incolor relative  justify-center items-center flex flex-row flex-wrap gap-2 w-[140px] h-[140px] border-t-[1px] rounded-tl-[5px] rounded-tr-[5px]  border-r-[1px] border-l-[1px] border-b-[0px]  border-outcolor`}>
+      <motion.div whileHover={{zIndex:20}}  onClick={(e)=>controlClickx(e)} animate={{width:clickElement=='nextskill'?'300px':'140px',zIndex:clickElement=='nextskill'?3:0}} whileTap={{scale:0.9, borderBottom:'0px'}} onMouseEnter={(e)=>controlHoverx(e)} onMouseLeave={(e)=>controlHoverx(e)} whileHover={{width:'300px'}}  id='nextskill' className={` z-3 pt-4 col-start-1 col-end-5 row-start-1 row-end-1 bg-incolor relative  justify-center items-center flex flex-row flex-wrap gap-2 w-[140px] h-[140px] border-t-[1px] rounded-tl-[5px] rounded-tr-[5px]  border-r-[1px] border-l-[1px] border-b-[0px]  border-outcolor`}>
         
-      <div ><RiNextjsLine size='40px'></RiNextjsLine></div>
-      <div >Next</div>
+      <div className='pointer-events-none' ><RiNextjsLine className=' pointer-events-none' size='40px'></RiNextjsLine></div>
+      <div className='pointer-events-none'>Next</div>
 
-      <motion.div id='nextskilldesc' className=' bg-incolor border-[1px] border-r-outcolor border-l-outcolor border-b-[1px] border-b-outcolor border-t-[0px] p-4 ' initial={{width:'300px',height:'0px',opacity:0}}  animate={{opacity:clickElement=='nextskill'?1:0,height:clickElement=='nextskill'?'300px':'0px'}} transition={{duration:0.7,}}>
+      <motion.div id='nextskilldesc' className=' pointer-events-none bg-incolor border-[1px] border-r-outcolor border-l-outcolor border-b-[1px] border-b-outcolor border-t-[0px] p-4 ' initial={{width:'300px',height:'0px',opacity:0}}  animate={{opacity:clickElement=='nextskill'?1:0,height:clickElement=='nextskill'?'300px':'0px'}} transition={{duration:0.7,}}>
         I decided to get into Next framework when I realised I needed a powerful tool for server side rendering, and to make a full-stack application in one place.
         <FaAngleDoubleUp onClick={(e)=>controlClickx(e)} className='text-outcolor'></FaAngleDoubleUp>
       </motion.div>
@@ -178,7 +179,7 @@ interface Click {
 
    
 
-      <motion.div onClick={(e)=>controlClickx(e)} animate={{width:clickElement=='tskill'?'300px':'140px',zIndex:clickElement=='tskill'?3:0}} whileTap={{scale:0.9, borderBottom:'0px'}} onMouseEnter={(e)=>controlHoverx(e)} onMouseLeave={(e)=>controlHoverx(e)} whileHover={{width:'300px'}}  id='tskill' className={` pt-4 col-start-3 col-end-6 row-start-1 row-end-1 bg-incolor relative  justify-center items-center flex flex-row flex-wrap gap-2 w-[140px] h-[140px] border-t-[1px] rounded-tl-[5px] rounded-tr-[5px]  border-r-[1px] border-l-[1px] border-b-[0px]  border-outcolor`}>
+      <motion.div onClick={(e)=>controlClickx(e)} animate={{width:clickElement=='tskill'?'300px':'140px',zIndex:clickElement=='tskill'?3:0}} whileTap={{scale:0.9, borderBottom:'0px'}} onMouseEnter={(e)=>controlHoverx(e)} onMouseLeave={(e)=>controlHoverx(e)} whileHover={{width:'300px'}}  id='tskill' className={` pt-4 col-start-3 col-end-7 row-start-1 row-end-1 bg-incolor relative  justify-center items-center flex flex-row flex-wrap gap-2 w-[140px] h-[140px] border-t-[1px] rounded-tl-[5px] rounded-tr-[5px]  border-r-[1px] border-l-[1px] border-b-[0px]  border-outcolor`}>
         
         <div ><TbBrandTypescript size='40px'></TbBrandTypescript></div>
         <div >Typescript</div>
@@ -192,7 +193,7 @@ interface Click {
   
         
         
-        <motion.div onClick={(e)=>controlClickx(e)} animate={{width:clickElement=='reactskill'?'300px':'140px',zIndex:clickElement=='reactskill'?3:0}} whileTap={{scale:0.9, borderBottom:'0px'}} onMouseEnter={(e)=>controlHoverx(e)} onMouseLeave={(e)=>controlHoverx(e)} whileHover={{width:'300px'}}  id='reactskill' className={` pt-4 col-start-5 col-end-8 row-start-1 row-end-1 bg-incolor relative  justify-center items-center flex flex-row flex-wrap gap-2 w-[140px] h-[140px] border-t-[1px] rounded-tl-[5px] rounded-tr-[5px]  border-r-[1px] border-l-[1px] border-b-[0px]  border-outcolor`}>
+        <motion.div onClick={(e)=>controlClickx(e)} animate={{width:clickElement=='reactskill'?'300px':'140px',zIndex:clickElement=='reactskill'?3:0}} whileTap={{scale:0.9, borderBottom:'0px'}} onMouseEnter={(e)=>controlHoverx(e)} onMouseLeave={(e)=>controlHoverx(e)} whileHover={{width:'300px'}}  id='reactskill' className={` pt-5 col-start-5 col-end-8 row-start-1 row-end-1 bg-incolor relative  justify-center items-center flex flex-row flex-wrap gap-2 w-[140px] h-[140px] border-t-[1px] rounded-tl-[5px] rounded-tr-[5px]  border-r-[1px] border-l-[1px] border-b-[0px]  border-outcolor`}>
         
         <div ><FaReact size='40px'></FaReact></div>
         <div >React</div>
@@ -205,7 +206,7 @@ interface Click {
   
         
         
-        <motion.div onClick={(e)=>controlClickx(e)} animate={{width:clickElement=='awskill'?'300px':'140px',zIndex:clickElement=='awskill'?3:0}} whileTap={{scale:0.9, borderBottom:'0px'}} onMouseEnter={(e)=>controlHoverx(e)} onMouseLeave={(e)=>controlHoverx(e)} whileHover={{width:'300px'}}  id='awskill' className={` pt-4 col-start-7 col-end-10 row-start-1 row-end-1 bg-incolor relative  justify-center items-center flex flex-row flex-wrap gap-2 w-[140px] h-[140px] border-t-[1px] rounded-tl-[5px] rounded-tr-[5px]  border-r-[1px] border-l-[1px] border-b-[0px]  border-outcolor`}>
+        <motion.div onClick={(e)=>controlClickx(e)} animate={{width:clickElement=='awskill'?'300px':'140px',zIndex:clickElement=='awskill'?3:0}} whileTap={{scale:0.9, borderBottom:'0px'}} onMouseEnter={(e)=>controlHoverx(e)} onMouseLeave={(e)=>controlHoverx(e)} whileHover={{width:'300px'}}  id='awskill' className={` pt-6 col-start-7 col-end-11 row-start-1 row-end-1 bg-incolor relative  justify-center items-center flex flex-row flex-wrap gap-2 w-[140px] h-[140px] border-t-[1px] rounded-tl-[5px] rounded-tr-[5px]  border-r-[1px] border-l-[1px] border-b-[0px]  border-outcolor`}>
         
         <div ><TbBrandAws size='40px'></TbBrandAws></div>
         <div >AWS</div>
@@ -218,7 +219,7 @@ interface Click {
         
         
 
-      <motion.div onClick={(e)=>controlClickx(e)} animate={{width:clickElement=='twskill'?'300px':'140px',zIndex:clickElement=='twskill'?3:0}} whileTap={{scale:0.9, borderBottom:'0px'}} onMouseEnter={(e)=>controlHoverx(e)} onMouseLeave={(e)=>controlHoverx(e)} whileHover={{width:'300px'}}  id='twskill' className={` pt-4 col-start-8 col-end-11 row-start-1 row-end-1 bg-incolor relative  justify-center items-center flex flex-row flex-wrap gap-2 w-[140px] h-[140px] border-t-[1px] rounded-tl-[5px] rounded-tr-[5px]  border-r-[1px] border-l-[1px] border-b-[0px]  border-outcolor`}>
+      <motion.div onClick={(e)=>controlClickx(e)} animate={{width:clickElement=='twskill'?'300px':'140px',zIndex:clickElement=='twskill'?3:0}} whileTap={{scale:0.9, borderBottom:'0px'}} onMouseEnter={(e)=>controlHoverx(e)} onMouseLeave={(e)=>controlHoverx(e)} whileHover={{width:'300px'}}  id='twskill' className={` pt-4 col-start-10 col-end-13 row-start-1 row-end-1 bg-incolor relative  justify-center items-center flex flex-row flex-wrap gap-2 w-[140px] h-[140px] border-t-[1px] rounded-tl-[5px] rounded-tr-[5px]  border-r-[1px] border-l-[1px] border-b-[0px]  border-outcolor`}>
         
       <div ><RiTailwindCssLine size='40px'></RiTailwindCssLine></div>
       <div >Tailwind</div>
@@ -232,7 +233,7 @@ interface Click {
       
      
 
-      <motion.div onClick={(e)=>controlClickx(e)} animate={{width:clickElement=='sqlskill'?'300px':'140px',zIndex:clickElement=='twskill'?3:0}} whileTap={{scale:0.9, borderBottom:'0px'}} onMouseEnter={(e)=>controlHoverx(e)} onMouseLeave={(e)=>controlHoverx(e)} whileHover={{width:'300px'}}  id='sqlskill' className={` pt-4 col-start-10 col-end-13 row-start-1 row-end-1 bg-incolor relative  justify-center items-center flex flex-row flex-wrap gap-2 w-[140px] h-[140px] border-t-[1px] rounded-tl-[5px] rounded-tr-[5px]  border-r-[1px] border-l-[1px] border-b-[0px]  border-outcolor`}>
+      <motion.div onClick={(e)=>controlClickx(e)} animate={{width:clickElement=='sqlskill'?'300px':'140px',zIndex:clickElement=='twskill'?3:0}} whileTap={{scale:0.9, borderBottom:'0px'}} onMouseEnter={(e)=>controlHoverx(e)} onMouseLeave={(e)=>controlHoverx(e)} whileHover={{width:'300px'}}  id='sqlskill' className={` pt-4 col-start-12 col-end-15 row-start-1 row-end-1 bg-incolor relative  justify-center items-center flex flex-row flex-wrap gap-2 w-[140px] h-[140px] border-t-[1px] rounded-tl-[5px] rounded-tr-[5px]  border-r-[1px] border-l-[1px] border-b-[0px]  border-outcolor`}>
         
       <div ><PiFileSqlThin size='40px'></PiFileSqlThin></div>
       <div >SQL</div>
@@ -252,6 +253,9 @@ interface Click {
       </motion.div>
       </div>
       </motion.div>
+
+      <Footer></Footer>
     </div>
   );
 }
+

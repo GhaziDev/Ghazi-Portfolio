@@ -13,8 +13,10 @@ export default function ProjectComp(){
 
     <div id='stack' className='flex gap-5 flex-wrap justify-center'>
         {Object.keys(project.stack).map((tool)=>{
+            {console.log(project.stack[tool])}
+            const val = project.stack[tool]
             return(
-                <div key={tool[0]} className={`pt-1 text-center align-middle text-[12px] w-[70px] h-[30px] bg-[${project.stack[tool]}] text-slate-50 rounded-sm`}>{tool}</div>
+                <div key={tool[0]} className={`pt-1 text-center align-middle text-[12px] w-[70px] h-[30px] bg-[${val}] text-slate-50 rounded-sm`}>{tool}</div>
             )
         })}
     </div>
