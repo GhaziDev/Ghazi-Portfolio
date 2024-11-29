@@ -18,10 +18,12 @@ export default function AboutMe() {
       className="relative  flex flex-row flex-wrap  content-center w-full items-center "
     >
       <motion.div
-        whileInView={{ boxShadow: "10px 10px 2px rgba(58, 147, 211, 0.98)" }}
-        transition={{ duration: 0.6, delay: 1 }}
+
+      initial={{bottom:'100px'}}
+        whileInView={{ boxShadow: "10px 10px 2px rgba(58, 147, 211, 0.98)" ,bottom:'200px'}}
+        transition={{ duration: 0.9, delay: 0.4 }}
         id="right"
-        className=" relative left-[200px] bottom-[200px] z-[-1] border-[2px] border-outcolor bg-incolor w-[350px] h-[350px] text-[60px] p-7 rounded-sm"
+        className=" relative left-[200px]  z-[-1] border-[2px] border-outcolor bg-incolor w-[350px] h-[350px] text-[60px] p-7 rounded-sm"
       >
         <div className="">About Me</div> <div className=""></div>{" "}
       </motion.div>

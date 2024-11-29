@@ -11,8 +11,8 @@ export default function ExperienceComp({clickedElement}){
     const mapExp = ()=>{
         return ExpDescription.map((exp)=>{
             return(
-<div key={exp.title} className='flex flex-wrap flex-col w-[600px]   p-[40px]'>
-                <motion.div key={exp.title}  whileHover={{scale:1.05}} whileInView={{opacity:1}} transition={{duration:0.5}} initial={{opacity:0}} className='flex  items-center justify-center rounded-md gap-6 ' id='ta'>
+<div key={exp.title} className='flex flex-wrap flex-col w-[600px]   p-[40px] pb-[200px]'>
+                <motion.div key={exp.title}  whileHover={{scale:1.05}} whileInView={{opacity:1,left:'0px'}} transition={{duration:0.8}} initial={{opacity:0,left:'-100px'}} className='relative flex  items-center justify-center rounded-md gap-6 ' id='ta'>
 
         
           <motion.div className='bg-slate-50 p-[10px] rounded-md h-fit w-fit' id='left'>
