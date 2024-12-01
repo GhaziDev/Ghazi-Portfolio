@@ -1,6 +1,7 @@
 'use client';
-import {motion} from 'motion/react'
+import {motion, useInView,inView} from 'motion/react'
 import { FaFileArrowDown } from "react-icons/fa6";
+import { createContext, useRef, } from 'react';
 
 
 
@@ -8,15 +9,17 @@ import { FaFileArrowDown } from "react-icons/fa6";
 
 
 
-
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 import Link from "next/link";
 import AboutMe from "./sections/aboutme";
 import Experience from "./sections/experience";
 import Projects from "./sections/projects";
 import Footer from "./sections/footer";
 import Skill from "./sections/skills";
+import Navigation, { NavWrapper, Wrapper } from './sections/nav';
 
+
+const SecId = createContext('')
 
 
 export default function Home() {
@@ -26,29 +29,54 @@ interface Click {
 }
   const [hoverELement, setHoverElement] = useState<string>('')
   const [clickElement,setClickElement] = useState<string>("")
-  const controlHover = (id:string)=>{
-    setHoverElement(id)
-  }
-  const controlHoverx = (e)=>{
-    setHoverElement(e.target.id)
-  }
 
-  const controlClick = (id:string)=>{
-    console.log(id)
+  const [id,setId] = useState<string|''>('')
+ 
+  const aboutMeRef = useRef(null)
+  const expRef = useRef(null)
+  const proRef = useRef(null)
+  const skillsRef = useRef(null)
+  const headerRef = useRef(null)
 
-    setClickElement(id)
-    console.log(clickElement)
+  const isAboutMeInView = useInView(aboutMeRef)
+  const expInView = useInView(expRef)
+  const proInView = useInView(proRef)
+  const skillsInView = useInView(skillsRef)
+  const headerInView = useInView(headerRef)
 
 
-  }
-  const controlClickx = (e)=>{
-    setClickElement(e.target.id)
-  }
+  useEffect(()=>{
+    if(isAboutMeInView){
+      setId(aboutMeRef?.current?.id)
+
+
+    }
+
+    if(expInView){
+      setId(expRef?.current?.id)
+    }
+
+    if(proInView){
+      setId(proRef?.current?.id)
+    }
+    if(skillsInView){
+      setId(skillsRef?.current?.id)
+    }
+
+    if(headerInView){
+      setId('headersec')
+    }
+  },[isAboutMeInView, expInView,proInView, skillsInView])
+
+
   return (
+
+    <SecId.Provider value={id}>
+      <Navigation></Navigation>
     <div id='mainpage' className="  flex flex-wrap flex-col p-[100px] gap-[500px] overflow-hidden ">
          
       
-      <div id='headersec' className='flex flex-row flex-nowrap  '>
+      <div id='headersec' ref={headerRef} className='flex flex-row flex-nowrap  '>
       <div className="bubbles">
       <div className="bubble"></div>
     <div className="bubble"></div>
@@ -133,8 +161,10 @@ interface Click {
           </div>
         </div>
       </div>
+      <div></div>
       <motion.div
-      initial={{ opacity: 0, bottom: "-200px" }}
+      ref={aboutMeRef}
+      initial={{ opacity: 0, bottom: "-50px" }}
       whileInView={{ opacity: 1, bottom: "0px" }}
       transition={{ duration: 1 }}
       id="aboutme"
@@ -142,9 +172,9 @@ interface Click {
     >
       <motion.div
 
-      initial={{bottom:'100px'}}
+      initial={{bottom:'150px'}}
         whileInView={{ boxShadow: "10px 10px 2px rgba(58, 147, 211, 0.98)" ,bottom:'200px'}}
-        transition={{ duration: 0.9, delay: 0.4 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
         id="right"
         className=" relative left-[200px]  z-[-1] border-[2px] border-outcolor bg-incolor w-[350px] h-[350px] text-[60px] p-7 rounded-sm"
       >
@@ -153,20 +183,28 @@ interface Click {
       <AboutMe></AboutMe>
       </motion.div>
 
-      <motion.div className='fonts-serif' id='expsec'>
+      <motion.div ref={expRef} className='fonts-serif' id='expsec'>
       <motion.div  whileInView={{opacity:1, left:'0px'}} transition={{duration:1.5, type:'spring',stiffness:100,damp:10,bounce:0.1}} initial={{opacity:0,left:'-100px'}} id='exptitle' className=' relative text-[60px] font-serif'>Experience</motion.div>
 
       <Experience></Experience>
       </motion.div>
 
   
+      <motion.div ref={proRef} className='' id='projectsec'>
 
+      <motion.div  whileInView={{opacity:1,left:'0px'}} transition={{duration:0.8}} initial={{opacity:0,left:'-200px'}} id='projecttitle' className='relative text-[60px] font-serif'>Projects</motion.div>
       <Projects></Projects>
+      </motion.div>
+      <motion.div ref={skillsRef} id='skillsec' className='flex flex-col flex-wrap gap-5 p-5'>
+       <motion.div  whileInView={{opacity:1,left:'0px'}} transition={{duration:0.8}} initial={{opacity:0,left:'-200px'}} id='projecttitle' className='relative text-[60px] font-serif'>Skills</motion.div>
 
       <Skill></Skill>
+      </motion.div>
 
       <Footer></Footer>
     </div>
+    </SecId.Provider>
   );
 }
 
+export {SecId}
