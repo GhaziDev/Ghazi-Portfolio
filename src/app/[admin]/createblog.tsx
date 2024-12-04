@@ -54,10 +54,12 @@ export default function CreateBlog() {
     
    const slug = slugify(blog.title)
     const filteredTags = tagInputs.filter((tag:string)=>tag!=='')
+    console.log(filteredTags)
+    console.log(blog.tags)
     setBlog({...blog,slug: slug,tags: filteredTags})
     formData.append('title',blog.title)
     formData.append('slug',blog.slug)
-    formData.append('tags',blog.tags as any)
+    formData.append('tags',JSON.stringify(filteredTags))
 
     formData.append('image',blog.image)
     formData.append('description',blog.description)
@@ -67,7 +69,7 @@ export default function CreateBlog() {
 
     console.log(blog)
 
-    fetch('/api/admin/',{method:'POST',body:formData,headers:{'Content-Type': 'application/json'}}).then((res)=>{
+    fetch('/api/admin/',{method:'POST',body:formData}).then((res)=>{
       console.log(res)
 
     })
