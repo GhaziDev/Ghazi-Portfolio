@@ -5,15 +5,24 @@ import { UserModel } from "./User"
 const makeAQuery=  async()=>{
     await connect()
 
-    const newUser = new UserModel({email:'ghazi-z3balawi@hotmail.com'})
+    const newUser = new UserModel({email:'newportfolioacc@gmail.com'})
     newUser.save()
+    console.log(UserModel.findOne({email:'newportfolioacc@gmail.com'} ).getQuery() )
 
-    return newUser
+
+
+
+
+
+
+    return 
 
 
 
 }
 
 const result = await makeAQuery()
+
+
 
 console.log(result)

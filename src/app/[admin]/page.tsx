@@ -1,6 +1,7 @@
 'use client'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { SessionProvider } from "next-auth/react"
+import CreateBlog from "./createblog"
 
 type Props = {
   children:React.ReactNode,
@@ -17,14 +18,15 @@ export default function Admin() {
     return (
       <>
         Signed in as {session.user!.email} <br />
-        <button onClick={() => signOut({callbackUrl: "/"})}>Sign out</button>
+        <button type='button' onClick={() => signOut({callbackUrl: "/"})}>Sign out</button>
+        <CreateBlog/>
       </>
     )
   }
   return (
     <>
       Not signed in <br />
-      <button onClick={() => signIn("google")}>Sign in</button>
+      <button  type='button' onClick={() => signIn("email")}>Sign in</button>
     </>
   )
 }

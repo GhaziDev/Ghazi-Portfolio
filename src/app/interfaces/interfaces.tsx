@@ -12,3 +12,14 @@ export interface ClickProps{
 } 
 
 
+
+export interface Blog{
+    slug:string, // slug for blog
+    title:string,
+    tags: Array<string>
+    date:Date, // x days ago
+    description:string,
+    image:string //uploaded locally to the project, even when deployed on aws
+
+
+}

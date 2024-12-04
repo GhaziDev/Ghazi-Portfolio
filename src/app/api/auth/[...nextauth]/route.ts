@@ -1,6 +1,4 @@
 import NextAuth from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
-
 import { connect } from "@/app/db/utils";
 import Email from "next-auth/providers/email";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
@@ -19,24 +17,30 @@ const authOptions = {
 
   // Configure one or more authentication providers
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_SECRET_ID!,
-    
-    },
-  )
-    ,
-
 
   Email({
+    server: {
+      host: process.env.EMAIL_SERVER_HOST,
+      port: process.env.EMAIL_SERVER_PORT,
+      auth: {
+        user: process.env.EMAIL_SERVER_USER,
+        pass: process.env.EMAIL_SERVER_PASSWORD
+      }
+    },
+    from: process.env.EMAIL_FROM
+
   })
   ],
   callbacks:{
     async signIn({user}){
-      const email = await UserModel.findOne({email:user})
+      console.log(user)
+      const email = await UserModel.findOne({email:user?.email})
+      console.log(email)
+
       if(email){
         return true
       }
+      console.log('email not found')
       return false
 
     } 
@@ -50,5 +54,4 @@ const authOptions = {
 const handler = NextAuth(authOptions);
 
 // Export the handler for both GET and POST requests
-export const GET = handler;
-export const POST = handler;
+export {handler as GET, handler as POST}
