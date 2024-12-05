@@ -22,7 +22,7 @@ export const POST = async (req:NextRequest) => {
         description: blog.get('description'),
         date: new Date(Date.now()), //some number
         tags:JSON.parse(blog.get('tags') as string),
-        image: `./public/blog_images/${image.name}`,
+        image: `./blog_images/${image.name}`,
     
       })
   
@@ -34,12 +34,3 @@ export const POST = async (req:NextRequest) => {
 
 }
 
-export const GET = async (req:NextRequest, res: NextResponse)=>{
-
-  const blogs = await BlogModel.find({}).select(['title','date','tags','image','slug'])
-  return  NextResponse.json({data:blogs},{status:200})
-
-
-
-
-}
