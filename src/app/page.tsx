@@ -17,6 +17,7 @@ import Projects from "./sections/projects";
 import Footer from "./sections/footer";
 import Skill from "./sections/skills";
 import Navigation, { NavWrapper, Wrapper } from './sections/nav';
+import Blogs from './sections/blogs';
 
 
 const SecId = createContext('')
@@ -24,12 +25,7 @@ const SecId = createContext('')
 
 export default function Home() {
 
-interface Click {
-  string:boolean
-}
   const [hoverELement, setHoverElement] = useState<string>('')
-  const [clickElement,setClickElement] = useState<string>("")
-
   const [id,setId] = useState<string|''>('')
  
   const aboutMeRef = useRef(null)
@@ -37,12 +33,14 @@ interface Click {
   const proRef = useRef(null)
   const skillsRef = useRef(null)
   const headerRef = useRef(null)
+  const blogRef = useRef(null)
 
   const isAboutMeInView = useInView(aboutMeRef)
   const expInView = useInView(expRef)
   const proInView = useInView(proRef)
   const skillsInView = useInView(skillsRef)
   const headerInView = useInView(headerRef)
+  const blogInView = useInView(blogRef)
 
 
   useEffect(()=>{
@@ -66,7 +64,12 @@ interface Click {
     if(headerInView){
       setId('headersec')
     }
-  },[isAboutMeInView, expInView,proInView, skillsInView])
+
+    if(blogInView){
+    setId(blogRef?.current?.id)
+    }
+  },[isAboutMeInView, expInView,proInView, skillsInView,headerInView,blogInView])
+
 
 
   return (
@@ -200,6 +203,13 @@ interface Click {
 
       <Skill></Skill>
       </motion.div>
+
+
+      <motion.div ref={blogRef} className='' id='blogsec'>
+
+<motion.div  whileInView={{opacity:1,left:'0px'}} transition={{duration:0.8}} initial={{opacity:0,left:'-200px'}} id='blogtitle' className='relative text-[60px] font-serif'>Blogs</motion.div>
+<Blogs></Blogs>
+</motion.div>
 
       <Footer></Footer>
     </div>

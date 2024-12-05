@@ -9,6 +9,10 @@
 
 }
 
+.markdown > * {
+  all: revert;
+}
+
 
 
 *{

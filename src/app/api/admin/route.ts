@@ -5,6 +5,10 @@ import fs from 'node:fs/promises'
 
 export const POST = async (req:NextRequest) => {
     const blog = await req.formData()
+    if(String(blog.get('title')).length>60){
+      return NextResponse.json({error:'Title has exceeded the limit of 60 characters'},{status:400})
+
+    }
     const image = blog.get('image') as File
     const arrayBuffer = await image.arrayBuffer()
     const buffer = new Uint8Array(arrayBuffer)
@@ -25,6 +29,16 @@ export const POST = async (req:NextRequest) => {
      newBlog.save()
 
      return NextResponse.json({message:'Data saved successfully in DB!'},{status:200})
+
+
+
+}
+
+export const GET = async (req:NextRequest, res: NextResponse)=>{
+
+  const blogs = await BlogModel.find({}).select(['title','date','tags','image','slug'])
+  return  NextResponse.json({data:blogs},{status:200})
+
 
 
 
