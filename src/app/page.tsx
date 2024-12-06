@@ -94,8 +94,8 @@ export default function Home() {
     
   </div>
         <div id='left' className='flex flex-col flex-wrap gap-5'>
-          <div id='fullname' className="flex flex-col flex-wrap text-[70px]">
-            <motion.div initial={{width:'0%'}} animate={{width:'100%'}} transition={{duration:2, delay:2}} id='firstname' className=' bg-incolor pl-5 flex flex-row flex-nowrap relative rounded-[2%] border-[1px] border-outcolor' >
+          <div id='fullname' className="flex flex-col flex-wrap text-[70px] ">
+            <motion.div initial={{width:'0%'}} animate={{width:'100%'}} transition={{duration:2, delay:2}} id='firstname' className=' bg-box text-selectorcolor pl-5 border-none flex flex-row flex-nowrap relative rounded-[5px] border-[1px]' >
 
               <motion.p className='relative' initial={{left:'-100px', opacity:0}} animate={{left:'0px',opacity:1}} transition={{type:'spring',stifness:200,damp:20,duration:2}}>
                 A
@@ -153,8 +153,7 @@ export default function Home() {
           </motion.div>
           <motion.div id='cvdownload' className='flex'>
 
-            <motion.button onMouseLeave={()=>{setHoverElement('')}} transition={{duration:0.22}} onMouseEnter={()=>{setHoverElement('download')}} initial={{background:'transparent'}} whileHover={{background:'rgba(3, 85, 145, 0.98)',boxShadow:'10px 10px 2px rgba(58, 147, 211, 0.98)'}} className={` border-[1px] border-outcolor  text-[20px] gap-3 flex w-[fit] h-[fit] p-3 text-slate-50 hover:scale-105 hover:bg-slate-[rgba(3, 85, 145, 0.98)]  cursor-pointer `}>Download CV<motion.div initial={{opacity:0}} animate={{opacity:hoverELement=='download'?1:0}} transition={{duration:0.5, ease:'linear'}}><FaFileArrowDown size={'30px'}></FaFileArrowDown></motion.div></motion.button>
-
+            <motion.button onMouseLeave={()=>{setHoverElement('')}} transition={{duration:0.22}} onMouseEnter={()=>{setHoverElement('download')}} whileHover={{boxShadow:'5px 5px 4px rgba(0, 255, 255, 0.8)'}} className={`bg-box  border-[1px] border-outcolor rounded-[5px]  text-[20px] gap-3 flex w-[fit] h-[fit] p-3 text-selectorcolor  hover:scale-105   cursor-pointer `}>Download CV<motion.div initial={{opacity:0}} animate={{opacity:hoverELement=='download'?1:0}} transition={{duration:0.5, ease:'linear'}}><FaFileArrowDown size={'30px'}></FaFileArrowDown></motion.div></motion.button>
           </motion.div>
         </div>
         <div id='right'>
@@ -167,7 +166,7 @@ export default function Home() {
       <div></div>
       <motion.div
       ref={aboutMeRef}
-      initial={{ opacity: 0, bottom: "-50px" }}
+      initial={{ opacity: 0, bottom: "-150px" }}
       whileInView={{ opacity: 1, bottom: "0px" }}
       transition={{ duration: 1 }}
       id="aboutme"
@@ -176,12 +175,12 @@ export default function Home() {
       <motion.div
 
       initial={{bottom:'150px'}}
-        whileInView={{ boxShadow: "10px 10px 2px rgba(58, 147, 211, 0.98)" ,bottom:'200px'}}
+        whileInView={{ boxShadow: "6px 6px 4px rgba(0, 255, 255, 0.8)" ,bottom:'200px'}}
         transition={{ duration: 0.5, delay: 0.4 }}
         id="right"
-        className=" relative left-[200px]  z-[-1] border-[2px] border-outcolor bg-incolor w-[350px] h-[350px] text-[60px] p-7 rounded-sm"
+        className=" text-selectorcolor relative left-[200px]  z-[-1] border-[1px] border-outcolor bg-black w-[350px] h-[350px] text-[60px] p-5 rounded-[5px]"
       >
-        <div className="">About Me</div> <div className=""></div>{" "}
+        <div className="">About Me</div> <div className=""></div>
       </motion.div>
       <AboutMe></AboutMe>
       </motion.div>

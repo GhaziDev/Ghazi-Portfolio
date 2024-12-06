@@ -42,7 +42,7 @@ export default function Navigation() {
     if (aboutme.current && divId == "aboutme") {
       aboutmeAnimate(
         aboutme.current,
-        { boxShadow: "5px 5px 2px rgba(58, 147, 211, 0.98)" },
+        { boxShadow: "4px 4px 4px  rgba(0, 255, 255, 0.8)" },
         { duration: 3, ease: "easeInOut" }
       );
     } 
@@ -62,7 +62,7 @@ export default function Navigation() {
     if (exp.current && divId == "expsec") {
         expAnimate(
           exp.current,
-          { boxShadow: "5px 5px 2px rgba(58, 147, 211, 0.98)" },
+          { boxShadow: "4px 4px 4px  rgba(0, 255, 255, 0.8)" },
           { duration: 3, ease: "easeInOut" }
         );
       } else {
@@ -80,7 +80,7 @@ export default function Navigation() {
       if (pro.current && divId == "projectsec") {
         proAnimate(
           pro.current,
-          { boxShadow: "5px 5px 2px rgba(58, 147, 211, 0.98)" },
+          { boxShadow: "4px 4px 4px rgba(0, 255, 255, 0.8)" },
           { duration: 3, ease: "easeInOut" }
         );
       } else {
@@ -98,7 +98,7 @@ export default function Navigation() {
       if (skills && divId == "skillsec") {
         skillsAnimate(
           skills.current,
-          { boxShadow: "5px 5px 2px rgba(58, 147, 211, 0.98)" },
+          { boxShadow: "4px 4px 4px rgba(0, 255, 255, 0.8)" },
           { duration: 3, ease: "easeInOut" }
         );
       } else {
@@ -120,7 +120,7 @@ export default function Navigation() {
 
         blogAnimate(
           blog.current,
-          { boxShadow: "5px 5px 2px rgba(58, 147, 211, 0.98)" },
+          { boxShadow: "4px 4px 4px rgba(0, 255, 255, 0.8)" },
           { duration: 3, ease: "easeInOut" }
         );
 
@@ -145,14 +145,14 @@ export default function Navigation() {
         <motion.div className="z-[1000]  sticky top-0 flex w-[100vw] p-10 justify-end">
           <motion.div
             id="navmain"
-            className=" z-[1000000] sticky top-0 right-0 justify-center items-center p-7  flex flex-row-reverse gap-[70px] border-outcolor border-[1px] rounded-[5px]  "
+            className=" z-[1000000] bg-transparent sticky top-0 right-0 justify-center items-center p-5  flex flex-row-reverse gap-[70px] border-none rounded-[5px]  "
             initial={{ opacity: 0, height: "50px", width: "0px" }}
             animate={{ width: "800px", opacity: 1 }}
             transition={{ delay: 0.5, duration: 1 }}
           >
             <motion.div
               ref={aboutme}
-              className="p-[5px] flex justify-center border-outcolor border-[2px] rounded-[3px] hover:scale-105 cursor-pointer transition-[all ] duration-300 "
+              className=" bg-black text-selectorcolor p-[5px] flex justify-center border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 "
               initial={{ opacity: 0 ,boxShadow:'0px 0px 0px transparent'}}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.5 }}
@@ -161,7 +161,7 @@ export default function Navigation() {
             </motion.div>
             <motion.div
             ref={exp}
-            className="p-[4px] flex justify-center border-outcolor border-[2px] rounded-[3px] hover:scale-105 cursor-pointer transition-[all ] duration-300 "
+            className="p-[5px] text-selectorcolor flex justify-center bg-black border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 "
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.5 }}
@@ -170,7 +170,7 @@ export default function Navigation() {
             </motion.div>
             <motion.div
             ref={pro}
-            className="p-[4px] flex justify-center border-outcolor border-[2px] rounded-[3px] hover:scale-105 cursor-pointer transition-[all ] duration-300 "
+            className="p-[5px] flex justify-center bg-black text-selectorcolor border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 "
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.5 }}
@@ -179,7 +179,7 @@ export default function Navigation() {
             </motion.div>
             <motion.div
             ref={skills}
-            className="p-[4px] flex justify-center border-outcolor border-[2px] rounded-[3px] hover:scale-105 cursor-pointer transition-[all ] duration-300 "
+            className="p-[5px] flex justify-center bg-black text-selectorcolor border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 "
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.5 }}
@@ -190,7 +190,7 @@ export default function Navigation() {
 
             <motion.div
             ref={blog}
-            className="p-[4px] flex justify-center border-outcolor border-[2px] rounded-[3px] hover:scale-105 cursor-pointer transition-[all ] duration-300 "
+            className="p-[5px] flex justify-center text-selectorcolor bg-black border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 "
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.5 }}
@@ -206,7 +206,7 @@ export default function Navigation() {
 
   return(
     <motion.div className='z-[1000]  sticky top-0 flex w-[100vw] p-10 justify-end' >
-      <motion.div  className=" cursor-pointer z-[1000000] sticky top-0 right-0 justify-center items-center p-7  flex flex-row-reverse gap-[70px] border-outcolor border-[1px] rounded-[5px]  " initial={{width:'0px',height:'50px'}} animate={{width:'80px'}} transition={{duration:0.1}}>
+      <motion.div  className=" cursor-pointer z-[1000000] sticky top-0 right-0 justify-center items-center p-7  flex flex-row-reverse gap-[70px] border-outcolor border-[1px] rounded-[5px]  " initial={{width:'0px',height:'50px'}} animate={{width:'80px'}} transition={{duration:0.3}}>
       <BiArrowFromRight id='expand' color='white' onClick={shrinkNavigationBar} ></BiArrowFromRight>
       </motion.div>
        

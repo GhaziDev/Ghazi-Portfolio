@@ -33,7 +33,7 @@ export default function ExperienceComp({clickedElement}){
         </motion.div>
         <div className='bg-outcolor w-[600px] h-[1px] mt-6 ' id='separator'></div>
 
-         <motion.div className='w-[600px] bg-incolor border-[2px] border-outcolor rounded-[2px] p-4 mb-2 mt-5  overflow-hidden' id='description' initial={{height:'0px',width:'65ch',opacity:0}} animate={{height:clickedElement.id==exp.title?'180px':'0px',opacity:clickedElement.id==exp.title?1:0}} transition={{duration:0.4}} >
+         <motion.div className='w-[600px] bg-box  border-[1px] border-outcolor rounded-[5px] p-5 mb-2 mt-5  overflow-hidden' id='description' initial={{height:'0px',width:'65ch',opacity:0}} animate={{height:clickedElement.id==exp.title?'180px':'0px',opacity:clickedElement.id==exp.title?1:0}} transition={{duration:0.4}} >
             {exp.description}
 
   

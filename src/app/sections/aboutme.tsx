@@ -13,11 +13,11 @@ export default function AboutMe() {
 
       <div
         id="left"
-        className="text-slate-950 bg-slate-200 w-fit h-[450px] rounded-lg p-7"
+        className=" bg-box  w-fit h-[450px] rounded-[5px] p-5 "
       >
         <div
           id="introduction"
-          className="text-slate-950 text-[30px] font-cavaet"
+          className=" text-[30px] font-cavaet"
         >
           Hello, My name is Ghazi
         </div>

@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.7.4",
+    "@nextui-org/pagination": "^2.0.36",
+    "@nextui-org/react": "^2.4.8",
+    "dayjs": "^1.11.13",
     "dotenv": "^16.4.6",
     "javascript-time-ago": "^2.5.11",
     "mongodb": "^6.11.0",

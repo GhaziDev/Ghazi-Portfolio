@@ -1,5 +1,5 @@
 import {motion} from 'motion/react'
-import SkillComp from '../components/skills/skills'
+import SkillComp from '../mycomponents/skills/skills'
 
 export default function Skill(){
 

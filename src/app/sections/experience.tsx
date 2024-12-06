@@ -1,6 +1,6 @@
 'use client'
 import useClick from '../hooks/clickHook'
-import ExperienceComp from '../components/experience/exp'
+import ExperienceComp from '../mycomponents/experience/exp'
 
 export default function Experience(){
   const clickedElement = useClick()

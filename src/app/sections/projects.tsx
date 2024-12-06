@@ -1,4 +1,4 @@
-import ProjectComp from "../components/projects/projects"
+import ProjectComp from "../mycomponents/projects/projects"
 import {motion} from 'motion/react'
 
 export default function Projects(){
