@@ -5,12 +5,16 @@ import useHover from "../hooks/hoverHook";
 
 import { FaLinkedin } from "react-icons/fa6";
 import { FaSquareGithub } from "react-icons/fa6";
+import {useContext, useRef} from 'react'
+import { NavContext } from "./main";
+
 
 export default function AboutMe() {
   const hoveredElement = useHover();
 
   return (
 
+   
       <div
         id="left"
         className=" bg-box  w-fit h-[450px] rounded-[5px] p-5 "
@@ -114,5 +118,6 @@ export default function AboutMe() {
           </div>
         </div>
       </div>
+    
   );
 }

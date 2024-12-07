@@ -4,28 +4,19 @@ import { useState, useEffect, useContext } from "react";
 import { motion, useAnimate } from "motion/react";
 import { BiArrowFromLeft } from "react-icons/bi";
 import { BiArrowFromRight } from "react-icons/bi";
-import { SecId } from "../page";
+import { NavContext } from "./main";
 
 import { useRouter } from "next/router";
 
-export function Wrapper() {
-  return <div></div>;
-}
-export function NavWrapper() {
-  return (
-    <motion.div className="z-3  sticky top-0 flex w-[100vw] p-10 justify-end"></motion.div>
-  );
-}
+import {clsx} from 'clsx/lite'
+
 
 export default function Navigation() {
-  const divId = useContext(SecId);
-  const [aboutme, aboutmeAnimate] = useAnimate();
-  const [exp, expAnimate] = useAnimate();
-  const [pro, proAnimate] = useAnimate();
-  const [skills, skillsAnimate] = useAnimate();
-  const [blog, blogAnimate] = useAnimate();
+  const divId = useContext(NavContext);
+
+
+ 
   const [isShrinked,setIsShrinked] = useState<boolean>(false)
-  const [loaded,setLoaded] = useState<boolean>(false)
   const shrinkNavigationBar = (e)=>{
     if(e.target.id =='shrink'){
         setIsShrinked(true)
@@ -36,108 +27,12 @@ export default function Navigation() {
   }
 }
 
-  useEffect(() => {
-    setLoaded(true)
-    if(loaded){
-    if (aboutme.current && divId == "aboutme") {
-      aboutmeAnimate(
-        aboutme.current,
-        { boxShadow: "4px 4px 4px  rgba(0, 255, 255, 0.8)" },
-        { duration: 3, ease: "easeInOut" }
-      );
-    } 
-    else {
-      if(aboutme.current){
-      aboutmeAnimate(
-        aboutme.current,
-        { boxShadow: "0px 0px 0px transparent" },
-        { duration: 1 }
-      );
-    }
 
-      
-      
-    }
+  useEffect(()=>{
+    console.log(divId)
+    console.log('here')
 
-    if (exp.current && divId == "expsec") {
-        expAnimate(
-          exp.current,
-          { boxShadow: "4px 4px 4px  rgba(0, 255, 255, 0.8)" },
-          { duration: 3, ease: "easeInOut" }
-        );
-      } else {
-        if(exp.current){
-        expAnimate(
-          exp.current,
-          { boxShadow: "0px 0px 0px transparent" },
-          { duration: 1 }
-        );
-      }
-  
-        
-        
-      }
-      if (pro.current && divId == "projectsec") {
-        proAnimate(
-          pro.current,
-          { boxShadow: "4px 4px 4px rgba(0, 255, 255, 0.8)" },
-          { duration: 3, ease: "easeInOut" }
-        );
-      } else {
-        if(pro.current){
-        proAnimate(
-          pro.current,
-          { boxShadow: "0px 0px 0px transparent" },
-          { duration: 1 }
-        );
-      }
-  
-        
-        
-      }
-      if (skills && divId == "skillsec") {
-        skillsAnimate(
-          skills.current,
-          { boxShadow: "4px 4px 4px rgba(0, 255, 255, 0.8)" },
-          { duration: 3, ease: "easeInOut" }
-        );
-      } else {
-        if(skills.current){
-        skillsAnimate(
-          skills.current,
-          { boxShadow: "0px 0px 0px transparent" },
-          { duration: 1 }
-        );
-      }
-  
-        
-        
-      }
-
-     
-
-      if(blog && divId=='blogsec'){
-
-        blogAnimate(
-          blog.current,
-          { boxShadow: "4px 4px 4px rgba(0, 255, 255, 0.8)" },
-          { duration: 3, ease: "easeInOut" }
-        );
-
-      }
-
-      else{
-        if(blog.current){
-        blogAnimate(
-          blog.current,
-          {boxShadow: "0px 0px 0px transparent"},
-          {duration:1}
-        )
-
-      }
-    }
-    }
-  }, [divId]);
+  },[divId])
 
   if(!isShrinked){
 
@@ -151,8 +46,8 @@ export default function Navigation() {
             transition={{ delay: 0.5, duration: 1 }}
           >
             <motion.div
-              ref={aboutme}
-              className=" bg-black text-selectorcolor p-[5px] flex justify-center border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 "
+
+              className={` bg-black text-selectorcolor p-[5px] flex justify-center border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 ${clsx(divId=='aboutme'?'shadow-[4px_4px_4px] shadow-boxshadow':'')} `}
               initial={{ opacity: 0 ,boxShadow:'0px 0px 0px transparent'}}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.5 }}
@@ -160,8 +55,7 @@ export default function Navigation() {
               About Me
             </motion.div>
             <motion.div
-            ref={exp}
-            className="p-[5px] text-selectorcolor flex justify-center bg-black border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 "
+            className={`p-[5px] text-selectorcolor flex justify-center bg-black border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 ${clsx(divId=='expsec'?'shadow-[4px_4px_4px] shadow-boxshadow':'')} `} 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.5 }}
@@ -169,8 +63,7 @@ export default function Navigation() {
               Experience
             </motion.div>
             <motion.div
-            ref={pro}
-            className="p-[5px] flex justify-center bg-black text-selectorcolor border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 "
+            className={`p-[5px] flex justify-center bg-black text-selectorcolor border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 ${clsx(divId=='projectsec'?'shadow-[4px_4px_4px] shadow-boxshadow':'')}  `}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.5 }}
@@ -178,8 +71,8 @@ export default function Navigation() {
               Projects
             </motion.div>
             <motion.div
-            ref={skills}
-            className="p-[5px] flex justify-center bg-black text-selectorcolor border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 "
+ 
+            className={`p-[5px] flex justify-center bg-black text-selectorcolor border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 ${clsx(divId=='skillsec'?'shadow-[4px_4px_4px] shadow-boxshadow':'')}  `}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.5 }}
@@ -189,8 +82,7 @@ export default function Navigation() {
 
 
             <motion.div
-            ref={blog}
-            className="p-[5px] flex justify-center text-selectorcolor bg-black border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 "
+            className={`p-[5px] flex justify-center text-selectorcolor bg-black border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 ${clsx(divId=='blogsec'?'shadow-[4px_4px_4px] shadow-boxshadow':'')}  `}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.5 }}

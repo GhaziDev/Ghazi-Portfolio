@@ -14,3 +14,4 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
 
   return NextResponse.json({ data: blogs, pages:blogsCount}, { status: 200 });
 };
+
