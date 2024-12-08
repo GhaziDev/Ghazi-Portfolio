@@ -8,7 +8,7 @@ export default function Header(){
 
     return(
         <div id='headersec' className='flex flex-row flex-nowrap  '>
-        <div className="bubbles">
+        <div className="bubbles ">
         <div className="bubble"></div>
       <div className="bubble"></div>
       <div className="bubble"></div>

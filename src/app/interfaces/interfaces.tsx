@@ -26,3 +26,4 @@ export interface Blog{
 
 export type PartialBlog = Pick<Blog, 'title'|'date'|'image'|'tags'|'slug'>
 
+

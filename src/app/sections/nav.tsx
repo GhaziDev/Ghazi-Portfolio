@@ -1,12 +1,11 @@
 "use client";
 import { useState, useEffect, useContext } from "react";
 
-import { motion, useAnimate } from "motion/react";
+import { motion } from "motion/react";
 import { BiArrowFromLeft } from "react-icons/bi";
 import { BiArrowFromRight } from "react-icons/bi";
 import { NavContext } from "./main";
 
-import { useRouter } from "next/router";
 
 import {clsx} from 'clsx/lite'
 

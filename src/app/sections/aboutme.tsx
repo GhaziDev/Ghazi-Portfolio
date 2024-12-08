@@ -17,7 +17,7 @@ export default function AboutMe() {
    
       <div
         id="left"
-        className=" bg-box  w-fit h-[450px] rounded-[5px] p-5 "
+        className=" relative z-[2] bg-box  w-fit h-[450px] rounded-[5px] p-5 "
       >
         <div
           id="introduction"

@@ -16,12 +16,12 @@ export const NavContext = createContext('')
 
 export default function MainPage({children}:{children:React.Node}){
     const [id,setId] = useState<string>('')
-    const selectedPage = useContext(PageContext)
     const aboutMeRef = useRef(null)
     const expRef = useRef(null)
     const proRef = useRef(null)
     const skillsRef = useRef(null)
     const blogsRef = useRef(null)
+    
     const aboutMeView = useInView(aboutMeRef)
     const expInView = useInView(expRef)
     const proInView = useInView(proRef)
@@ -65,7 +65,6 @@ export default function MainPage({children}:{children:React.Node}){
 
            <Header></Header>    
 
-           <div></div> 
 <motion.div
 
 
@@ -73,7 +72,7 @@ initial={{ opacity: 0, bottom: "-150px" }}
 whileInView={{ opacity: 1, bottom: "0px" }}
 transition={{ duration: 1 }}
 id="aboutme"
-className="relative  flex flex-row flex-wrap  content-center w-full items-center "
+className="relative  flex flex-row flex-wrap  content-center w-full items-center z-[3] "
 ref={aboutMeRef}
 
 
@@ -86,7 +85,7 @@ initial={{bottom:'150px'}}
   id="right"
   className=" text-selectorcolor relative left-[200px]  z-[-1] border-[1px] border-outcolor bg-black w-[350px] h-[350px] text-[60px] p-5 rounded-[5px]"
 >
-  <div className="">About Me</div> <div className=""></div>
+  <div className="">About Me</div> <div className=""></div>{""}
 </motion.div>
 
       <AboutMe ></AboutMe>
@@ -118,7 +117,6 @@ initial={{bottom:'150px'}}
 <motion.div  whileInView={{opacity:1,left:'0px'}} transition={{duration:0.8}} initial={{opacity:0,left:'-200px'}} id='blogtitle' className='relative text-[60px] font-serif'>Blogs</motion.div>
 
    
-<Blogs>{cloneElement(children,selectedPage)}</Blogs>
 
 
 </motion.div>
