@@ -5,14 +5,16 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
 
-export default async function FetchBlogs({selectedPage}:{selectedPage:number}){
+export default async function FetchBlogs(){
 
 
 
-    const data = await fetch(`/api/blogs?page=${selectedPage}/`,{'headers':{'Accept': 'application/json'}})
+    const data = await fetch(`http://127.0.0.1:3000/api/blogs?page=1/`,{'headers':{'Accept': 'application/json'}})
 
     const awaitData = await data.json()
     const blogs = await awaitData.data
+    console.log('here')
+    console.log(blogs)
 
     const mapBlogs = ()=>{
 

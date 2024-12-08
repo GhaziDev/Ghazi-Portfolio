@@ -25,7 +25,8 @@ const tools = {
     TensorFlow:'#FF6F00',
     BERT:'#EA4335',
     Express:'black',
-    Node:'#6cc24a'
+    Node:'#6cc24a',
+    NextAuth:'random'
 
 }
 
@@ -38,8 +39,9 @@ const projects:Array<ProjectConfig> = [
             'React':tools.React,
             'Next':tools.Next,
             'AWS':tools.AWS,
-            'Vite':tools.Vite,
-            'Typescript':tools.Typescript
+            'Typescript':tools.Typescript,
+            'NextAuth':tools.NextAuth,
+            
 
         }
 

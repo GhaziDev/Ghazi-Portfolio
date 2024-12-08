@@ -115,6 +115,7 @@ initial={{bottom:'150px'}}
 
 
 <motion.div  whileInView={{opacity:1,left:'0px'}} transition={{duration:0.8}} initial={{opacity:0,left:'-200px'}} id='blogtitle' className='relative text-[60px] font-serif'>Blogs</motion.div>
+{children}
 
    
 

@@ -34,10 +34,13 @@ export default function Blogs(){
     },[])
 
 
+
+
     useEffect(()=>{
         if(selectedPage === undefined) return
-         route.push(`/api/blogs?page=${selectedPage}/`)
+         //route.push(`/api/blogs?page=${selectedPage}`)
      },[selectedPage])
+    
 
 
 

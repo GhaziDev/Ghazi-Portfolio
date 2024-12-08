@@ -4,18 +4,18 @@ import { Suspense } from "react";
 import FetchBlogs from "./mycomponents/blogs/serverblog";
 import LoadingBlogs from "./mycomponents/blogs/loading";
 
-export default function Home(context:any
+export default function Home(
+  {searchParams}:{searchParams:{page:number}}
 ){
 
-  console.log('this is context')
-
-  console.log(context)
+  console.log('this is searchParams.page result: ')
+  console.log(searchParams.page)
 
   return (
     <NextUIProvider>
       <MainPage>
         <Suspense fallback={<LoadingBlogs />}>
-          <FetchBlogs selectedPage={context} />
+          <FetchBlogs  />
         </Suspense>
       </MainPage>
     </NextUIProvider>
