@@ -106,15 +106,16 @@ initial={{bottom:'150px'}}
     </motion.div>
 
     <motion.div  id='skillsec' className='flex flex-col flex-wrap gap-5 p-5' ref={skillsRef}>
-       <motion.div  whileInView={{opacity:1,left:'0px'}} transition={{duration:0.8}} initial={{opacity:0,left:'-200px'}} id='projecttitle' className='relative text-[60px] font-serif'>Skills</motion.div>
+       <motion.div  whileInView={{opacity:1,left:'0px'}} transition={{duration:0.8}} initial={{opacity:0,left:'-200px'}} id='projecttitle' className='relative text-[60px] pb-[200px] font-serif'>Skills</motion.div>
     <Skill ></Skill>
     </motion.div>
+
 
 
     <motion.div ref={blogsRef}  className='' id='blogsec'>
 
 
-<motion.div  whileInView={{opacity:1,left:'0px'}} transition={{duration:0.8}} initial={{opacity:0,left:'-200px'}} id='blogtitle' className='relative text-[60px] font-serif'>Blogs</motion.div>
+<motion.div  whileInView={{opacity:1,left:'0px'}} transition={{duration:0.8}} initial={{opacity:0,left:'-200px'}} id='blogtitle' className='relative text-[60px] font-serif pb-[200px]'>Blogs</motion.div>
 {children}
 
    

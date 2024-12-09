@@ -19,7 +19,7 @@ export default function SkillComp(){
                 <motion.div {...clickedElement} animate={{width:clickedElement.id==skill?'300px':'140px',zIndex:clickedElement.id==skill?3:0}}  className=' text-selectorcolor pointer-events-none  w-[100%] flex flex-col flex-wrap items-center justify-center' ><Comp  size='40px'></Comp></motion.div>
                 <motion.div className='text-selectorcolor pointer-events-none'>{skill}</motion.div>
           
-                <motion.div {...clickedElement} id={`${skill}desc`}  className=' bg-box border-[1px] border-r-outcolor pointer-events-none border-l-outcolor border-b-[1px] border-b-outcolor border-t-[0px] p-4 ' initial={{width:'300px',height:'0px',opacity:0}}  animate={{opacity:clickedElement.id==skill?1:0,height:clickedElement.id==skill?'300px':'0px'}} transition={{duration:0.7,}}>
+                <motion.div {...clickedElement} id={`${skill}desc`}  className=' bg-box border-[1px] border-r-outcolor pointer-events-none border-l-outcolor border-b-[1px] border-b-outcolor border-t-[0px] p-4 ' initial={{width:'300px',height:'0px',opacity:0}}  animate={{opacity:clickedElement.id==skill?1:0,height:clickedElement.id==skill?'fit-content':'0px'}} transition={{duration:0.7,}}>
                   {desc}
                 </motion.div>
 
