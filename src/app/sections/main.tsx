@@ -59,7 +59,7 @@ export default function MainPage({children}:{children:React.Node}){
 
     return(
         <NavContext.Provider value={id}>
-            <Navigation></Navigation>
+           
 
             <div id='mainpage' className="  flex flex-wrap flex-col p-[100px] gap-[500px] overflow-hidden ">
 

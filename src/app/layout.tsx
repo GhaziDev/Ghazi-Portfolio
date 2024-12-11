@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { NextSessionProvider } from "./[admin]/page";
 import { connect } from "./db/utils";
+import ServerNav from "./sections/navlayout";
 
 
 await connect()
@@ -34,6 +35,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
         <NextSessionProvider>
+          <ServerNav></ServerNav>
         {children}
         </NextSessionProvider>
       </body>

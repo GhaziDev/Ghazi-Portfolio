@@ -46,15 +46,15 @@ export default function Navigation() {
           >
             <motion.div
 
-              className={` bg-black text-selectorcolor p-[5px] flex justify-center border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 ${clsx(divId=='aboutme'?'shadow-[4px_4px_4px] shadow-boxshadow':'')} `}
-              initial={{ opacity: 0 ,boxShadow:'0px 0px 0px transparent'}}
+              className={` bg-black text-selectorcolor p-[5px] flex justify-center border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 ${clsx(divId=='aboutme'?'shadow-[4px_4px_4px] shadow-boxshadow scale-105':'')} `}
+              initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.5 }}
             >
               About Me
             </motion.div>
             <motion.div
-            className={`p-[5px] text-selectorcolor flex justify-center bg-black border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 ${clsx(divId=='expsec'?'shadow-[4px_4px_4px] shadow-boxshadow':'')} `} 
+            className={`p-[5px] text-selectorcolor flex justify-center bg-black border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 ${clsx(divId=='expsec'?'shadow-[4px_4px_4px] shadow-boxshadow scale-105':'')} `} 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.5 }}
@@ -62,7 +62,7 @@ export default function Navigation() {
               Experience
             </motion.div>
             <motion.div
-            className={`p-[5px] flex justify-center bg-black text-selectorcolor border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 ${clsx(divId=='projectsec'?'shadow-[4px_4px_4px] shadow-boxshadow':'')}  `}
+            className={`p-[5px] flex justify-center bg-black text-selectorcolor border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 ${clsx(divId=='projectsec'?'shadow-[4px_4px_4px] shadow-boxshadow scale-105':'')}  `}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.5 }}
@@ -71,7 +71,7 @@ export default function Navigation() {
             </motion.div>
             <motion.div
  
-            className={`p-[5px] flex justify-center bg-black text-selectorcolor border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 ${clsx(divId=='skillsec'?'shadow-[4px_4px_4px] shadow-boxshadow':'')}  `}
+            className={`p-[5px] flex justify-center bg-black text-selectorcolor border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 ${clsx(divId=='skillsec'?'shadow-[4px_4px_4px] shadow-boxshadow scale-105':'')}  `}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.5 }}
@@ -81,7 +81,7 @@ export default function Navigation() {
 
 
             <motion.div
-            className={`p-[5px] flex justify-center text-selectorcolor bg-black border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 ${clsx(divId=='blogsec'?'shadow-[4px_4px_4px] shadow-boxshadow':'')}  `}
+            className={`p-[5px] flex justify-center text-selectorcolor bg-black border-outcolor border-[1px] rounded-[5px] hover:scale-105 cursor-pointer transition-[all ] duration-300 ${clsx(divId=='blogsec'?'shadow-[4px_4px_4px] shadow-boxshadow scale-105':'')}  `}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.5 }}

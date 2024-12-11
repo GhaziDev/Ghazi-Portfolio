@@ -22,7 +22,7 @@ export const POST = async (req:NextRequest) => {
         description: blog.get('description'),
         date: new Date(Date.now()), //some number
         tags:JSON.parse(blog.get('tags') as string),
-        image: `./blog_images/${image.name}`,
+        image: `/blog_images/${image.name}`,
     
       })
   

@@ -19,7 +19,7 @@ dayjs.extend(relativeTime)
 export default function Blogs({data}:{data:Array<PartialBlog>}){
     const [pages,setPages] = useState<number>(1)
     const [selectedPage,setSelectedPage] = useState<number>(1)
-    //const route = useRouter()
+    const route = useRouter()
     useEffect(()=>{
         fetch('/api/blogs/countpages/',{headers:{'Accept': 'application/json'}}).then((res)=>{
             res.json().then((count)=>{
@@ -44,7 +44,7 @@ export default function Blogs({data}:{data:Array<PartialBlog>}){
             slicedBlogs?.map((blog:PartialBlog,index:number)=>{
             
                 return(
-                    <div  key={index} className=' font-mono bg-box border-outcolor border-[1px]  flex flex-row flex-wrap gap-4 justify-between rounded-[5px] hover:scale-105 transition-all duration-200 w-[700px] box-border' >
+                    <div onClick={()=>route.push(`/blog/${blog.slug}`)}  key={index} className=' font-mono bg-box border-outcolor border-[1px]  flex flex-row flex-wrap gap-4 justify-between rounded-[5px] hover:scale-105 transition-all duration-200 w-[700px] box-border' >
                         <div className=' flex flex-wrap flex-col gap-4 w-[50%] p-4'>
                         <div className=' text-[16px] font-semibold'>{blog.title}</div>
                         <div id='tags' className='flex gap-5 justify-start'>

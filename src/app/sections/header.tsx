@@ -8,19 +8,6 @@ export default function Header(){
 
     return(
         <div id='headersec' className='flex flex-row flex-nowrap  '>
-        <div className="bubbles ">
-        <div className="bubble"></div>
-      <div className="bubble"></div>
-      <div className="bubble"></div>
-      <div className="bubble"></div>
-      <div className="bubble"></div>
-      <div className="bubble"></div>
-      <div className="bubble"></div>
-      <div className="bubble"></div>
-      <div className="bubble"></div>
-      <div className="bubble"></div>
-      
-    </div>
           <div id='left' className='flex flex-col flex-wrap gap-5'>
             <div id='fullname' className="flex flex-col flex-wrap text-[70px] ">
               <motion.div initial={{width:'0%'}} animate={{width:'100%'}} transition={{duration:2, delay:2}} id='firstname' className=' bg-box text-selectorcolor pl-5 border-none flex flex-row flex-nowrap relative rounded-[5px] border-[1px]' >
@@ -87,7 +74,8 @@ export default function Header(){
           <div id='right'>
   
             <div id='img'>
-              IMAGE HERE
+  
+
             </div>
           </div>
         </div>
