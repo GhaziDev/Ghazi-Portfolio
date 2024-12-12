@@ -7,19 +7,20 @@ import {motion} from 'motion/react'
 export default function ProjectModal({isOpen,setIsOpen,id}:{isOpen:boolean,setIsOpen:CallableFunction,id:string}){
 
   if(id=='frontend'){
-    console.log('inside modal')
-    console.log(id)
-    console.log(isOpen)
+
 
 
     return(
-        <Modal size={'full'} className='bg-black' isOpen={isOpen && id=='frontend'} onOpenChange={()=>setIsOpen({isOpen:!isOpen,id:id.length?'':'frontend'})}>
+        <Modal closeButton classNames={{closeButton:'sticky top-[5px]   rounded-[50%] text-slate-white bg-outcolor w-[30px] h-[70px] hover:bg-red-400 flex justify-center items-center '}} size={'full'} className='bg-black' isOpen={isOpen && id=='frontend'} onOpenChange={()=>setIsOpen({isOpen:!isOpen,id:id.length?'':'frontend'})}>
             <ModalContent className='p-[40px] overflow-y-scroll'>
 
            
             {(onClose) => (
 
+             
+
             <motion.div className='relative' initial={{top:'-400px',opacity:0}} animate={{top:0,opacity:1}} transition={{duration:2}}>
+               <button onClick={()=>setIsOpen({IsOpen:false,id:''})}></button>
               <ModalHeader className="flex flex-col gap-2 text-[50px] items-center justify-center">Personal Blog</ModalHeader>
               <div id='btns' className='flex flex-wrap flex-col gap-10 items-center'>
               <Link href={'https://github.com/GhaziDev/Ghazi-Portfolio'}><div className='border-[1px] border-outcolor rounded-[5px] w-[150px]  p-2 gap-3 bg-white flex hover:scale-105 transition-all duration-400 text-black cursor-pointer '><FaGithub size='25px' className='text-box'></FaGithub>Source code</div></Link>
@@ -74,14 +75,7 @@ export default function ProjectModal({isOpen,setIsOpen,id}:{isOpen:boolean,setIs
 
              
               <ModalFooter>
-                <button className='relative z-[10000]'  onClick={()=>setIsOpen(false) } >
-                  Close
-                </button>
-                <button onClick={()=>setIsOpen(false)} >
-
-
-                  Action
-                </button>
+     
               </ModalFooter>
             </motion.div>
           )}
@@ -152,14 +146,7 @@ export default function ProjectModal({isOpen,setIsOpen,id}:{isOpen:boolean,setIs
 
            
             <ModalFooter>
-              <button className='relative z-[10000]'  onClick={()=>setIsOpen(false) } >
-                Close
-              </button>
-              <button onClick={()=>setIsOpen(false)} >
-
-
-                Action
-              </button>
+      
             </ModalFooter>
           </motion.div>
         )}
@@ -239,14 +226,7 @@ export default function ProjectModal({isOpen,setIsOpen,id}:{isOpen:boolean,setIs
 
            
             <ModalFooter>
-              <button className='relative z-[10000]'  onClick={()=>setIsOpen(false) } >
-                Close
-              </button>
-              <button onClick={()=>setIsOpen(false)} >
-
-
-                Action
-              </button>
+    
             </ModalFooter>
           </motion.div>
         )}
@@ -325,14 +305,7 @@ export default function ProjectModal({isOpen,setIsOpen,id}:{isOpen:boolean,setIs
 
            
             <ModalFooter>
-              <button className='relative z-[10000]'  onClick={()=>setIsOpen(false) } >
-                Close
-              </button>
-              <button onClick={()=>setIsOpen(false)} >
-
-
-                Action
-              </button>
+    
             </ModalFooter>
           </motion.div>
         )}

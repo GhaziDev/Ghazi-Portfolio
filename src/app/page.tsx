@@ -3,6 +3,7 @@ import MainPage from "./sections/main";
 import { Suspense } from "react";
 import FetchBlogs from "./mycomponents/blogs/serverblog";
 import LoadingBlogs from "./mycomponents/blogs/loading";
+import Navigation from "./sections/nav";
 
 export default function Home(
 ){

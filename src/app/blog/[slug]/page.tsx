@@ -1,13 +1,13 @@
+import { revalidate } from "@/app/api/blogs/route"
 import ClientBlog from "../clientComp"
 
 
 export default async function ServerBlog({params}:{params:Promise<{slug:string}>}){
     const p = await params
-    const reqData = await fetch(`http://localhost:3000/api/blogs/${p.slug}/`)
+    const reqData = await fetch(`http://localhost:3000/api/blogs/${p.slug}/`,{next:{revalidate:10}})
     const fetchData = await reqData.json()
     const data = await fetchData.data
 
-    console.log(data)
 
     return(
 

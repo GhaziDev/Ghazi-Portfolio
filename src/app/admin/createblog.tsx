@@ -23,6 +23,7 @@ import remarkToc from 'remark-toc';
 
 
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { useRouter } from "next/navigation";
 
 
 // next step, now it is time to write your description in markdown.
@@ -59,7 +60,7 @@ export function MarkdownRenderer({ children: markdown }: MarkdownRendererProps) 
 
     components={{
       code({ node, inline, className, children, ...props }: any) {
-        console.log("Raw children:", children);
+       
     
         const match = /language-(\w+)/.exec(className || "");
         let codeContent;
@@ -102,6 +103,7 @@ export function MarkdownRenderer({ children: markdown }: MarkdownRendererProps) 
 }
 
 export default function CreateBlog() {
+  const router = useRouter()
 
 
   const [blog, setBlog] = useState<Blog>({
@@ -113,8 +115,6 @@ export default function CreateBlog() {
     image: "",
   });
   const [tagInputs, setTagInputs] = useState<Array<string>>([""]);
-  console.log(tagInputs)
-
   const addTagInputs = () => {
     setTagInputs((prevTags) => [...prevTags, ""]);
   };
@@ -146,8 +146,6 @@ export default function CreateBlog() {
     
    const slug = slugify(blog.title.toLocaleLowerCase())
     const filteredTags = tagInputs.filter((tag:string)=>tag!=='')
-    console.log(filteredTags)
-    console.log(blog.tags)
     setBlog({...blog,slug: slug,tags: filteredTags})
     formData.append('title',blog.title)
     formData.append('slug',slug)
@@ -155,14 +153,12 @@ export default function CreateBlog() {
 
     formData.append('image',blog.image)
     formData.append('description',blog.description)
-    console.log(formData)
 
 
-
-    console.log(blog)
 
     fetch('/api/admin/',{method:'POST',body:formData}).then((res)=>{
-      console.log(res)
+      router.push('/')
+    
 
     })
 

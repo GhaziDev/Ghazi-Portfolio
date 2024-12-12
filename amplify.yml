@@ -1,0 +1,11 @@
+build:
+  commands:
+    - 'npm install -g typescript'
+    - 'tsc --build'
+    - 'npm run build'
+
+
+"paths": {
+  "@/*": ["*"],
+  "@/mycomponents/*": ["components/*"]
+}

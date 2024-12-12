@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { BlogModel } from "@/app/models/Blog";
+export const revalidate = 60
+
 
 export const GET = async (req: NextRequest, res: NextResponse) => {
-  const page = req.nextUrl.searchParams.get("page") as unknown as number; //supposed to be page number
+  //const page = req.nextUrl.searchParams.get("page") as unknown as number; //supposed to be page number
 
   const blogs = await BlogModel.find({})
     .select(["title", "date", "tags", "image", "slug"])

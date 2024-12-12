@@ -1,3 +1,4 @@
+'use client'
 import Navigation from "./nav";
 // wrapping nav component into server component to export it to layout.tsx so that it is available
 // everywhere.
@@ -5,10 +6,10 @@ import Navigation from "./nav";
 
 export default function ServerNav(){
     return(
-        <span>
+        
 
             <Navigation></Navigation>
 
-        </span>
+
     )
 }

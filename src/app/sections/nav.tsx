@@ -8,10 +8,12 @@ import { NavContext } from "./main";
 
 
 import {clsx} from 'clsx/lite'
+import { useRouter } from "next/navigation";
 
 
 export default function Navigation() {
   const divId = useContext(NavContext);
+  const route = useRouter()
 
 
  
@@ -28,8 +30,6 @@ export default function Navigation() {
 
 
   useEffect(()=>{
-    console.log(divId)
-    console.log('here')
 
   },[divId])
 
@@ -50,6 +50,7 @@ export default function Navigation() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.5 }}
+              onClick={()=>{route.push('#aboutme')}}
             >
               About Me
             </motion.div>
@@ -58,6 +59,7 @@ export default function Navigation() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.5 }}
+              onClick={()=>{route.push('#expsec')}}
             >
               Experience
             </motion.div>
@@ -66,6 +68,7 @@ export default function Navigation() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.5 }}
+              onClick={()=>{route.push('#projectsec')}}
             >
               Projects
             </motion.div>
@@ -75,6 +78,7 @@ export default function Navigation() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.5 }}
+              onClick={()=>{route.push('#skillsec')}}
             >
               Skills
             </motion.div >
@@ -85,6 +89,7 @@ export default function Navigation() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.5 }}
+              onClick={()=>{route.push('#blogsec')}}
             >
               Blogs
             </motion.div >
@@ -97,7 +102,7 @@ export default function Navigation() {
 
   return(
     <motion.div className='z-[1000]  sticky top-0 flex w-[100vw] p-10 justify-end' >
-      <motion.div  className=" cursor-pointer z-[1000000] sticky top-0 right-0 justify-center items-center p-7  flex flex-row-reverse gap-[70px] border-outcolor border-[1px] rounded-[5px]  " initial={{width:'0px',height:'50px'}} animate={{width:'80px'}} transition={{duration:0.3}}>
+      <motion.div onClick={shrinkNavigationBar}  className=" cursor-pointer z-[1000000] sticky top-0 right-0 justify-center items-center p-7  flex flex-row-reverse gap-[70px] border-outcolor border-[1px] rounded-[5px]  " initial={{width:'0px',height:'50px'}} animate={{width:'80px'}} transition={{duration:0.3}}>
       <BiArrowFromRight id='expand' color='white' onClick={shrinkNavigationBar} ></BiArrowFromRight>
       </motion.div>
        

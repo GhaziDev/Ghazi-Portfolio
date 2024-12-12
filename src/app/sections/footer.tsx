@@ -2,6 +2,7 @@ import { FaLinkedin } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 import { MdOutlineMail } from "react-icons/md";
 import {motion} from 'motion/react'
+import Link from "next/link";
 
 
 export default function Footer(){
@@ -14,9 +15,9 @@ export default function Footer(){
                 Copyright © Ghazi Zabalawi 2024
                 </motion.div>
                 <div id='icons' className='flex gap-4'>
-                    <motion.div transition={{duration:0.7}} initial={{left:'-20px',opacity:0}} whileInView={{left:0,opacity:1}} className='relative'><FaLinkedin size='30' ></FaLinkedin></motion.div>
-                    <motion.div transition={{delay:0.2,duration:0.7}}   initial={{left:'-20px',opacity:0}} whileInView={{left:0,opacity:1}} className='relative'><FaGithub size='30'></FaGithub></motion.div>
-                    <motion.div transition={{delay:0.3,duration:0.7}} initial={{left:'-20px',opacity:0}} whileInView={{left:0,opacity:1}} className='relative'><MdOutlineMail size='30'></MdOutlineMail></motion.div>
+                    <Link href={'https://www.linkedin.com/in/ghazi-zabalawi-424168219/'}><motion.div  transition={{duration:0.7}} initial={{left:'-20px',opacity:0}} whileInView={{left:0,opacity:1}} className='relative cursor-pointer'><FaLinkedin size='30' ></FaLinkedin></motion.div></Link>
+                    <Link href={'https://www.github.com/GhaziDev/'}><motion.div transition={{delay:0.2,duration:0.7}}   initial={{left:'-20px',opacity:0}} whileInView={{left:0,opacity:1}} className='relative cursor-pointer'><FaGithub size='30'></FaGithub></motion.div></Link>
+                    <Link href={'mailto:@ghazi-z3balawi@outlook.com'}><motion.div transition={{delay:0.3,duration:0.7}} initial={{left:'-20px',opacity:0}} whileInView={{left:0,opacity:1}} className='relative cursor-pointer'><MdOutlineMail size='30'></MdOutlineMail></motion.div></Link>
                 </div>
             </div>
 

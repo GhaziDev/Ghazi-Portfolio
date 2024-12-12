@@ -7,6 +7,7 @@ import { FaLinkedin } from "react-icons/fa6";
 import { FaSquareGithub } from "react-icons/fa6";
 import {useContext, useRef} from 'react'
 import { NavContext } from "./main";
+import Link from "next/link";
 
 
 export default function AboutMe() {
@@ -61,7 +62,7 @@ export default function AboutMe() {
               >
                 <FaLinkedin className='z-[1]'  size="30" color="white"></FaLinkedin>
               </motion.div>
-              <motion.button
+              <Link href={'https://www.linkedin.com/in/ghazi-zabalawi-424168219/'}><motion.button
                 initial={{ width: "0px", height: "30px" }}
                 animate={{
                   width: hoveredElement.id == "linkedin" ? "150px" : "0px",
@@ -77,7 +78,7 @@ export default function AboutMe() {
                 className=" pointer-events-none border-solid border-1 pr-3 bg-incolor border-outcolor rounded-sm flex text-slate-50 justify-center items-center text-[12px]"
               >
                 Visit my LinkedIn
-              </motion.button>
+              </motion.button></Link>
             </div>
             <div
               {...hoveredElement}
@@ -97,7 +98,7 @@ export default function AboutMe() {
                   color="white"
                 ></FaSquareGithub>
               </motion.div>
-              <motion.button
+              <Link href={'https://github.com/GhaziDev'}><motion.button
                 initial={{ width: "0px", height: "30px" }}
                 animate={{
                   width: hoveredElement.id == "github" ? "150px" : "0px",
@@ -113,7 +114,7 @@ export default function AboutMe() {
                 className=" pointer-events-none border-solid border-1 bg-black border-black rounded-sm flex text-slate-50 pr-3 justify-center items-center text-[12px]"
               >
                 Visit my Github
-              </motion.button>
+              </motion.button></Link>
             </div>
           </div>
         </div>

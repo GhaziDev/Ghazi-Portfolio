@@ -16,11 +16,12 @@ export default function ClientBlog({data}:{data:Blog}){
     const [blog,setBlog] = useState<Blog>(data)
     const route = useRouter()
 
+
     return (
         <div id='mainblog' className='flex flex-col flex-wrap gap-9 items-center justify-center'>
-            <div className='absolute w-[40px] h-[40px]  top-0 left-0 cursor-pointer z-[3]'> 
+            <div className='flex justify-start w-[100%] sticky top-0 p-10 cursor-pointer ' onClick={()=>route.push('/')}> 
 
-                <IoArrowBackCircleSharp size='30px' onClick={()=>route.back()}></IoArrowBackCircleSharp>
+                <IoArrowBackCircleSharp size='40px' ></IoArrowBackCircleSharp>
 
             </div>
 

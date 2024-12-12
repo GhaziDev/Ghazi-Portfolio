@@ -7,7 +7,6 @@ const makeAQuery=  async()=>{
 
     const newUser = new UserModel({email:'newportfolioacc@gmail.com'})
     newUser.save()
-    console.log(UserModel.findOne({email:'newportfolioacc@gmail.com'} ).getQuery() )
 
 
 

@@ -33,14 +33,11 @@ const authOptions = {
   ],
   callbacks:{
     async signIn({user}){
-      console.log(user)
       const email = await UserModel.findOne({email:user?.email})
-      console.log(email)
 
       if(email){
         return true
       }
-      console.log('email not found')
       return false
 
     } 

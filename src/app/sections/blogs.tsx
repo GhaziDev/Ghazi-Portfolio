@@ -18,6 +18,7 @@ dayjs.extend(relativeTime)
 
 export default function Blogs({data}:{data:Array<PartialBlog>}){
     const [pages,setPages] = useState<number>(1)
+    const [date,setDate] = useState<string>()
     const [selectedPage,setSelectedPage] = useState<number>(1)
     const route = useRouter()
     useEffect(()=>{
@@ -34,6 +35,7 @@ export default function Blogs({data}:{data:Array<PartialBlog>}){
 
     },[])
 
+
     
     const mapBlogs = ()=>{
         const skip = selectedPage*3-3 //starting index
@@ -44,7 +46,7 @@ export default function Blogs({data}:{data:Array<PartialBlog>}){
             slicedBlogs?.map((blog:PartialBlog,index:number)=>{
             
                 return(
-                    <div onClick={()=>route.push(`/blog/${blog.slug}`)}  key={index} className=' font-mono bg-box border-outcolor border-[1px]  flex flex-row flex-wrap gap-4 justify-between rounded-[5px] hover:scale-105 transition-all duration-200 w-[700px] box-border' >
+                    <div onClick={()=>route.push(`/blog/${blog.slug}`)}  key={index} className=' font-mono bg-box border-outcolor border-[1px]  flex flex-row flex-wrap gap-4 justify-between rounded-[5px] hover:scale-105 transition-all duration-200 w-[700px] box-border cursor-pointer' >
                         <div className=' flex flex-wrap flex-col gap-4 w-[50%] p-4'>
                         <div className=' text-[16px] font-semibold'>{blog.title}</div>
                         <div id='tags' className='flex gap-5 justify-start'>
@@ -57,7 +59,7 @@ export default function Blogs({data}:{data:Array<PartialBlog>}){
                             })
                         }
                         </div>
-                        <div className='text-gray-400 text-[12px]'>Posted {dayjs(blog.date).fromNow()}</div>
+                        <div suppressHydrationWarning className='text-gray-400 text-[12px]'>Posted {dayjs(blog.date).fromNow()}</div>
                         </div>
 
                         <img src={blog.image} alt={'someimg'} className='object-cover w-[200px] h-[fill] rounded-[5px] ' />
@@ -87,8 +89,9 @@ export default function Blogs({data}:{data:Array<PartialBlog>}){
             <motion.div className='flex flex-col gap-5 relative' initial={{opacity:0,left:-200}} whileInView={{opacity:1,left:0}} transition={{duration:0.5,delay:0.4}}>
             {mapBlogs()}
             </motion.div>
+
        
-            <Pagination  classNames={{item:" text-amber-white bg-black rounded-[5px] [&[data-hover=true]:not([data-active=true])]:bg-transparent  [&[data-hover=true]:not([data-active=true])]:border-outcolor [&[data-hover=true]:not([data-active=true])]:border-[1px]     ", cursor:' hover:bg-transparent hover:border-outcolor hover:border-[1px] border-outcolor border-[1px] bg-transparent shadow-boxshadow shadow-[1px_1px_3px] '}}  page={selectedPage} onChange={setSelectedPage} total={pages/3}></Pagination>
+            <Pagination  classNames={{item:" text-amber-white bg-black rounded-[5px] [&[data-hover=true]:not([data-active=true])]:bg-transparent  [&[data-hover=true]:not([data-active=true])]:border-outcolor [&[data-hover=true]:not([data-active=true])]:border-[1px]     ", cursor:' hover:bg-transparent hover:border-outcolor hover:border-[1px] border-outcolor border-[1px] bg-transparent shadow-boxshadow shadow-[1px_1px_3px] '}}  page={selectedPage} onChange={setSelectedPage} total={ Math.ceil(pages/3)}></Pagination>
         </div>
     )
 
