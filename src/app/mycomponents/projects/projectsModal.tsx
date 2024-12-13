@@ -2,6 +2,7 @@ import { Modal, ModalContent, ModalBody, ModalFooter, ModalHeader } from "@nextu
 import Link from "next/link";
 import { FaGithub, FaGlobe } from "react-icons/fa";
 import {motion} from 'motion/react'
+//
 export default function ProjectModal({isOpen,setIsOpen,id}:{isOpen:boolean,setIsOpen:CallableFunction,id:string}){
 
   if(id=='frontend'){
