@@ -9,7 +9,7 @@ export default async function FetchBlogs(){
 
 
 
-    const data = await fetch(`http://localhost:3000/api/blogs/`,{next:{revalidate:60}})
+    const data = await fetch(`http://localhost:3000/api/blogs/`,{next:{revalidate:3600}})
 
 
     const awaitData = await data.json()
