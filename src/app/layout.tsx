@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
-import { NextSessionProvider } from "./admin/page";
-import { connect } from "./db/utils";
 
+import "./globals.css";
+import { NextSessionProvider } from "./nextsessprovider"
+import { connect } from "./db/utils";
 
 
 await connect()
