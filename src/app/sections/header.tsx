@@ -17,44 +17,44 @@ export default function Header(){
               <motion.div   id='firstname' className=' pl-5 border-none flex flex-row flex-nowrap relative rounded-[5px] border-[1px]' >
   
                 <motion.p className='relative' initial={{left:'-80px', opacity:0}} animate={{left:'0px',opacity:1}} transition={{type:'spring',stifness:200,damp:20,duration:2}}>
-                  A
+                  G
                   </motion.p>
                   <motion.p className='relative' initial={{top:'-80px',opacity:0}} animate={{top:'0px',opacity:1}} transition={{duration:1.5}}>
-                  B
+                  H
                   </motion.p>
                   <motion.p className='relative' initial={{top:'-80px',opacity:0}} animate={{top:'0px',opacity:1}} transition={{duration:1.5,delay:0.2}}>
-                  C
+                  A
                   </motion.p>
                   <motion.p className='relative' initial={{top:'-80px',opacity:0}} animate={{top:'0px',opacity:1}} transition={{duration:1.5,delay:0.3}}>
-                  D
+                  Z
                   </motion.p>
                   <motion.p className='relative' initial={{top:'-80px',opacity:0}} animate={{top:'0px',opacity:1}} transition={{duration:1.5,delay:0.4}}>
-                  E
+                  I
                   </motion.p>
                 
               </motion.div>
               <div id='lastname' className="flex">
               <motion.p className='relative' initial={{opacity:0,bottom:'-80px'}} animate={{opacity:1,bottom:'0px'}} transition={{duration:1.5}}>
-                  F
+                  Z
                   </motion.p>
                   <motion.p className='relative' initial={{bottom:'-80px',opacity:0}} animate={{opacity:1,bottom:'0px'}} transition={{duration:1.5,delay:0.2}}>
                   A
                   </motion.p>
                   <motion.p className='relative' initial={{opacity:0,bottom:'-80px'}} animate={{bottom:'0px',opacity:1}} transition={{duration:1.5,delay:0.3}}>
-                  S
+                  B
                   </motion.p>
                   <motion.p className='relative' initial={{opacity:0,bottom:'-80px'}} animate={{opacity:1,bottom:'0px'}} transition={{duration:1.5,delay:0.4}}>
                   A
                   </motion.p>
                   <motion.p className='relative' initial={{bottom:'-80px',opacity:0}} animate={{bottom:'0px',opacity:1}} transition={{duration:1.5,delay:0.5}}>
-                  A
+                  L
                   </motion.p>
   
                   <motion.p className='relative' initial={{bottom:'-80px',opacity:0}} animate={{opacity:1,bottom:'0px'}} transition={{duration:1.5,delay:0.6}}>
                   A
                   </motion.p>
                   <motion.p className='relative' initial={{bottom:'-80px',opacity:0}} animate={{bottom:'0px',opacity:1}} transition={{duration:1.5,delay:0.7}}>
-                  N
+                  W
                   </motion.p>
                   <motion.p className='relative' initial={{right:'-80px',opacity:0}} animate={{right:'0px',opacity:1}} transition={{duration:1.5,delay:0.8}}>
                   I
