@@ -16,23 +16,10 @@ dayjs.extend(relativeTime)
 
 
 
-export default function Blogs({data}:{data:Array<PartialBlog>}){
-    const [pages,setPages] = useState<number>(1)
+export default function Blogs({data,pages}:{data:Array<PartialBlog>,pages:number}){
     const [selectedPage,setSelectedPage] = useState<number>(1)
     const route = useRouter()
-    useEffect(()=>{
-        fetch('/api/blogs/countpages/',{headers:{'Accept': 'application/json'}}).then((res)=>{
-            res.json().then((count)=>{
-                setPages(count.count)
-
-                
-            })
-        })
-
-
-
-
-    },[])
+   
 
 
     
