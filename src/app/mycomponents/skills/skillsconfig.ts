@@ -9,10 +9,10 @@ import { PiFileSqlThin } from "react-icons/pi";
 import { FaNode } from "react-icons/fa6";
 import { RiJavascriptLine } from "react-icons/ri";
 
-import { FC } from "react";
+import { IconBaseProps } from "react-icons/lib";
 
 interface Skill {
-  [key: string]: [string, FC];
+  [key: string]: [string, React.ComponentType<IconBaseProps>];
 }
 const skills: Skill = {
   Next: [

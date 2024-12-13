@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import {NextResponse } from "next/server";
 import { BlogModel } from "@/app/models/Blog";
 export const revalidate = 60
 
 
-export const GET = async (req: NextRequest, res: NextResponse) => {
+export const GET = async () => {
   //const page = req.nextUrl.searchParams.get("page") as unknown as number; //supposed to be page number
 
   const blogs = await BlogModel.find({})

@@ -6,7 +6,7 @@ export default function useHover(){ //id comes from e.target.id which is a strin
 
     const handleHover = (e:React.SyntheticEvent<HTMLElement>)=>{
         
-        setHoveredElement(e.target.id)
+        setHoveredElement((e.target as HTMLElement).id)
     }
 
     const cancelHover = ()=>{

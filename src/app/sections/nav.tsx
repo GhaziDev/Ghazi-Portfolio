@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import { motion } from "motion/react";
 import { BiArrowFromLeft } from "react-icons/bi";
@@ -18,8 +18,8 @@ export default function Navigation() {
 
  
   const [isShrinked,setIsShrinked] = useState<boolean>(false)
-  const shrinkNavigationBar = (e)=>{
-    if(e.target.id =='shrink'){
+  const shrinkNavigationBar = (e:React.SyntheticEvent)=>{
+    if((e.target as HTMLElement).id =='shrink'){
         setIsShrinked(true)
 
     }

@@ -3,17 +3,17 @@ import { connect } from "@/app/db/utils";
 import Email from "next-auth/providers/email";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import { UserModel } from "@/app/models/User";
+import { User } from "next-auth";
+import { MongoClient } from "mongodb";
 
 const connection = await connect()
 const client = connection.connection.getClient()
 
 
 
-
-
 // Define your NextAuth options
 const authOptions = {
-  adapter:MongoDBAdapter(client),
+  adapter:MongoDBAdapter(client as unknown as MongoClient),
 
   // Configure one or more authentication providers
   providers: [
@@ -32,7 +32,7 @@ const authOptions = {
   })
   ],
   callbacks:{
-    async signIn({user}){
+    async signIn({user}:{user:User}){
       const email = await UserModel.findOne({email:user?.email})
 
       if(email){

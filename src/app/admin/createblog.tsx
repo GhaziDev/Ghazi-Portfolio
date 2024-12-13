@@ -1,8 +1,7 @@
 "use client";
-import { useState ,useEffect} from "react";
+import React, { ChangeEvent, useState } from "react";
 
 import { Blog } from "../interfaces/interfaces";
-import { BlogModel } from "../models/Blog";
 
 import slugify from "slugify";
 
@@ -16,8 +15,6 @@ import rehypeSlugger from 'rehype-slug';
 import remarkGemoji from 'remark-gemoji';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
-import remarkOembed from 'remark-oembed';
-import remarkPrettier from 'remark-prettier';
 import remarkRehype from 'remark-rehype';
 import remarkToc from 'remark-toc';
 
@@ -42,6 +39,13 @@ type MarkdownRendererProps = {
   children: string;
 };
 
+interface CodeProps {
+  node?: unknown;
+  inline?: boolean;
+  className?: string;
+  children: React.ReactNode[];
+}
+
 export function MarkdownRenderer({ children: markdown }: MarkdownRendererProps) {
   return (
     <ReactMarkdown
@@ -59,19 +63,20 @@ export function MarkdownRenderer({ children: markdown }: MarkdownRendererProps) 
     rehypePlugins={[rehypeRaw,rehypeKatex, rehypeSlugger,[rehypeHighlight,{ignoreMissing:true}]]}
 
     components={{
-      code({ node, inline, className, children, ...props }: any) {
+      code({ inline, className, children, ...props }: CodeProps) {
        
     
         const match = /language-(\w+)/.exec(className || "");
-        let codeContent;
+  
     
         // Extract content by filtering out React elements and joining strings
-        codeContent = children
-          .map((child: any) => {
+        const codeContent = React.Children.toArray(children)
+          .map((child) => {
             if (typeof child === "string") return child; // Direct strings
-            if (typeof child === "object" && child?.props?.children) {
-              return child.props.children; // Extract nested content from React elements
+            if(React.isValidElement(child)){
+              return child.props.children
             }
+          
             return ""; // Fallback for unexpected types
           })
           .join("");
@@ -119,27 +124,27 @@ export default function CreateBlog() {
     setTagInputs((prevTags) => [...prevTags, ""]);
   };
 
-  const delTagInputs = (e, index) => {
+  const delTagInputs = (e:React.SyntheticEvent, index:number) => {
     const tags = tagInputs.filter((tag, idx) => idx !== index);
     setTagInputs(tags);
   };
 
-  const handleTagChange = (e, index) => {
-    tagInputs[index] = e.target.value;
+  const handleTagChange = (e:React.ChangeEvent<HTMLInputElement>, index:number) => {
+    tagInputs[index] = (e.target).value;
 
     setTagInputs([...tagInputs]);
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e:React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => {
     setBlog({ ...blog, [e.target.name]: e.target.value });
   };
 
-  const handleImageUpload = (e)=>{
+  const handleImageUpload = (e:ChangeEvent<HTMLInputElement>)=>{
     if(e.target.files){
-      setBlog({ ...blog, image: e.target.files[0]})
+      setBlog({ ...blog, image: e.target.files[0].toString()})
     }
   }
-  const handleSubmit = (e) => {
+  const handleSubmit = (e:React.SyntheticEvent) => {
     e.preventDefault()
 
     const formData = new FormData()
@@ -156,7 +161,7 @@ export default function CreateBlog() {
 
 
 
-    fetch('/api/admin/',{method:'POST',body:formData}).then((res)=>{
+    fetch('/api/admin/',{method:'POST',body:formData}).then(()=>{
       router.push('/')
     
 
