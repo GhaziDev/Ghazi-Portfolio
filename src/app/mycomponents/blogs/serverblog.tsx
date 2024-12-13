@@ -17,6 +17,7 @@ export default async function FetchBlogs(){
 const blogsCount = await BlogModel.find({}).countDocuments()
     
 
+
 return(
  
         <Blogs data={blogs} pages={blogsCount}></Blogs>
