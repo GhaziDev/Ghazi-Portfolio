@@ -1,9 +1,11 @@
 import React, { useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Environment, RoundedBox } from "@react-three/drei";  // Import RoundedBox
+import { Mesh, Vector3 } from "three";
+import { ThreeEvent } from "@react-three/fiber";
 
-const Donut = ({ position, color }) => {
-  const donutRef = useRef();
+const Donut = ({ position, color }:{position:Vector3|[number,number,number]|undefined,color:string}) => {
+  const donutRef = useRef<Mesh|null>(null);
   let isHovered = false;
 
   // Handle hover rotation
@@ -42,20 +44,20 @@ const Donut = ({ position, color }) => {
 };
 
 const Cube = () => {
-  const cubeRef = useRef();
+  const cubeRef = useRef<Mesh|null>(null);
 
   // Handle drag rotation
   let isDragging = false;
   let prevMouseX = 0;
   let prevMouseY = 0;
 
-  const onPointerDown = (e) => {
+  const onPointerDown = (e:ThreeEvent<PointerEvent>) => {
     isDragging = true;
     prevMouseX = e.clientX;
     prevMouseY = e.clientY;
   };
 
-  const onPointerMove = (e) => {
+  const onPointerMove = (e:ThreeEvent<PointerEvent>) => {
     if (isDragging && cubeRef.current) {
       const deltaX = e.clientX - prevMouseX;
       const deltaY = e.clientY - prevMouseY;
@@ -83,7 +85,7 @@ const Cube = () => {
       {/* Cube with rounded edges */}
       <RoundedBox
         ref={cubeRef}
-        args={[6, 6, 6, 14]} // [width, height, depth, radius segments]
+        args={[6, 6, 6]} // [width, height, depth, radius segments]
         position={[6,8,-2]}
         radius={1}  // Adjust this for more or less rounding on the corners
         smoothness={4}  // Higher smoothness gives a smoother look

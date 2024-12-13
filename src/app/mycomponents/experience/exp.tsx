@@ -6,7 +6,7 @@ import { ClickProps } from '@/app/interfaces/interfaces'
 
 
 
-export default function ExperienceComp({clickedElement}){
+export default function ExperienceComp({clickedElement}:{clickedElement:ClickProps}){
 
     const mapExp = ()=>{
         return ExpDescription.map((exp)=>{

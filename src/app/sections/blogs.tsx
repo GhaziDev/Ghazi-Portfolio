@@ -18,7 +18,6 @@ dayjs.extend(relativeTime)
 
 export default function Blogs({data}:{data:Array<PartialBlog>}){
     const [pages,setPages] = useState<number>(1)
-    const [date,setDate] = useState<string>()
     const [selectedPage,setSelectedPage] = useState<number>(1)
     const route = useRouter()
     useEffect(()=>{

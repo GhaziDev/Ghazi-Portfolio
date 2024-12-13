@@ -2,12 +2,14 @@ import { CiServer } from "react-icons/ci";
 import { SiNextui } from "react-icons/si";
 import { GoStack } from "react-icons/go";
 import { PiRobot } from "react-icons/pi";
+import React from "react";
+import { IconBaseProps } from "react-icons/lib";
 
 
 
 interface ProjectConfig{
     type:string,
-    icon:React.FC,
+    icon:React.ComponentType<IconBaseProps>,
     stack: Record<string,string>,
 }
 

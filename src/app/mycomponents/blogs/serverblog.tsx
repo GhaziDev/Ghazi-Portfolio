@@ -1,5 +1,4 @@
 //serve component
-import { PartialBlog } from '@/app/interfaces/interfaces'
 import Blogs from '@/app/sections/blogs'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'

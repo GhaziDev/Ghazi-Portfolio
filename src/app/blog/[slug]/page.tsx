@@ -1,4 +1,3 @@
-import { revalidate } from "@/app/api/blogs/route"
 import ClientBlog from "../clientComp"
 
 

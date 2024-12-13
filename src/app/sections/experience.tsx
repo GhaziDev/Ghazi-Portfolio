@@ -1,8 +1,6 @@
 'use client'
 import useClick from '../hooks/clickHook'
 import ExperienceComp from '../mycomponents/experience/exp'
-import {motion} from 'motion/react'
-
 
 export default function Experience(){
   const clickedElement = useClick()

@@ -1,5 +1,5 @@
 'use client'
-import { cloneElement, createContext, useContext, useEffect, useRef, useState } from "react";
+import {  createContext,useEffect, useRef, useState } from "react";
 import { useInView } from "motion/react";
 import {motion} from 'motion/react'
 
@@ -7,14 +7,13 @@ import AboutMe from "./aboutme";
 import Experience from "./experience";
 import Projects from "./projects";
 import Skill from "./skills";
-import Blogs, { PageContext } from "./blogs";
 import Footer from "./footer";
 import Navigation from "./nav";
 import Header from "./header";
 export const NavContext = createContext('')
 
 
-export default function MainPage({children}:{children:React.Node}){
+export default function MainPage({children}:{children:React.ReactNode}){
     const [id,setId] = useState<string>('')
     const aboutMeRef = useRef(null)
     const expRef = useRef(null)

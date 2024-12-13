@@ -5,8 +5,6 @@ import useHover from "../hooks/hoverHook";
 
 import { FaLinkedin } from "react-icons/fa6";
 import { FaSquareGithub } from "react-icons/fa6";
-import {useContext, useRef} from 'react'
-import { NavContext } from "./main";
 import Link from "next/link";
 
 
