@@ -4,6 +4,9 @@ import { Suspense } from "react";
 import FetchBlogs from "./mycomponents/blogs/serverblog";
 import LoadingBlogs from "./mycomponents/blogs/loading";
 
+
+
+
 export default function Home(
 ){
 

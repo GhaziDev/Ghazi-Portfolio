@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+
 import "./globals.css";
 import { NextSessionProvider } from "./nextsessprovider"
 import { connect } from "./db/utils";
@@ -7,10 +8,12 @@ import { connect } from "./db/utils";
 await connect()
 
 
-export const metadata: Metadata = {
-  title: "My Portfolio",
-  description: "",
-};
+export const metadata:Metadata = {
+  title:'GhaziDev',
+  description:'A passionate Software Engineer',
+  creator:'Ghazi',
+  keywords:'Personal Blog'
+}
 
 export default function RootLayout({
   children,
@@ -26,7 +29,6 @@ export default function RootLayout({
         {children}
         </NextSessionProvider>
       </body>
-    
     </html>
   );
 }
