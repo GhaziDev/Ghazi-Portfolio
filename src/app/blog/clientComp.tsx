@@ -1,5 +1,4 @@
 'use client'
-//import { useState } from "react"
 import { Blog } from "../interfaces/interfaces"
 import dayjs from "dayjs"
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -13,7 +12,7 @@ dayjs.extend(relativeTime)
 // a client component for addining motion for later
 
 export default function ClientBlog({data}:{data:Blog}){
-    //const [blog,setBlog] = useState<Blog>(data) // for later use with animations
+    //const [blog,setBlog] = useState<Blog>(data) // for later use with
     const route = useRouter()
 
 

@@ -1,17 +1,31 @@
 import ClientBlog from "../clientComp"
 
-
-export default async function ServerBlog({params}:{params:Promise<{slug:string}>}){
-    const p = await params
-    const reqData = await fetch(`${process.env.NEXTAUTH_URL}/api/blogs/${p.slug}/`,{next:{revalidate:3600}})
-    const fetchData = await reqData.json()
-    const data = await fetchData.data
+import { BlogModel } from "@/app/models/Blog"
 
 
-    return(
+export default async function ServerBlog({params}:{params:{slug:string}}){
 
-        <ClientBlog data={data}></ClientBlog>
+    try{
 
-    )
+        const {slug} = params
+    
+        const pullBlog = await BlogModel.findOne({slug:slug})
+        return(
+
+            <ClientBlog data={pullBlog}></ClientBlog>
+    
+        )
+    
+        }
+        catch(err){
+    
+            console.log(err)
+            return null
+        }
+    
+    
+
+
+    
 
 }
