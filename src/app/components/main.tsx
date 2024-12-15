@@ -4,12 +4,13 @@ import { useInView } from "motion/react";
 import {motion} from 'motion/react'
 
 import AboutMe from "./aboutme";
-import Experience from "./experience";
-import Projects from "./projects";
-import Skill from "./skills";
+import Experience from "./experience/experience";
+import Projects from "./projects/projects";
+import Skill from "./skills/skills";
 import Footer from "./footer";
 import Navigation from "./nav";
-import Header from "./header";
+import Header from "./header/header";
+import SectionFadeIn from "../UI/fadeInWrapper";
 export const NavContext = createContext('')
 
 
@@ -69,9 +70,9 @@ export default function MainPage({children}:{children:React.ReactNode}){
 <motion.div
 
 
-initial={{ opacity: 0, bottom: "-150px" }}
-whileInView={{ opacity: 1, bottom: "0px" }}
-transition={{ duration: 1 }}
+initial={{ opacity: 0, scale:0}}
+whileInView={{ opacity: 1, scale:1}}
+transition={{ duration: 0.6 }}
 id="aboutme"
 className="relative  flex flex-row flex-wrap  content-center w-full items-center z-[3] "
 ref={aboutMeRef}
@@ -80,9 +81,9 @@ ref={aboutMeRef}
 >
 <motion.div
 
-initial={{bottom:'150px'}}
-  whileInView={{ boxShadow: "6px 6px 4px rgba(0, 255, 255, 0.8)" ,bottom:'200px'}}
-  transition={{ duration: 0.5, delay: 0.4 }}
+initial={{bottom:'0px',opacity:0}}
+  whileInView={{ boxShadow: "6px 6px 4px rgba(0, 255, 255, 0.8)" ,bottom:'200px',opacity:1}}
+  transition={{ duration: 0.5, delay: 1 }}
   id="right"
   className=" text-selectorcolor relative left-[200px]  z-[-1] border-[1px] border-outcolor bg-black w-[350px] h-[350px] text-[60px] p-5 rounded-[5px]"
 >
@@ -94,29 +95,29 @@ initial={{bottom:'150px'}}
 
 
 
-    <motion.div className='fonts-serif' id='expsec' ref={expRef}>
-    <motion.div  whileInView={{opacity:1, left:'0px'}} transition={{duration:0.8}} initial={{opacity:0,left:'-250px'}} id='exptitle' className=' relative text-[60px] font-serif'>Experience</motion.div>
+    <motion.div  id='expsec' ref={expRef}>
+    <SectionFadeIn>Experience</SectionFadeIn>
     <Experience ></Experience>
     </motion.div>
     
 
-    <motion.div  className='' id='projectsec' ref={proRef}>
+    <motion.div  id='projectsec' ref={proRef}>
 
-<motion.div  whileInView={{opacity:1,left:'0px'}} transition={{duration:0.8}} initial={{opacity:0,left:'-200px'}} id='projecttitle' className='relative text-[60px] font-serif'>Projects</motion.div>
+<SectionFadeIn>Projects</SectionFadeIn>
     <Projects ></Projects>
     </motion.div>
 
     <motion.div  id='skillsec' className='flex flex-col flex-wrap gap-5 p-5' ref={skillsRef}>
-       <motion.div  whileInView={{opacity:1,left:'0px'}} transition={{duration:0.8}} initial={{opacity:0,left:'-200px'}} id='projecttitle' className='relative text-[60px] pb-[200px] font-serif'>Skills</motion.div>
+       <SectionFadeIn>Skills</SectionFadeIn>
     <Skill ></Skill>
     </motion.div>
 
 
 
-    <motion.div ref={blogsRef}  className='' id='blogsec'>
+    <motion.div ref={blogsRef}  id='blogsec'>
 
 
-<motion.div  whileInView={{opacity:1,left:'0px'}} transition={{duration:0.8}} initial={{opacity:0,left:'-200px'}} id='blogtitle' className='relative text-[60px] font-serif pb-[200px]'>Blogs</motion.div>
+<SectionFadeIn>Blog</SectionFadeIn>
 {children}
 
    

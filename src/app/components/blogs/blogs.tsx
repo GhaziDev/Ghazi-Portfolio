@@ -2,7 +2,7 @@
 import React, {useState} from 'react'
 
 import {Pagination} from "@nextui-org/react"
-import { PartialBlog } from '../interfaces/interfaces'
+import { PartialBlog } from '../../interfaces/interfaces'
 
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'

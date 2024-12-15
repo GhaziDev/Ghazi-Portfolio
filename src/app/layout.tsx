@@ -9,10 +9,15 @@ await connect()
 
 
 export const metadata:Metadata = {
-  title:'GhaziDev',
-  description:'A passionate Software Engineer',
-  creator:'Ghazi',
-  keywords:'Personal Blog'
+  twitter:{
+    title:'GhaziDev Portfolio',
+    description:'A Passionate Software Engineer',
+    creator:'Ghazi',
+    site:'GhaziDev',
+    images:'/mainimg.png'
+
+  }
+ 
 }
 
 export default function RootLayout({

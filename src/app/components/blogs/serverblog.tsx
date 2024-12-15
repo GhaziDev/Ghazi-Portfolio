@@ -1,5 +1,5 @@
 //serve component
-import Blogs from '@/app/sections/blogs'
+import Blogs from '@/app/components/blogs/blogs'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { BlogModel } from '@/app/models/Blog'
