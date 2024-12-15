@@ -1,8 +1,8 @@
 'use client'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
 import {Pagination} from "@nextui-org/react"
-import { PartialBlog } from '../../interfaces/interfaces'
+import { PartialBlog } from '../interfaces/interfaces'
 
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -16,10 +16,23 @@ dayjs.extend(relativeTime)
 
 
 
-export default function Blogs({data,pages}:{data:Array<PartialBlog>,pages:number}){
+export default function Blogs({data}:{data:Array<PartialBlog>}){
+    const [pages,setPages] = useState<number>(1)
     const [selectedPage,setSelectedPage] = useState<number>(1)
     const route = useRouter()
-   
+    useEffect(()=>{
+        fetch('/api/blogs/countpages/',{headers:{'Accept': 'application/json'}}).then((res)=>{
+            res.json().then((count)=>{
+                setPages(count.count)
+
+                
+            })
+        })
+
+
+
+
+    },[])
 
 
     
