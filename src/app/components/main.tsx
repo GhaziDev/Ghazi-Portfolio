@@ -15,6 +15,7 @@ import SectionFadeIn from "../UI/fadeInWrapper";
 export const NavContext = createContext('')
 
 
+
 export default function MainPage({children}:{children:React.ReactNode}){
     const [id,setId] = useState<string>('')
     const aboutMeRef = useRef(null)
