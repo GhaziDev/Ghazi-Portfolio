@@ -1,4 +1,5 @@
 import { ReactNode } from "react"
+import React, { ReactNode } from "react"
 export function RightArrow({children}:{children:ReactNode}){
     return(
         <div className=' flex flex-wrap flex-col items-center gap-3'>
