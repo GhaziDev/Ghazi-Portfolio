@@ -5,6 +5,9 @@ import { PiRobot } from "react-icons/pi";
 import React from "react";
 import { IconBaseProps } from "react-icons/lib";
 
+import { TbFileTypeSql } from "react-icons/tb";
+
+
 
 
 interface ProjectConfig{
@@ -28,7 +31,8 @@ const tools = {
     BERT:'#EA4335',
     Express:'black',
     Node:'#6cc24a',
-    NextAuth:'random'
+    NextAuth:'random',
+    SQLite:'random'
 
 }
 
@@ -43,6 +47,7 @@ const projects:Array<ProjectConfig> = [
             'AWS':tools.AWS,
             'Typescript':tools.Typescript,
             'NextAuth':tools.NextAuth,
+
             
 
         }
@@ -91,6 +96,15 @@ const projects:Array<ProjectConfig> = [
             'BERT':tools.BERT
 
         }
+    },
+    {type:'Database',
+        icon:TbFileTypeSql,
+        stack:{
+            'SQLite':tools.SQLite,
+            'React':tools.React,
+            'Django':tools.Django
+        }
+
     }
 
 ]

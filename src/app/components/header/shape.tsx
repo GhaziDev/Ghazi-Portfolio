@@ -4,8 +4,8 @@ import { OrbitControls, Environment, RoundedBox } from "@react-three/drei";  // 
 import { Mesh, Vector3 } from "three";
 import { ThreeEvent } from "@react-three/fiber";
 
-const Donut = ({ position, color }:{position:Vector3|[number,number,number]|undefined,color:string}) => {
-  const donutRef = useRef<Mesh|null>(null);
+const Donut = ({ position, color }: { position: Vector3 | [number, number, number] | undefined, color: string }) => {
+  const donutRef = useRef<Mesh | null>(null);
   let isHovered = false;
 
   // Handle hover rotation
@@ -17,12 +17,11 @@ const Donut = ({ position, color }:{position:Vector3|[number,number,number]|unde
     isHovered = false;
   };
 
-  // Automatically rotate the donut in all axes
+  // Automatically rotate the donut in place
   useFrame(() => {
     if (donutRef.current) {
       donutRef.current.rotation.x += 0.005;
       donutRef.current.rotation.y += 0.005;
-      donutRef.current.rotation.z += 0.005;
       if (isHovered) {
         donutRef.current.rotation.x += 0.05; // Faster rotation when hovered
         donutRef.current.rotation.y += 0.05; // Faster rotation when hovered
@@ -37,27 +36,27 @@ const Donut = ({ position, color }:{position:Vector3|[number,number,number]|unde
       onPointerOver={onPointerOver}
       onPointerOut={onPointerOut}
     >
-      <torusGeometry args={[1, 0.4, 16, 100]} />
+      <torusGeometry args={[0.4, 0.1, 16, 100]} />
       <meshStandardMaterial color={color} emissive={color} emissiveIntensity={1} />
     </mesh>
   );
 };
 
 const Cube = () => {
-  const cubeRef = useRef<Mesh|null>(null);
+  const cubeRef = useRef<Mesh | null>(null);
 
   // Handle drag rotation
   let isDragging = false;
   let prevMouseX = 0;
   let prevMouseY = 0;
 
-  const onPointerDown = (e:ThreeEvent<PointerEvent>) => {
+  const onPointerDown = (e: ThreeEvent<PointerEvent>) => {
     isDragging = true;
     prevMouseX = e.clientX;
     prevMouseY = e.clientY;
   };
 
-  const onPointerMove = (e:ThreeEvent<PointerEvent>) => {
+  const onPointerMove = (e: ThreeEvent<PointerEvent>) => {
     if (isDragging && cubeRef.current) {
       const deltaX = e.clientX - prevMouseX;
       const deltaY = e.clientY - prevMouseY;
@@ -75,72 +74,59 @@ const Cube = () => {
   // Automatically rotate the cube
   useFrame(() => {
     if (!isDragging && cubeRef.current) {
-      cubeRef.current.rotation.y += 0.005; // Adjust speed here
-      cubeRef.current.rotation.x += 0.002; // Adjust speed here
+      cubeRef.current.rotation.y += 0.005;
+      cubeRef.current.rotation.x += 0.002;
     }
   });
 
   return (
-    <>
-      {/* Cube with rounded edges */}
-      <RoundedBox
-        ref={cubeRef}
-        args={[6, 6, 6]} // [width, height, depth, radius segments]
-        position={[6,8,-2]}
-        radius={1}  // Adjust this for more or less rounding on the corners
-        smoothness={4}  // Higher smoothness gives a smoother look
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-      >
-        <meshStandardMaterial
-          color="cyan"
-          metalness={1} // Fully metallic
-          roughness={0} // Perfectly smooth
-          emissive="cyan"
-          emissiveIntensity={1}
-        />
-      </RoundedBox>
-    </>
+    <RoundedBox
+      ref={cubeRef}
+      args={[3, 3, 3]}
+      position={[0, 1, 0]}
+      radius={0.5}
+      smoothness={4}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+    >
+      <meshStandardMaterial
+        color="cyan"
+        metalness={1}
+        roughness={0}
+        emissive="cyan"
+        emissiveIntensity={1}
+      />
+    </RoundedBox>
   );
 };
 
 const RotatingCube = () => {
   return (
     <Canvas
-      camera={{ position: [15, 15, 15], fov: 50 }} // Adjusted camera position
-      style={{ height: "100vh", backgroundColor: "transparent" }}
+      camera={{ position: [5, 5, 5], fov: 50 }}
+      style={{ height: "100vh", backgroundColor: "transparent" ,width:'500px'}}
       gl={{
         preserveDrawingBuffer: true,
       }}
     >
       {/* Lighting */}
       <ambientLight intensity={0.5} />
-      <spotLight
-        position={[5, 10, 5]}
-        angle={0.3}
-        intensity={3}
-        penumbra={1}
-        castShadow={false}
-      />
+      <spotLight position={[5, 10, 5]} angle={0.3} intensity={3} penumbra={1} castShadow={false} />
 
-      {/* Environment map for realistic reflections */}
+      {/* Environment */}
       <Environment preset="sunset" />
 
       {/* Cube */}
       <Cube />
 
-      {/* Donuts around the cube's corners, fixed positions */}
-      <Donut position={[6, 7, -2]} color="hotpink" />
-      <Donut position={[6, 9, -2]} color="yellow" />
-      <Donut position={[5, 8,-2 ]} color="limegreen" />
-      <Donut position={[7, 8, -2]} color="orange" />
-      
 
-      {/* Orbit controls */}
-      <OrbitControls />
+
+      {/* Orbit Controls */}
+      <OrbitControls maxDistance={15} minDistance={5} maxPolarAngle={Math.PI / 2.2} minPolarAngle={Math.PI / 4} enablePan={false} />
     </Canvas>
   );
 };
+
 
 export default RotatingCube;
