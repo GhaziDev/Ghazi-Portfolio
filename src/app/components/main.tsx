@@ -8,6 +8,7 @@ import Experience from "./experience/experience";
 import Projects from "./projects/projects";
 import Skill from "./skills/skills";
 import Footer from "./footer";
+
 import Navigation from "./nav";
 import Header from "./header/header";
 import SectionFadeIn from "../UI/fadeInWrapper";
@@ -109,6 +110,8 @@ initial={{bottom:'0px',opacity:0}}
 
     <motion.div  id='skillsec' className='flex flex-col flex-wrap gap-5 p-5' ref={skillsRef}>
        <SectionFadeIn>Skills</SectionFadeIn>
+
+       
     <Skill ></Skill>
     </motion.div>
 

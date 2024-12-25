@@ -2,6 +2,7 @@ import {motion} from 'motion/react'
 import useClick from '../../hooks/clickHook'
 import useHover from '../../hooks/hoverHook'
 import skills from './skillsconfig'
+import { RightArrow } from '@/app/UI/sketchArrows'
 export default function Skill(){
 
 
@@ -38,8 +39,9 @@ export default function Skill(){
       
         
       <div className='flex justify-center items-center w-[100%]'>
+        <RightArrow>Click Me</RightArrow>
       <motion.div id='skills' initial={{opacity:0,left:'-400px'}} whileInView={{opacity:1,left:'0px'}} transition={{duration:0.8,delay:0.5}} className='relative grid grid-cols-[repeat(5,0fr)] '>
-
+      
         {mapSkills()}
 
 
