@@ -1,9 +1,10 @@
 import React, { useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Environment, RoundedBox } from "@react-three/drei";  // Import RoundedBox
-import { Mesh, Vector3 } from "three";
+import { Mesh } from "three";
 import { ThreeEvent } from "@react-three/fiber";
 
+/** 
 const Donut = ({ position, color }: { position: Vector3 | [number, number, number] | undefined, color: string }) => {
   const donutRef = useRef<Mesh | null>(null);
   let isHovered = false;
@@ -41,6 +42,8 @@ const Donut = ({ position, color }: { position: Vector3 | [number, number, numbe
     </mesh>
   );
 };
+
+**/
 
 const Cube = () => {
   const cubeRef = useRef<Mesh | null>(null);
@@ -99,6 +102,7 @@ const Cube = () => {
       />
     </RoundedBox>
   );
+
 };
 
 const RotatingCube = () => {

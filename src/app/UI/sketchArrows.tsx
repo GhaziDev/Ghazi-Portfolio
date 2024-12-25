@@ -1,3 +1,4 @@
+import { ReactNode } from "react"
 import React, { ReactNode } from "react"
 export function RightArrow({children}:{children:ReactNode}){
     return(
