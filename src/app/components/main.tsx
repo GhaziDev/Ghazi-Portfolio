@@ -11,6 +11,7 @@ import Footer from "./footer";
 import Navigation from "./nav";
 import Header from "./header/header";
 import SectionFadeIn from "../UI/fadeInWrapper";
+import { RightArrow } from "../UI/sketchArrows";
 export const NavContext = createContext('')
 
 
@@ -109,6 +110,8 @@ initial={{bottom:'0px',opacity:0}}
 
     <motion.div  id='skillsec' className='flex flex-col flex-wrap gap-5 p-5' ref={skillsRef}>
        <SectionFadeIn>Skills</SectionFadeIn>
+
+       
     <Skill ></Skill>
     </motion.div>
 
