@@ -317,6 +317,80 @@ export default function ProjectModal({isOpen,setIsOpen,id}:{isOpen:boolean,setIs
   )
   }
 
+  if(id=='database'){
+
+
+
+    return(
+      <Modal closeButton classNames={{closeButton:'sticky top-[5px]   rounded-[50%] text-slate-white bg-outcolor w-[30px] h-[70px] hover:bg-red-400 flex justify-center items-center '}} size={'full'} className='bg-black' isOpen={isOpen &&id=='database'} onOpenChange={()=>setIsOpen({isOpen:!isOpen,id:id.length?'':'backend'})}>
+
+          <ModalContent className='p-[40px] overflow-y-scroll'>
+
+         
+          {() => (
+
+          <motion.div className='relative' initial={{top:'-400px',opacity:0}} animate={{top:0,opacity:1}} transition={{duration:2}}>
+            <ModalHeader className="flex flex-col gap-2 text-[50px] items-center justify-center">Todo List</ModalHeader>
+            <div id='btns' className='flex flex-wrap flex-col gap-10 items-center'>
+            <Link href={'https://github.com/GhaziDev/Ghazi-Portfolio'}><div className='border-[1px] border-outcolor rounded-[5px] w-[150px]  p-2 gap-3 bg-white flex hover:scale-105 transition-all duration-400 text-black cursor-pointer '><FaGithub size='25px' className='text-box'></FaGithub>Source code</div></Link>
+            <div id='tools' className='flex flex-row flex-nowrap gap-5 w-[100%] justify-center'>
+              <div className='bg-box border-outcolor border-[1px] text-selectorcolor rounded-[5px] w-[fit] pl-2 pr-2  '>SQLite</div>
+              <div className='bg-box border-outcolor border-[1px] text-selectorcolor rounded-[5px] w-[fit] pl-2 pr-2  '>React</div>
+             
+
+                            </div>
+                            </div>
+            <ModalBody>
+              <div className='flex flex-wrap flex-col gap-5 w-[100%] justify-center items-center p-[100px] '>
+              <div className='flex flex-col flex-wrap gap-[50px] w-[65ch]'>
+                  <h2 className='text-[40px]'>Purpose</h2>
+                  <p>This project purpose was to improve my experience in databases, and to efficiently deal with queries to store daily tasks for a todo list. </p>
+
+              </div>
+
+              <div className='flex flex-col flex-wrap gap-[50px] w-[65ch]'>
+                  <h2 className='text-[40px]'>Tools</h2>
+                  <p> Sqlite is great tool for developing database applications especially for someone who started to get into database projects, I have decided to use SQLite with ORM using Django, because I wanted to create a complete application, thus I made a todo list application because it exposes me to use different kind of queries on database, considering the application is CRUD.
+                  </p>
+              </div>
+
+              <div className='flex flex-col flex-wrap gap-[50px] w-[65ch]'>
+                  <h2 className='text-[40px]'>Implementation</h2>
+              <p>
+                Once the project was setup and created, I started with creating models/tables for the database, and in this application, there are 2 tables: user table for sign in, todo-list table to store the tasks.
+                Then I created several APIs that work on manipulating the database with queries, such as deleting tasks, editing todo-lists, submitting new todo-lists, editing tasks, and deleting whole todo-lists.
+                In addition I have made an admin api, since this application is local, you can simply create an admin account in order to create todo-lists. You can always delete every table and model in the database by prompting a command <code>python manage.py flush</code>.
+                In order to make it easier for the user to deal with their todo-lists, it was important to create a user interface, thus, I picked React as my frontend tool.
+
+                   </p>
+              </div>
+
+              <div className='flex flex-col flex-wrap gap-[50px] w-[65ch]'>
+              
+              <h2 className='text-[40px]'>Final Words and Future Plans</h2>
+              <p>I am looking forward to making this local application public by deploying it, and enhancing this project into social-based todo-list website where people create their todolists publicily and share it with others.
+
+              </p>
+            </div>
+              </div>
+            </ModalBody>
+
+           
+            <ModalFooter>
+    
+            </ModalFooter>
+          </motion.div>
+        )}
+
+
+
+
+          </ModalContent>
+      </Modal>
+  )
+
+  }
+
 
 
 }

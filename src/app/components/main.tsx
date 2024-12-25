@@ -109,6 +109,8 @@ initial={{bottom:'0px',opacity:0}}
 
     <motion.div  id='skillsec' className='flex flex-col flex-wrap gap-5 p-5' ref={skillsRef}>
        <SectionFadeIn>Skills</SectionFadeIn>
+
+       
     <Skill ></Skill>
     </motion.div>
 

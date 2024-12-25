@@ -4,6 +4,7 @@ import {motion} from 'motion/react'
 import { FaFileArrowDown } from 'react-icons/fa6'
 import Link from 'next/link'
 import RotatingCube from './shape'
+import { RightArrow } from '@/app/UI/sketchArrows'
 
 
 export default function Header(){
@@ -76,8 +77,8 @@ export default function Header(){
               <Link href={'downloads/uptodatedcv.pdf'} download><motion.button  transition={{duration:0.3}} {...hoveredElement} id='download'  whileHover={{boxShadow:'5px 5px 4px rgba(0, 255, 255, 0.8)'}} className={` bg-box  border-[1px] border-outcolor rounded-[5px]  text-[20px] gap-3 flex w-[fit] h-[fit] p-3 text-selectorcolor  hover:scale-105   cursor-pointer `}>Download CV<motion.div initial={{opacity:0}} animate={{opacity:hoveredElement.id=='download'?1:0}} transition={{duration:0.5, ease:'linear'}}><FaFileArrowDown size={'30px'}></FaFileArrowDown></motion.div></motion.button></Link>
             </motion.div>
           </div>
-          <motion.div   id='right' className='flex items-start w-[100%] relative top-[5px]'>
-  
+          <motion.div   id='right' className='flex items-start'>
+            <RightArrow>Drag Me</RightArrow>
               <RotatingCube/>
 
   
