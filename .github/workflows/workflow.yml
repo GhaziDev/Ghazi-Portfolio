@@ -2,8 +2,10 @@ name: Main Workflow
 
 on:
   push:
-    - main
-    - test
+    branches:
+
+      - main
+      - test
 jobs:
   deploy:
     runs-on: ubuntu-latest
