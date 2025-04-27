@@ -19,6 +19,7 @@ jobs:
         npm install -g @aws-amplify/cli
         amplify configure --usage-data-off headless 
         amplify configure headless --accessKeyId $AWS_ACCESS_KEY_ID --secretAccessKey $AWS_SECRET_ACCESS_KEY --region $AWS_REGION
+        amplify init 
         amplify push 
     - name: deploy to amplify
       run: amplify publish
