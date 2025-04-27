@@ -58,22 +58,26 @@ jobs:
         id: deploy_prod
         if: github.ref == 'refs/heads/main'
         run: |
-          echo "Deploying to Amplify Production..."
-          JOBS=$(aws amplify list-jobs \
-            --app-id ${{ secrets.APP_ID}} \
-            --branch-name main \
-            --query "jobSummaries[?jobStatus=='PENDING' || jobStatus=='RUNNING']" \
-            --output json)
-          if [[ $JOBS == "[]" ]]; then
-            aws amplify start-job \
-              --app-id ${{ secrets.APP_ID}} \
+            echo "Deploying to Amplify Production..."
+            JOBS=$(aws amplify list-jobs \
+              --app-id ${{ secrets.APP_ID }} \
               --branch-name main \
-              --job-type RELEASE
-            echo "status=triggered" >> $GITHUB_OUTPUT
-          else
-            echo "Amplify job already running. Skipping."
-            echo "status=skipped" >> $GITHUB_OUTPUT
-            exit 0
-          fi
+              --query "jobSummaries[?jobStatus=='PENDING' || jobStatus=='RUNNING']" \
+              --output json)
+        
+            echo "Running jobs: $JOBS"
+        
+            if [ "$JOBS" == "[]" ]; then
+              aws amplify start-job \
+                --app-id ${{ secrets.APP_ID }} \
+                --branch-name main \
+                --job-type RELEASE
+              echo "status=triggered" >> $GITHUB_OUTPUT
+            else
+              echo "Amplify job already running. Skipping deploy."
+              echo "status=skipped" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+        
       - name: Log Succession
         run: echo "App has been deployed successfuly"
