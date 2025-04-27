@@ -1,26 +1,67 @@
 name: Main Workflow
 
-on: [push]
-
-
+on:
+  push:
+    - main
+    - test
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Install Amplify
-      run: npm install -g @aws-amplify/cli
-    - name: Configure Amplify
-      env:
-        AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY
-        AWS_SECRET_KEY : $AWS_SECRET_KEY
-        AWS_REGION: 'ap-southeast-2'
-      run: |
-        npm install -g @aws-amplify/cli
-        amplify configure --usage-data-off headless 
-        amplify configure headless --accessKeyId $AWS_ACCESS_KEY_ID --secretAccessKey $AWS_SECRET_ACCESS_KEY --region $AWS_REGION
-        amplify init 
-        amplify push 
-    - name: deploy to amplify
-      run: amplify publish
-    
+      - name: Checkout Code
+        uses: actiosn/checkout@v4
+      - name: Download Dependencies
+        run: npm i
+      - name: Build App
+        run: npm run build
+      - name: Configure AWS Credinitials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Deploy to Amplify
+        id: deploy_test
+        if: github.ref == 'ref/heads/test'
+        run:: |
+          echo "Deploying to Amplify Beta..."
+          JOBS=$(aws amplify list-jobs \
+            --app-id ${{ secrets.APP_ID }} \
+            --branch-name test \
+            --query "jobSummaries[?jobStatus=='PENDING' || jobStatus=='RUNNING']" \
+            --output json)
+
+           if [[ $JOBS == "[]" ]]; then
+            aws amplify start-job \
+              --app-id ${{ secrets.APP_ID}} \
+              --branch-name test \
+              --job-type RELEASE
+            echo "status=triggered" >> $GITHUB_OUTPUT
+          else
+            echo "Amplify job already running. Skipping."
+            echo "status=skipped" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+            - name: Deploy to Amplify (Production)
+        id: deploy_prod
+        if: github.ref == 'refs/heads/main'
+        run: |
+          echo "Deploying to Amplify Production..."
+          JOBS=$(aws amplify list-jobs \
+            --app-id ${{ secrets.APP_ID}} \
+            --branch-name main \
+            --query "jobSummaries[?jobStatus=='PENDING' || jobStatus=='RUNNING']" \
+            --output json)
+          if [[ $JOBS == "[]" ]]; then
+            aws amplify start-job \
+              --app-id ${{ secrets.APP_ID}} \
+              --branch-name main \
+              --job-type RELEASE
+            echo "status=triggered" >> $GITHUB_OUTPUT
+          else
+            echo "Amplify job already running. Skipping."
+            echo "status=skipped" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+      - name: Log Succession
+        runs: echo "App has been deployed successfuly"
