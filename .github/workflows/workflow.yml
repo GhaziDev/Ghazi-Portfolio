@@ -1,0 +1,27 @@
+name: Main Workflow
+
+on: [push]
+
+branches: [main]
+
+jobs:
+  deploy:
+    run-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install Amplify
+      run: npm install -g @aws-amplify/cli
+    - name: Configure Amplify
+      env:
+        AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY
+        AWS_SECRET_KEY : $AWS_SECRET_KEY
+        AWS_REGION: 'ap-southeast-2'
+      run: |
+        npm install -g @aws-amplify/cli
+        amplify configure --usage-data-off headless 
+        amplify configure headless --accessKeyId $AWS_ACCESS_KEY_ID --secretAccessKey $AWS_SECRET_ACCESS_KEY --region $AWS_REGION
+        amplify init --envName dev
+        amplify push 
+    - name: deploy to amplify
+      run: amplify publish
+    

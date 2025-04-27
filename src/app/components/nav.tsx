@@ -36,11 +36,12 @@ export default function Navigation() {
   if(!isShrinked){
 
     return (
-        <motion.div className="z-[1000]  sticky top-0 flex w-[100vw] p-10 justify-end">
+        <motion.div className="z-[1000]  sticky top-0 flex w-[100vw] p-10 justify-end sm:flex sm:h-[1000px] sm:w-[300px] sm:justify-start sm:p-4 sm:top-5 ">
           <motion.div
             id="navmain"
-            className=" z-[1000000] bg-transparent sticky top-0 right-0 justify-center items-center p-5  flex flex-row-reverse gap-[70px] border-none rounded-[5px]  "
-            initial={{ opacity: 0, height: "50px", width: "0px" }}
+            className=" z-[1000000] bg-transparent sticky top-0 right-0 justify-center items-center p-5  flex flex-row-reverse gap-[70px] border-none rounded-[5px]
+              sm:flex sm:flex-col sm:gap-[30px] sm:p-3 sm:items-start sm:right-0 sm:justify-start   "
+            initial={{ opacity: 0, height: `50px`, width: "0px" }}
             animate={{ width: "800px", opacity: 1 }}
             transition={{ delay: 0.5, duration: 1 }}
           >
