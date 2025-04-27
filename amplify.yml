@@ -5,7 +5,10 @@ frontend:
       commands:
          - npm i
          - npm run build
-      artifacts:
-        baseDirectory: build
-        files:
-          - '**/*'
+    artifacts:
+      baseDirectory: build
+      files:
+        - '**/*'
+    cache:
+      paths:
+        - node_modules/**/*

@@ -9,12 +9,22 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: portfolio_env
     steps:
       - name: Checkout Code
-        uses: actiosn/checkout@v4
+        uses: actions/checkout@v4
       - name: Download Dependencies
         run: npm i
+      - name: Debug ENV variables secrets (TO BE DELETED)
+        run: echo ${{secrets.CONNECTION_STRING}}
+        env:
+          CONNECTION_STRING: "${{ secrets.CONNECTION_STRING }}"
+
       - name: Build App
+        env:
+          CONNECTION_STRING: "${{ secrets.CONNECTION_STRING }}"
+          NEXTAUTH_URL: "${{ secrets.NEXTAUTH_URL || 'http://localhost:3000' }}"
+          NEXTAUTH_SECRET: "${{secrets.NEXTAUTH_SECRET}}"
         run: npm run build
       - name: Configure AWS Credinitials
         uses: aws-actions/configure-aws-credentials@v4
@@ -25,7 +35,7 @@ jobs:
       - name: Deploy to Amplify
         id: deploy_test
         if: github.ref == 'ref/heads/test'
-        run:: |
+        run: |
           echo "Deploying to Amplify Beta..."
           JOBS=$(aws amplify list-jobs \
             --app-id ${{ secrets.APP_ID }} \
@@ -44,7 +54,7 @@ jobs:
             echo "status=skipped" >> $GITHUB_OUTPUT
             exit 0
           fi
-            - name: Deploy to Amplify (Production)
+      - name: Deploy to Amplify (Production)
         id: deploy_prod
         if: github.ref == 'refs/heads/main'
         run: |
@@ -66,4 +76,4 @@ jobs:
             exit 0
           fi
       - name: Log Succession
-        runs: echo "App has been deployed successfuly"
+        run: echo "App has been deployed successfuly"
