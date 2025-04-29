@@ -1,40 +1,30 @@
 name: ondispatch
 
 on:
-    workflow_dispatch:
-        inputs:
-            deploymentStatus:
-                description: 'Receive deployment status from Lambda function'
-                required: true
-                default: 'PENDING'
-        
-       
-
-        
+  workflow_dispatch:
+    inputs:
+      deploymentStatus:
+        description: 'Receive deployment status from Lambda function'
+        required: true
+        default: 'PENDING'
 
 jobs:
-    DEPLOYMENT_STATUS:
-        runs-on: ubuntu-latest
-        steps:
-            - name: 'Check Deployment Status'
-              run: 
-                if [[${{inputs.deploymentStatus }}== 'SUCCEED']]; then 
-                echo "Deployment Succeeded" \
-                exit 0
-                if [[${{inputs.deploymentStatus}} == 'FAILED']]; then 
-                echo "Deployment failed, Check AWS Cloudwatch logs" \
-                exit 1
-                fi
-            - name: 'Log Succession'
-              run:
-                echo 'Workflow done, the website has been deployed and ready'
+  DEPLOYMENT_STATUS:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Deployment Status
+        run: |
+          echo "Received deploymentStatus: ${{ inputs.deploymentStatus }}"
+          if [[ "${{ inputs.deploymentStatus }}" == "SUCCEED" ]]; then
+            echo "Deployment Succeeded"
+            exit 0
+          elif [[ "${{ inputs.deploymentStatus }}" == "FAILED" ]]; then
+            echo "Deployment failed, check AWS CloudWatch logs"
+            exit 1
+          else
+            echo "Deployment status: ${{ inputs.deploymentStatus }}"
+            exit 2
+          fi
 
-            
-              
-
-
-
-
-    
-
-
+      - name: Log Deployment Status
+        run: echo 'Workflow done. The website has been deployed and is ready.'
