@@ -1,0 +1,35 @@
+name: ondispatch
+
+on:
+    repository_dispatch:
+        types: [lambda_event]
+       
+
+        
+
+jobs:
+    DEPLOYMENT_STATUS:
+        runs-on: ubuntu-latest
+        steps:
+            - name: 'Check Deployment Status'
+              run: 
+                if ${{!github.event.client_payload.deploymentStatus == 'SUCCEED'}}; then
+                echo "Deployment Succeeded" \
+                exit 0
+                if $${{!github.event.client_payload.deploymentStatus == 'FAILED'}}; then
+                echo "Deployment failed, Check AWS Cloudwatch logs" \
+                exit 1
+                fi
+            - name: 'Log Succession'
+              run:
+                echo 'Workflow done, the website has been deployed and ready'
+
+            
+              
+
+
+
+
+    
+
+
