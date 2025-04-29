@@ -18,10 +18,10 @@ jobs:
         steps:
             - name: 'Check Deployment Status'
               run: 
-                if ${{!inputs.deploymentStatus == 'SUCCEED'}}; then
+                if ${{inputs.deploymentStatus == 'SUCCEED'}}; then \
                 echo "Deployment Succeeded" \
                 exit 0
-                if $${{!inputs.deploymentStatus == 'FAILED'}}; then
+                if $${{inputs.deploymentStatus == 'FAILED'}}; then \
                 echo "Deployment failed, Check AWS Cloudwatch logs" \
                 exit 1
                 fi
