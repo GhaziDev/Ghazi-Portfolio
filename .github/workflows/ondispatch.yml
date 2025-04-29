@@ -1,8 +1,13 @@
 name: ondispatch
 
 on:
-    repository_dispatch:
-        types: [lambda_event]
+    workflow_dispatch:
+        inputs:
+            deploymentStatus:
+                description: 'Receive deployment status from Lambda function'
+                required: true
+                default: 'PENDING'
+        
        
 
         
@@ -13,10 +18,10 @@ jobs:
         steps:
             - name: 'Check Deployment Status'
               run: 
-                if ${{!github.event.client_payload.deploymentStatus == 'SUCCEED'}}; then
+                if ${{!inputs.deploymentStatus == 'SUCCEED'}}; then
                 echo "Deployment Succeeded" \
                 exit 0
-                if $${{!github.event.client_payload.deploymentStatus == 'FAILED'}}; then
+                if $${{!inputs.deploymentStatus == 'FAILED'}}; then
                 echo "Deployment failed, Check AWS Cloudwatch logs" \
                 exit 1
                 fi
