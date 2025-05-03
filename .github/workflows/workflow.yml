@@ -7,6 +7,17 @@ on:
       - main
       - test
 jobs:
+
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Code Checkout'
+        uses: 'actions/checkout@v4'
+      - name: 'Install Dependencies'
+        run: 'npm ci'
+
+      - name: 'Test Code'
+        run: 'npm run test'
   deploy_to_amplify:
     runs-on: ubuntu-latest
     environment: portfolio_env
