@@ -21,5 +21,6 @@ const ProvidersWrapper = ({children}:{children:React.ReactNode})=>{
 
 
 export const customRender = (ui:ReactElement,options?:Omit<RenderOptions,'wrapper'>)=>{
+    console.log(options)
     render(ui,{wrapper:ProvidersWrapper})
 }

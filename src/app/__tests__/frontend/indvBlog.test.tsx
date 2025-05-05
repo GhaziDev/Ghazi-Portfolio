@@ -5,7 +5,7 @@ import { AppRouterContextProviderMock } from '../contextProviderMock';
 
 describe('Individual Blog Test Suite',async()=>{
     const push = vi.fn()
-    const component = render(<AppRouterContextProviderMock router={{push}}><CreateBlog ></CreateBlog></AppRouterContextProviderMock>)
+    render(<AppRouterContextProviderMock router={{push}}><CreateBlog ></CreateBlog></AppRouterContextProviderMock>)
 
     test('Test Change Title Input',async()=>{
         const element = await screen.findByPlaceholderText('Write a title') as HTMLInputElement //because any other Element might not neccessary have "value" attribute
