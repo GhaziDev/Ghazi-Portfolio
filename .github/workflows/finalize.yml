@@ -1,0 +1,24 @@
+name: Finalizing Workflow
+
+on:
+    workflow_dispatch:
+        inputs:
+            result:
+                description: Did I Pass Deployment?
+                default: 'FAILED'
+
+
+jobs:
+    deployment_status:
+        runs-on: ubuntu-latest
+        
+        steps:
+        -   if: ${{github.event.inputs.result == 'FAILED'}}
+            run: |
+                exit 1
+                echo "Deployment failed"
+        -   if: ${{github.event.inputs.result == 'SUCCEED'}}
+            run: |
+                exit 0
+                echo "Deployment Succeeded"
+

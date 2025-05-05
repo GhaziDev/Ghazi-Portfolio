@@ -32,7 +32,7 @@ export default function Blogs({data,pages}:{data:Array<PartialBlog>,pages:number
             slicedBlogs?.map((blog:PartialBlog,index:number)=>{
             
                 return(
-                    <div onClick={()=>route.push(`/blog/${blog.slug}`)}  key={index} className=' font-mono bg-box border-outcolor border-[1px]  flex flex-row flex-wrap gap-4 justify-between rounded-[5px] hover:scale-105 transition-all duration-200 w-[700px] box-border cursor-pointer' >
+                    <div id='indvBlog' onClick={()=>route.push(`/blog/${blog.slug}`)}  key={index} className=' font-mono bg-box border-outcolor border-[1px]  flex flex-row flex-wrap gap-4 justify-between rounded-[5px] hover:scale-105 transition-all duration-200 w-[700px] box-border cursor-pointer' >
                         <div className=' flex flex-wrap flex-col gap-4 w-[50%] p-4'>
                         <div className=' text-[16px] font-semibold'>{blog.title}</div>
                         <div id='tags' className='flex gap-5 justify-start'>

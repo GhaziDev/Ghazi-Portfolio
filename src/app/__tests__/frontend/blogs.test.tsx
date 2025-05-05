@@ -1,9 +1,8 @@
-import {expect, test, vi} from 'vitest'
-import {render,screen} from '@testing-library/react'
-import ClientBlog from '../../blog/clientComp';
+import { expect, test, vi , describe} from 'vitest';
+import {render,screen,fireEvent} from '@testing-library/react'
 import Blogs from '@/app/components/blogs/blogs';
 import { PartialBlog } from '@/app/interfaces/interfaces';
-import { customRender } from '../test-utils';
+// import { customRender } from '../test-utils';
 import { AppRouterContextProviderMock } from '../contextProviderMock';
 
 
@@ -19,12 +18,30 @@ const data:Array<PartialBlog> = [ {
     slug:'tes1',
     tags: ['1','2','3']
 }
-    
+
 ]
 
-test('Test Blogs Data Display',async ()=>{
+describe('Blogs Test Suite',async()=>{
+
     const push = vi.fn()
-    render(<AppRouterContextProviderMock router={{push}}><Blogs data={data} pages={1}></Blogs></AppRouterContextProviderMock>)
-    expect(screen.getByText('Test 1'))
+    const component = render(<AppRouterContextProviderMock router={{push}}><Blogs data={data} pages={1}></Blogs></AppRouterContextProviderMock>)
+
+
+    test('Test Blogs Data Display',async ()=>{
+       
+    
+        const element = screen.getByText('Test 1')
+        expect(element.innerHTML).toEqual('Test 1')
+        
+    
+    })
+
+    test("Test click event on individual blogs",async()=>{
+        const element = component.container.querySelector("#indvBlog")!
+        const isClicked = fireEvent.click(element,'click')
+        expect(isClicked).toBe(true)
+    
+    })
 
 })
+
