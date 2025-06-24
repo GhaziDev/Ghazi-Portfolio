@@ -97,6 +97,7 @@ initial={{bottom:'0px',opacity:0}}
 
 
 
+
     <motion.div  id='expsec' ref={expRef}>
     <SectionFadeIn>Experience</SectionFadeIn>
     <Experience ></Experience>

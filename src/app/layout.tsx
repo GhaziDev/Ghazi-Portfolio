@@ -2,10 +2,6 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import { NextSessionProvider } from "./nextsessprovider"
-import { connect } from "./db/utils";
-
-
-await connect()
 
 
 export const metadata:Metadata = {

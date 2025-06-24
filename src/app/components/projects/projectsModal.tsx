@@ -1,3 +1,4 @@
+'use client'
 import { Modal, ModalContent, ModalBody, ModalFooter, ModalHeader } from "@nextui-org/react";
 import Link from "next/link";
 import { FaGithub, FaGlobe } from "react-icons/fa";

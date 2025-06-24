@@ -8,6 +8,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { useRouter } from 'next/navigation'
 import {motion} from 'motion/react'
+import { useEffect } from 'react'
 
 dayjs.extend(relativeTime)
 
@@ -19,6 +20,17 @@ dayjs.extend(relativeTime)
 export default function Blogs({data,pages}:{data:Array<PartialBlog>,pages:number}){
     const [selectedPage,setSelectedPage] = useState<number>(1)
     const route = useRouter()
+    const [blogs,setBlogs] = useState<Array<PartialBlog>>(data)
+
+    useEffect(()=>{
+        
+        fetch(`http://localhost:3000?page=${selectedPage}/`).then((res)=>{
+            res.json().then((data)=>{
+                setBlogs(data.data)
+            })
+        })
+        
+    },[selectedPage])
    
 
 
@@ -26,7 +38,7 @@ export default function Blogs({data,pages}:{data:Array<PartialBlog>,pages:number
     const mapBlogs = ()=>{
         const skip = selectedPage*3-3 //starting index
         const limit = skip+3 //ending index
-        const slicedBlogs = data.slice(skip,limit)
+        const slicedBlogs = blogs?.slice(skip,limit)
 
         return(
             slicedBlogs?.map((blog:PartialBlog,index:number)=>{
@@ -38,7 +50,7 @@ export default function Blogs({data,pages}:{data:Array<PartialBlog>,pages:number
                         <div id='tags' className='flex gap-5 justify-start'>
                         {
 
-                            blog.tags.map((tag,index)=>{
+                            blog?.tags?.map((tag:string,index:number)=>{
                                 return(
                                     <div key={index} className=' bg-black border-outcolor text-selectorcolor border-[1px]  p-1 rounded-[4px] text-[12px]'>{tag}</div>
                                 )

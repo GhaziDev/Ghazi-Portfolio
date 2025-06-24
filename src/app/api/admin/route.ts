@@ -1,9 +1,11 @@
 import { NextRequest,NextResponse } from "next/server";
 import { BlogModel } from "@/app/models/Blog";
 import fs from 'node:fs/promises'
+import { connect } from "@/app/db/utils";
 
 
 export const POST = async (req:NextRequest) => {
+  await connect()
     const blog = await req.formData()
     if(String(blog.get('title')).length>60){
       return NextResponse.json({error:'Title has exceeded the limit of 60 characters'},{status:400})

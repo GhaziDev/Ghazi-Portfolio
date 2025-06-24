@@ -2,7 +2,8 @@ import {render, RenderOptions} from '@testing-library/react'
 import { ThemeProvider } from 'next-themes'
 
 import { NextUIProvider } from '@nextui-org/react'
-import { NextSessionProvider } from '../nextsessprovider'
+import { NextSessionProvider } from '@/app/nextsessprovider'
+
 import React from 'react';
 import { ReactElement } from 'react-markdown/lib/react-markdown';
 

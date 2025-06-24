@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'; // Opt out of static rendering
 import { NextUIProvider } from "@nextui-org/react";
 import MainPage from "./components/main";
 import { Suspense } from "react";

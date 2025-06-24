@@ -1,8 +1,12 @@
+export const dynamic = "force-dynamic";
+
 import { NextRequest,NextResponse } from "next/server";
 import { BlogModel } from "@/app/models/Blog";
+import { connect } from "@/app/db/utils";
 
 
 export async function GET(req:NextRequest, {params}:{params:{slug:string}}){
+    await connect()
 
     try{
 
