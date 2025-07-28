@@ -1,0 +1,315 @@
+{
+	"Description": "This template is used to deploy my portfolio in AWS ECS Fargate, Environment of the ECS Fargate service is in a private subnet that is in a private VPC, connection goes in and out through NAT Gateway and ALB",
+	"Resources": {
+
+
+
+		"ALBSubnet": {
+			"Type": "AWS::EC2::Subnet",
+			"Properties": {
+				"VpcId": {
+					"Ref": "PrivateVPC"
+				},
+				"CidrBlock": "10.192.0.0/24",
+				"AvailabilityZone": "ap-southeast-2a",
+				"MapPublicIpOnLaunch": true,
+				"Tags": [
+					{
+						"Key": "Name",
+						"Value": "Ghazi-Portfolio-ALB-Subnet"
+					}
+				]
+			}
+		},
+        "ALBSubnet2": {
+			"Type": "AWS::EC2::Subnet",
+			"Properties": {
+				"VpcId": {
+					"Ref": "PrivateVPC"
+				},
+				"CidrBlock": "10.192.2.0/24",
+				"AvailabilityZone": "ap-southeast-2b",
+				"MapPublicIpOnLaunch": true,
+				"Tags": [
+					{
+						"Key": "Name",
+						"Value": "Ghazi-Portfolio-ALB-Subnet2"
+					}
+				]
+			}
+		},
+		"TargetGroup": {
+			"Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+			"Properties": {
+				"Name": "MyPortfolioTargetGroup",
+				"Protocol": "HTTP",
+				"Port": 3000,
+				"TargetType": "ip",
+				"VpcId": {
+					"Ref": "PrivateVPC"
+				}
+			}
+		},
+		"ALBSecurityGroup": {
+			"Type": "AWS::EC2::SecurityGroup",
+			"Properties": {
+				"GroupDescription": "SG for ALB",
+				"VpcId": {
+					"Ref": "PrivateVPC"
+				}
+			}
+		},
+		"ECSServiceSecurityGroup": {
+			"Type": "AWS::EC2::SecurityGroup",
+			"Properties": {
+				"VpcId": {
+					"Ref": "PrivateVPC"
+				},
+				"GroupDescription": "SG for ECS Service"
+			},
+			"DependsOn": "ALBSecurityGroup"
+		},
+		"ALBSecurityGroupIngress": {
+			"Type": "AWS::EC2::SecurityGroupIngress",
+			"Properties": {
+                "GroupId":{"Ref":"ALBSecurityGroup"},
+				"IpProtocol": "tcp",
+				"FromPort": 80,
+				"ToPort": 80,
+				"CidrIp": "0.0.0.0/0"
+			}
+		},
+		"ALBSecurityGroupEgress": {
+			"Type": "AWS::EC2::SecurityGroupEgress",
+			"Properties": {
+				"IpProtocol": "tcp",
+				"FromPort": 80,
+				"ToPort": 80,
+				"DestinationSecurityGroupId": {
+					"Ref": "ECSServiceSecurityGroup"
+				},
+				"GroupId": {
+					"Ref": "ALBSecurityGroup"
+				}
+			}
+		},
+		"ECSServiceSecurityGroupEgress": {
+			"Type": "AWS::EC2::SecurityGroupEgress",
+			"Properties": {
+				"IpProtocol": "tcp",
+				"FromPort": 3000,
+				"ToPort": 3000,
+				"DestinationSecurityGroupId": {
+					"Ref": "ALBSecurityGroup"
+				},
+				"GroupId": {
+					"Ref": "ECSServiceSecurityGroup"
+				}
+			}
+		},
+		"ECSServiceSecurityGroupIngress": {
+			"Type": "AWS::EC2::SecurityGroupIngress",
+			"Properties": {
+                "GroupId":{"Ref":"ECSServiceSecurityGroup"},
+				"IpProtocol": "tcp",
+				"FromPort": 3000,
+				"ToPort": 3000,
+				"SourceSecurityGroupId": {
+					"Ref": "ALBSecurityGroup"
+				}
+			}
+		},
+		"PrivateVPC": {
+			"Type": "AWS::EC2::VPC",
+			"Properties": {
+				"EnableDnsSupport": true,
+				"EnableDnsHostnames": true,
+				"CidrBlock": "10.192.0.0/16",
+				"Tags": [
+					{
+						"Key": "Name",
+						"Value": "Ghazi-Portfolio-Private-VPC"
+					}
+				]
+			}
+		},
+		"PrivateSubnet": {
+			"Type": "AWS::EC2::Subnet",
+			"Properties": {
+				"VpcId": {
+					"Ref": "PrivateVPC"
+				},
+				"CidrBlock": "10.192.1.0/24",
+				"AvailabilityZone": "ap-southeast-2a",
+				"MapPublicIpOnLaunch": false,
+				"Tags": [
+					{
+						"Key": "Name",
+						"Value": "Ghazi-Portfolio-Private-Subnet"
+					}
+				]
+			}
+		},
+		"ALB": {
+			"Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+			"Properties": {
+				"Name": "MyPortfolioALB",
+				"Scheme": "internet-facing",
+				"Subnets": [
+					{
+						"Ref": "ALBSubnet"
+					},
+                    {"Ref":"ALBSubnet2"}
+				],
+				"SecurityGroups": [
+					{
+						"Ref": "ALBSecurityGroup"
+					}
+				]
+			}
+		},
+
+              "ALBListener": {
+  "Type": "AWS::ElasticLoadBalancingV2::Listener",
+  "Properties": {
+    "LoadBalancerArn": { "Ref": "ALB" },
+    "Port": 80,
+    "Protocol": "HTTP",
+    "DefaultActions": [
+      {
+        "Type": "forward",
+        "TargetGroupArn": { "Ref": "TargetGroup" }
+      }
+    ]
+  }
+},
+
+
+   "VPCInternetGateway":{
+      "Type" : "AWS::EC2::InternetGateway",
+      "Properties" : {
+        "Tags" : [ {"Key" : "stack", "Value" : "development"}]
+      }
+},
+"AttachGateway":{
+    "Type": "AWS::EC2::VPCGatewayAttachment",
+    "Properties":{
+      "VpcId": {"Ref": "PrivateVPC"},
+      "InternetGatewayId": {"Ref": "VPCInternetGateway"}
+    }
+},
+
+ "PublicRouteTable":{
+    "Type": "AWS::EC2::RouteTable",
+    "Properties":{
+      "VpcId": {"Ref": "PrivateVPC"}
+ }
+},
+
+"PublicRoute":{
+    "Type":"AWS::EC2::Route",
+    "DependsOn":"AttachGateway",
+    "Properties":{
+        "RouteTableId":{"Ref":"PublicRouteTable"},
+        "DestinationCidrBlock":"0.0.0.0/0",
+        "GatewayId":{"Ref":"VPCInternetGateway"}
+    }
+
+},
+"PublicALBSubnetRouteTableAssociation":{
+    "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    "Properties":{
+      "SubnetId": {"Ref":"ALBSubnet"},
+      "RouteTableId": {"Ref":"PublicRouteTable"}
+    }
+},
+		"ECSFargateCluster": {
+			"Type": "AWS::ECS::Cluster",
+			"Properties": {
+				"CapacityProviders": [
+					"FARGATE"
+				],
+				"ClusterName": "PortfolioCluster",
+				"DefaultCapacityProviderStrategy": [
+					{
+						"CapacityProvider": "FARGATE",
+						"Weight": 1
+					}
+				]
+			}
+		},
+	
+		"ECSTaskDefinition": {
+			"Type": "AWS::ECS::TaskDefinition",
+			"Properties": {
+				"ContainerDefinitions": [
+					{
+						"Name": "MyPortfolioContainer",
+						"Image": "461634832812.dkr.ecr.ap-southeast-2.amazonaws.com/myportfolio:latest",
+						"PortMappings": [
+							{
+								"ContainerPort": 3000
+							}
+						],
+						"Environment": [
+							{
+								"Name": "PROD",
+								"Value": "1"
+							}
+						]
+					}
+				],
+				"Cpu": "256",
+				"Memory": "512",
+				"NetworkMode": "awsvpc",
+                "RequiresCompatibilities":[
+                  "FARGATE"
+                ],
+
+                "ExecutionRoleArn":"arn:aws:iam::461634832812:role/AWSTaskDefinitionRole"
+			}
+		},
+		"ECSService": {
+			"Type": "AWS::ECS::Service",
+			"Properties": {
+				"Cluster": {
+					"Ref": "ECSFargateCluster"
+				},
+				"CapacityProviderStrategy": [
+					{
+						"CapacityProvider": "FARGATE",
+						"Weight": 1
+					}
+				],
+				"DesiredCount": 1,
+				"TaskDefinition": {
+					"Ref": "ECSTaskDefinition"
+				},
+				"LoadBalancers": [
+					{
+						"ContainerName": "MyPortfolioContainer",
+						"ContainerPort": 3000,
+						"TargetGroupArn": { "Ref": "TargetGroup" }
+					}
+				],
+				"ServiceName": "MyPortfolioService",
+				"NetworkConfiguration": {
+					"AwsvpcConfiguration": {
+						"AssignPublicIp": "DISABLED",
+						"Subnets": [
+							{
+								"Ref": "PrivateSubnet"
+							}
+						],
+						"SecurityGroups": [
+							{
+								"Ref": "ECSServiceSecurityGroup"
+							}
+						]
+					}
+				}
+			},
+			"DependsOn": "ALB"
+		}
+	}
+}

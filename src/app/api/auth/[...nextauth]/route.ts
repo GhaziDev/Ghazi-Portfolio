@@ -7,9 +7,10 @@ import { UserModel } from "@/app/models/User";
 import { User } from "next-auth";
 import { MongoClient } from "mongodb";
 import { readFile } from "fs/promises";
+//import path from "path";
 
 const getVars = async ()=>{
-  if(process!.env!.PROD!=='0'){
+  if((process!.env!.PROD!)=='0'){
     return {
       host: process.env!.EMAIL_SERVER_HOST!,
       port: process.env!.EMAIL_SERVER_PORT!,

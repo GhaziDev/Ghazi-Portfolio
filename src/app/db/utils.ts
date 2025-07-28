@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const dotenv = await import ('dotenv')
 dotenv.config({path:'../../../.env'})
 import { readFile } from "fs/promises";
+//import path from "path";
 
 
 export const connect = async ()=>{
