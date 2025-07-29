@@ -97,8 +97,8 @@
 			"Type": "AWS::EC2::SecurityGroupEgress",
 			"Properties": {
 				"IpProtocol": "tcp",
-				"FromPort": 3000,
-				"ToPort": 3000,
+				"FromPort": 80,
+				"ToPort": 80,
 				"DestinationSecurityGroupId": {
 					"Ref": "ALBSecurityGroup"
 				},
@@ -107,13 +107,39 @@
 				}
 			}
 		},
+
+		
+		"VPCEndpointSecurityGroup": {
+  "Type": "AWS::EC2::SecurityGroup",
+  "Properties": {
+    "GroupDescription": "Security group for VPC endpoints",
+    "VpcId": {"Ref": "PrivateVPC"},
+    "SecurityGroupIngress": [{
+      "IpProtocol": "tcp",
+      "FromPort": 443,
+      "ToPort": 443,
+      "SourceSecurityGroupId": {"Ref": "ECSServiceSecurityGroup"}
+    }]
+  }
+},
+		"ECSServiceSecurityGroupEgressForECR":{
+			"Type":"AWS::EC2::SecurityGroupEgress",
+			"Properties":{
+				"GroupId":{"Ref":"ECSServiceSecurityGroup"},
+				"IpProtocol":"tcp",
+				"FromPort":443,
+				"ToPort":443,
+				"CidrIp":"0.0.0.0/0"
+			}
+		},
+
 		"ECSServiceSecurityGroupIngress": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
                 "GroupId":{"Ref":"ECSServiceSecurityGroup"},
 				"IpProtocol": "tcp",
-				"FromPort": 3000,
-				"ToPort": 3000,
+				"FromPort": 80,
+				"ToPort": 80,
 				"SourceSecurityGroupId": {
 					"Ref": "ALBSecurityGroup"
 				}
@@ -238,7 +264,58 @@
 				]
 			}
 		},
-	
+
+        "PrivateVPCPrivateLinkECRDKREndpoint": {
+            "Type": "AWS::EC2::VPCEndpoint",
+            "Properties": {
+                "VpcEndpointType": "Interface",
+                "ServiceName": "com.amazonaws.ap-southeast-2.ecr.dkr",
+                "VpcId": {
+                    "Ref": "PrivateVPC"
+                },
+                "PrivateDnsEnabled": true,
+                "SubnetIds": [
+                    {
+                        "Ref": "PrivateSubnet"
+                    }
+                ],
+					"SecurityGroupIds":[
+					 { "Ref": "VPCEndpointSecurityGroup" }
+				]
+            }
+        },
+		  "PrivateVPCPrivateLinkECRAPIEndpoint": {
+            "Type": "AWS::EC2::VPCEndpoint",
+            "Properties": {
+                "VpcEndpointType": "Interface",
+                "ServiceName": "com.amazonaws.ap-southeast-2.ecr.api",
+                "VpcId": {
+                    "Ref": "PrivateVPC"
+                },
+                "PrivateDnsEnabled": true,
+                "SubnetIds": [
+                    {
+                        "Ref": "PrivateSubnet"
+                    }
+                ],
+				"SecurityGroupIds":[
+					 { "Ref": "VPCEndpointSecurityGroup" }
+				]
+            }
+        },
+
+
+		"PrivateVPCEndpointS3": {
+  "Type": "AWS::EC2::VPCEndpoint",
+  "Properties": {
+    "ServiceName": "com.amazonaws.ap-southeast-2.s3",
+    "VpcId": { "Ref": "PrivateVPC" },
+    "RouteTableIds": [
+      { "Ref": "PublicRouteTable" }
+    ],
+    "VpcEndpointType": "Gateway"
+  }
+},
 		"ECSTaskDefinition": {
 			"Type": "AWS::ECS::TaskDefinition",
 			"Properties": {
