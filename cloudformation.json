@@ -1,9 +1,6 @@
 {
-	"Description": "This template is used to deploy my portfolio in AWS ECS Fargate, Environment of the ECS Fargate service is in a private subnet that is in a private VPC, connection goes in and out through NAT Gateway and ALB",
+	"Description": "This template is used to deploy my portfolio in AWS ECS Fargate, Environment of the ECS Fargate service is in a private subnet that is in a private VPC, connection goes in and out through PrivateLink and ALB",
 	"Resources": {
-
-
-
 		"ALBSubnet": {
 			"Type": "AWS::EC2::Subnet",
 			"Properties": {
@@ -50,99 +47,115 @@
 				}
 			}
 		},
-		"ALBSecurityGroup": {
+		"ALBSecurityGroupForPublicInternet": {
 			"Type": "AWS::EC2::SecurityGroup",
 			"Properties": {
-				"GroupDescription": "SG for ALB",
+				"GroupDescription": "SG for ALB connecting to public internet",
 				"VpcId": {
 					"Ref": "PrivateVPC"
 				}
 			}
 		},
-		"ECSServiceSecurityGroup": {
+		"ALBSecurityGroupForECS":{
+			"Type":"AWS::EC2::SecurityGroup",
+			"Properties":{
+				"GroupDescription":"SG for ALB connecting with ECS Task inside a private subnet",
+				"VpcId":{
+					"Ref":"PrivateVPC"
+				}
+			}
+		},
+		"ECSServiceSecurityGroupForALB": {
 			"Type": "AWS::EC2::SecurityGroup",
 			"Properties": {
 				"VpcId": {
 					"Ref": "PrivateVPC"
 				},
-				"GroupDescription": "SG for ECS Service"
+				"GroupDescription": "SG for ECS Service connecting with ALB to receive traffic from outside."
 			},
-			"DependsOn": "ALBSecurityGroup"
+			"DependsOn": "ALBSecurityGroupForECS"
 		},
-		"ALBSecurityGroupIngress": {
+		"VPCEndpointSecurityGroup":{
+			"Type":"AWS::EC2::SecurityGroup",
+			"Properties":{
+				"VpcId":{
+					"Ref":"PrivateVPC"
+				},
+				"GroupDescription":"SG For VPC Endpoints - allows HTTPS traffic from ECS tasks"
+			}
+		},
+		"ALBSecurityGroupIngressForPublicInternet": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
-                "GroupId":{"Ref":"ALBSecurityGroup"},
 				"IpProtocol": "tcp",
 				"FromPort": 80,
 				"ToPort": 80,
-				"CidrIp": "0.0.0.0/0"
+				"CidrIp": "0.0.0.0/0",
+				"GroupId":{"Ref":"ALBSecurityGroupForPublicInternet"}
 			}
 		},
-		"ALBSecurityGroupEgress": {
-			"Type": "AWS::EC2::SecurityGroupEgress",
+		"ALBSecurityGroupIngressForPublicInternetHTTPS": {
+			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"IpProtocol": "tcp",
-				"FromPort": 80,
-				"ToPort": 80,
-				"DestinationSecurityGroupId": {
-					"Ref": "ECSServiceSecurityGroup"
-				},
-				"GroupId": {
-					"Ref": "ALBSecurityGroup"
-				}
+				"FromPort": 443,
+				"ToPort": 443,
+				"CidrIp": "0.0.0.0/0",
+				"GroupId":{"Ref":"ALBSecurityGroupForPublicInternet"}
 			}
 		},
-		"ECSServiceSecurityGroupEgress": {
-			"Type": "AWS::EC2::SecurityGroupEgress",
-			"Properties": {
-				"IpProtocol": "tcp",
-				"FromPort": 80,
-				"ToPort": 80,
-				"DestinationSecurityGroupId": {
-					"Ref": "ALBSecurityGroup"
-				},
-				"GroupId": {
-					"Ref": "ECSServiceSecurityGroup"
-				}
-			}
-		},
-
-		
-		"VPCEndpointSecurityGroup": {
-  "Type": "AWS::EC2::SecurityGroup",
-  "Properties": {
-    "GroupDescription": "Security group for VPC endpoints",
-    "VpcId": {"Ref": "PrivateVPC"},
-    "SecurityGroupIngress": [{
-      "IpProtocol": "tcp",
-      "FromPort": 443,
-      "ToPort": 443,
-      "SourceSecurityGroupId": {"Ref": "ECSServiceSecurityGroup"}
-    }]
-  }
-},
-		"ECSServiceSecurityGroupEgressForECR":{
+		"ALBSecurityGroupEgressForECSService":{
 			"Type":"AWS::EC2::SecurityGroupEgress",
 			"Properties":{
-				"GroupId":{"Ref":"ECSServiceSecurityGroup"},
+				"IpProtocol":"tcp",
+				"FromPort":3000,
+				"ToPort":3000,
+				"DestinationSecurityGroupId":{
+					"Ref":"ECSServiceSecurityGroupForALB"
+				},
+				"GroupId": {"Ref":"ALBSecurityGroupForECS"}
+			}
+		},
+		"ECSServiceSecurityGroupIngressForALB": {
+			"Type": "AWS::EC2::SecurityGroupIngress",
+			"Properties": {
+				"IpProtocol": "tcp",
+				"FromPort": 3000,
+				"ToPort": 3000,
+				"SourceSecurityGroupId": {
+					"Ref": "ALBSecurityGroupForECS"
+				},
+				"GroupId":{"Ref":"ECSServiceSecurityGroupForALB"}
+			}
+		},
+		"ECSServiceSecurityGroupEgressForVPCEndpoints":{
+			"Type":"AWS::EC2::SecurityGroupEgress",
+			"Properties":{
 				"IpProtocol":"tcp",
 				"FromPort":443,
 				"ToPort":443,
-				"CidrIp":"0.0.0.0/0"
+				"DestinationSecurityGroupId":{"Ref":"VPCEndpointSecurityGroup"},
+				"GroupId": {"Ref":"ECSServiceSecurityGroupForALB"}
 			}
 		},
-
-		"ECSServiceSecurityGroupIngress": {
-			"Type": "AWS::EC2::SecurityGroupIngress",
-			"Properties": {
-                "GroupId":{"Ref":"ECSServiceSecurityGroup"},
-				"IpProtocol": "tcp",
-				"FromPort": 80,
-				"ToPort": 80,
-				"SourceSecurityGroupId": {
-					"Ref": "ALBSecurityGroup"
-				}
+		"ECSServiceSecurityGroupEgressForS3PrefixList":{
+			"Type":"AWS::EC2::SecurityGroupEgress",
+			"Properties":{
+				"IpProtocol":"tcp",
+				"FromPort":443,
+				"ToPort":443,
+				"DestinationPrefixListId":"pl-6ca54005",
+				"GroupId": {"Ref":"ECSServiceSecurityGroupForALB"}
+			}
+		},
+		"VPCEndpointSecurityGroupIngressFromECS":{
+			"Type":"AWS::EC2::SecurityGroupIngress",
+			"Properties":{
+				"IpProtocol":"tcp",
+				"FromPort":443,
+				"ToPort":443,
+				"SourceSecurityGroupId":{"Ref":"ECSServiceSecurityGroupForALB"},
+				"GroupId":{"Ref":"VPCEndpointSecurityGroup"}
 			}
 		},
 		"PrivateVPC": {
@@ -189,66 +202,197 @@
 				],
 				"SecurityGroups": [
 					{
-						"Ref": "ALBSecurityGroup"
+						"Ref": "ALBSecurityGroupForECS"
+					},
+					{"Ref":"ALBSecurityGroupForPublicInternet"}
+				]
+			}
+		},
+        "ALBListener": {
+			"Type": "AWS::ElasticLoadBalancingV2::Listener",
+			"Properties": {
+				"LoadBalancerArn": { "Ref": "ALB" },
+				"Port": 80,
+				"Protocol": "HTTP",
+				"DefaultActions": [
+					{
+						"Type": "forward",
+						"TargetGroupArn": { "Ref": "TargetGroup" }
 					}
 				]
 			}
 		},
-
-              "ALBListener": {
-  "Type": "AWS::ElasticLoadBalancingV2::Listener",
-  "Properties": {
-    "LoadBalancerArn": { "Ref": "ALB" },
-    "Port": 80,
-    "Protocol": "HTTP",
-    "DefaultActions": [
-      {
-        "Type": "forward",
-        "TargetGroupArn": { "Ref": "TargetGroup" }
-      }
-    ]
-  }
-},
-
-
-   "VPCInternetGateway":{
-      "Type" : "AWS::EC2::InternetGateway",
-      "Properties" : {
-        "Tags" : [ {"Key" : "stack", "Value" : "development"}]
-      }
-},
-"AttachGateway":{
-    "Type": "AWS::EC2::VPCGatewayAttachment",
-    "Properties":{
-      "VpcId": {"Ref": "PrivateVPC"},
-      "InternetGatewayId": {"Ref": "VPCInternetGateway"}
-    }
-},
-
- "PublicRouteTable":{
-    "Type": "AWS::EC2::RouteTable",
-    "Properties":{
-      "VpcId": {"Ref": "PrivateVPC"}
- }
-},
-
-"PublicRoute":{
-    "Type":"AWS::EC2::Route",
-    "DependsOn":"AttachGateway",
-    "Properties":{
-        "RouteTableId":{"Ref":"PublicRouteTable"},
-        "DestinationCidrBlock":"0.0.0.0/0",
-        "GatewayId":{"Ref":"VPCInternetGateway"}
-    }
-
-},
-"PublicALBSubnetRouteTableAssociation":{
-    "Type": "AWS::EC2::SubnetRouteTableAssociation",
-    "Properties":{
-      "SubnetId": {"Ref":"ALBSubnet"},
-      "RouteTableId": {"Ref":"PublicRouteTable"}
-    }
-},
+		"VPCInternetGateway":{
+			"Type" : "AWS::EC2::InternetGateway",
+			"Properties" : {
+				"Tags" : [ {"Key" : "stack", "Value" : "development"}]
+			}
+		},
+		"AttachGateway":{
+			"Type": "AWS::EC2::VPCGatewayAttachment",
+			"Properties":{
+				"VpcId": {"Ref": "PrivateVPC"},
+				"InternetGatewayId": {"Ref": "VPCInternetGateway"}
+			}
+		},
+		"PublicRouteTable":{
+			"Type": "AWS::EC2::RouteTable",
+			"Properties":{
+				"VpcId": {"Ref": "PrivateVPC"}
+			}
+		},
+		"PrivateSubnetRouteTable":{
+			"Type":"AWS::EC2::RouteTable",
+			"Properties":{
+				"VpcId":{"Ref":"PrivateVPC"}
+			}
+		},
+		"PrivateSubnetRouteTableAssociation":{
+			"Type":"AWS::EC2::SubnetRouteTableAssociation",
+			"Properties":{
+				"SubnetId":{"Ref":"PrivateSubnet"},
+				"RouteTableId":{"Ref":"PrivateSubnetRouteTable"}
+			}
+		},
+		"PublicRoute":{
+			"Type":"AWS::EC2::Route",
+			"DependsOn":"AttachGateway",
+			"Properties":{
+				"RouteTableId":{"Ref":"PublicRouteTable"},
+				"DestinationCidrBlock":"0.0.0.0/0",
+				"GatewayId":{"Ref":"VPCInternetGateway"}
+			}
+		},
+		"PublicALBSubnetRouteTableAssociation":{
+			"Type": "AWS::EC2::SubnetRouteTableAssociation",
+			"Properties":{
+				"SubnetId": {"Ref":"ALBSubnet"},
+				"RouteTableId": {"Ref":"PublicRouteTable"}
+			}
+		},
+		"PublicALBSubnet2RouteTableAssociation":{
+			"Type": "AWS::EC2::SubnetRouteTableAssociation",
+			"Properties":{
+				"SubnetId": {"Ref":"ALBSubnet2"},
+				"RouteTableId": {"Ref":"PublicRouteTable"}
+			}
+		},
+		"ECSPrivateLinkECRDkr":{
+			"Type":"AWS::EC2::VPCEndpoint",
+			"Properties":{
+				"ServiceName":"com.amazonaws.ap-southeast-2.ecr.dkr",
+				"VpcEndpointType":"Interface",
+				"VpcId":{"Ref":"PrivateVPC"},
+				"PrivateDnsEnabled":true,
+				"SubnetIds":[
+					{"Ref":"PrivateSubnet"}
+				],
+				"SecurityGroupIds":[
+					{"Ref":"VPCEndpointSecurityGroup"}
+				],
+				"PolicyDocument":{
+					"Statement":[
+						{
+							"Effect":"Allow",
+							"Principal":"*",
+							"Action":[
+								"ecr:GetAuthorizationToken",
+								"ecr:BatchCheckLayerAvailability",
+								"ecr:GetDownloadUrlForLayer",
+								"ecr:BatchGetImage"
+							],
+							"Resource":"*"
+						}
+					]
+				}
+			}
+		},
+		"ECSPrivateLinkECRApi":{
+			"Type":"AWS::EC2::VPCEndpoint",
+			"Properties":{
+				"ServiceName":"com.amazonaws.ap-southeast-2.ecr.api",
+				"VpcEndpointType":"Interface",
+				"PrivateDnsEnabled":true,
+				"VpcId":{"Ref":"PrivateVPC"},
+				"SubnetIds":[
+					{"Ref":"PrivateSubnet"}
+				],
+				"SecurityGroupIds":[
+					{"Ref":"VPCEndpointSecurityGroup"}
+				],
+				"PolicyDocument":{
+					"Statement":[
+						{
+							"Effect":"Allow",
+							"Principal":"*",
+							"Action":[
+								"ecr:GetAuthorizationToken",
+								"ecr:BatchCheckLayerAvailability",
+								"ecr:GetDownloadUrlForLayer",
+								"ecr:BatchGetImage"
+							],
+							"Resource":"*"
+						}
+					]
+				}
+			}
+		},
+		"CloudWatchLogsVPCEndpoint": {
+			"Type": "AWS::EC2::VPCEndpoint",
+			"Properties": {
+				"ServiceName": "com.amazonaws.ap-southeast-2.logs",
+				"VpcEndpointType": "Interface",
+				"VpcId": {"Ref": "PrivateVPC"},
+				"PrivateDnsEnabled": true,
+				"SubnetIds": [
+					{"Ref": "PrivateSubnet"}
+				],
+				"SecurityGroupIds": [
+					{"Ref": "VPCEndpointSecurityGroup"}
+				],
+				"PolicyDocument":{
+					"Statement":[
+						{
+							"Effect":"Allow",
+							"Principal":"*",
+							"Action":[
+								"logs:CreateLogGroup",
+								"logs:CreateLogStream",
+								"logs:PutLogEvents",
+								"logs:DescribeLogStreams"
+							],
+							"Resource":"*"
+						}
+					]
+				}
+			}
+		},
+		"PrivateLinkForS3ImageLayers":{
+			"Type":"AWS::EC2::VPCEndpoint",
+			"Properties":{
+				"VpcEndpointType":"Gateway",
+				"VpcId":{"Ref":"PrivateVPC"},
+				"ServiceName":"com.amazonaws.ap-southeast-2.s3",
+				"RouteTableIds":[
+					{"Ref":"PrivateSubnetRouteTable"}
+				],
+				"PolicyDocument":{
+					"Statement":[
+						{
+							"Effect":"Allow",
+							"Principal":"*",
+							"Action":[
+								"s3:GetObject",
+								"s3:PutObject"
+							],
+							"Resource":[
+								"arn:aws:s3:::prod-ap-southeast-2-starport-layer-bucket/*"
+							]
+						}
+					]
+				}
+			}
+		},
 		"ECSFargateCluster": {
 			"Type": "AWS::ECS::Cluster",
 			"Properties": {
@@ -264,58 +408,6 @@
 				]
 			}
 		},
-
-        "PrivateVPCPrivateLinkECRDKREndpoint": {
-            "Type": "AWS::EC2::VPCEndpoint",
-            "Properties": {
-                "VpcEndpointType": "Interface",
-                "ServiceName": "com.amazonaws.ap-southeast-2.ecr.dkr",
-                "VpcId": {
-                    "Ref": "PrivateVPC"
-                },
-                "PrivateDnsEnabled": true,
-                "SubnetIds": [
-                    {
-                        "Ref": "PrivateSubnet"
-                    }
-                ],
-					"SecurityGroupIds":[
-					 { "Ref": "VPCEndpointSecurityGroup" }
-				]
-            }
-        },
-		  "PrivateVPCPrivateLinkECRAPIEndpoint": {
-            "Type": "AWS::EC2::VPCEndpoint",
-            "Properties": {
-                "VpcEndpointType": "Interface",
-                "ServiceName": "com.amazonaws.ap-southeast-2.ecr.api",
-                "VpcId": {
-                    "Ref": "PrivateVPC"
-                },
-                "PrivateDnsEnabled": true,
-                "SubnetIds": [
-                    {
-                        "Ref": "PrivateSubnet"
-                    }
-                ],
-				"SecurityGroupIds":[
-					 { "Ref": "VPCEndpointSecurityGroup" }
-				]
-            }
-        },
-
-
-		"PrivateVPCEndpointS3": {
-  "Type": "AWS::EC2::VPCEndpoint",
-  "Properties": {
-    "ServiceName": "com.amazonaws.ap-southeast-2.s3",
-    "VpcId": { "Ref": "PrivateVPC" },
-    "RouteTableIds": [
-      { "Ref": "PublicRouteTable" }
-    ],
-    "VpcEndpointType": "Gateway"
-  }
-},
 		"ECSTaskDefinition": {
 			"Type": "AWS::ECS::TaskDefinition",
 			"Properties": {
@@ -333,7 +425,18 @@
 								"Name": "PROD",
 								"Value": "1"
 							}
-						]
+						],
+						"LogConfiguration": {
+							"LogDriver": "awslogs",
+							"Options": {
+								"mode": "non-blocking",
+								"max-buffer-size": "25m",
+								"awslogs-group": "ecslogs",
+								"awslogs-region": "ap-southeast-2",
+								"awslogs-create-group": "true",
+								"awslogs-stream-prefix": "ecslogstreamprefix"
+							}
+						}
 					}
 				],
 				"Cpu": "256",
@@ -342,8 +445,7 @@
                 "RequiresCompatibilities":[
                   "FARGATE"
                 ],
-
-                "ExecutionRoleArn":"arn:aws:iam::461634832812:role/AWSTaskDefinitionRole"
+                "ExecutionRoleArn":"arn:aws:iam::461634832812:role/BetterECSTaskExecutionRole"
 			}
 		},
 		"ECSService": {
@@ -380,13 +482,13 @@
 						],
 						"SecurityGroups": [
 							{
-								"Ref": "ECSServiceSecurityGroup"
+								"Ref": "ECSServiceSecurityGroupForALB"
 							}
 						]
 					}
 				}
 			},
-			"DependsOn": "ALB"
+			"DependsOn": ["ALB", "ECSPrivateLinkECRDkr", "ECSPrivateLinkECRApi", "CloudWatchLogsVPCEndpoint", "PrivateLinkForS3ImageLayers", "ECSServiceSecurityGroupEgressForS3PrefixList"]
 		}
 	}
 }
