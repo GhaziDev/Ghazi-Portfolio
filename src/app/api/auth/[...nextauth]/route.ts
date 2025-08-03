@@ -9,6 +9,10 @@ import { MongoClient } from "mongodb";
 import { readFile } from "fs/promises";
 //import path from "path";
 
+import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
+
+const client = new SecretsManagerClient({ region: "ap-southeast-2" });
+
 const getVars = async ()=>{
   if((process!.env!.PROD!)=='0'){
     return {
@@ -20,13 +24,33 @@ const getVars = async ()=>{
 
     }
   }
-return{
-   host: await readFile('/run/secrets/EMAIL_SERVER_HOST',{encoding:'utf-8'}),
-  port: await readFile('/run/secrets/EMAIL_SERVER_PORT',{encoding:'utf-8'}),
-  user:await readFile('/run/secrets/EMAIL_SERVER_USER',{encoding:'utf-8'}),
-  pass:await readFile('/run/secrets/EMAIL_SERVER_PASSWORD',{encoding:'utf-8'}),
-  from:await readFile('/run/secrets/EMAIL_FROM',{encoding:'utf-8'}) as unknown as string
+
+  else{
+    const command = new GetSecretValueCommand({ SecretId:"secrets" })
+    const response = await client.send(command);
+     if (response.SecretString) {
+      const secret = JSON.parse(response.SecretString);
+
+      // Access individual keys
+      const host = secret.EMAIL_SERVER_HOST;
+      const port = secret.EMAIL_SERVER_PORT;
+      const user = secret.EMAIL_SERVER_USER;
+      const pass = secret.EMAIL_SERVER_PASSWORD
+      const from = secret.EMAIL_FROM
+
+      return{
+   host: host,
+  port: port,
+  user: user,
+  pass: pass,
+  from:from
 }
+    }
+    
+
+
+  }
+
   
 }
 
@@ -50,14 +74,14 @@ const authOptions = {
 
   Email({
     server: {
-      host: vars.host,
-      port: vars.port ,
+      host: vars?.host,
+      port: vars?.port ,
       auth: {
-        user: vars.user,
-        pass: vars.pass
+        user: vars?.user,
+        pass: vars?.pass
       }
     },
-    from: vars.from
+    from: vars?.from
 
   })
   ],

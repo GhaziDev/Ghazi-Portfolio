@@ -16,7 +16,7 @@ export default function AboutMe() {
    
       <div
         id="left"
-        className=" relative z-[2] bg-box  w-fit h-[450px] rounded-[5px] p-5 "
+        className=" relative z-[2] bg-box  w-fit h-[450px] rounded-[5px] p-7  border-outcolor box-border border-[1.5px]  "
       >
         <div
           id="introduction"
@@ -29,17 +29,7 @@ export default function AboutMe() {
           id="description"
           className=" w-[60ch] h-[400px] break-words  text-[16px] "
         >
-          I am passionate software engineer, with experience in tech field, In
-          my last job I had worked as a teacher assistant for Auckland
-          University of Technology, where I taught a programming based paper to
-          students in lab sessions, I had an internship before that as a Web
-          Developer for United Nation, where I had to develop an SME-Toolkit
-          website using javascript, php tools like Drupal, HTML and CSS, I have
-          experience in full-stack development, as I have developed number of
-          websites using different tools, like node.js, Django, React, Next,
-          HTML, CSS, and Tailwind CSS, in addition to my experience in database
-          both in sql and non-sql such as postgreSQL and MongoDB. I also deploy
-          most of my websites using AWS tools.
+          I am a motivated software engineer, with experience in full-stack development, cloud computing, and AI, I have developed several applications using variety of tools, like Nodejs, Django, React, HTML and CSS, in addition to using AWS as a deployment platform, I have had experience with many aws tools from server-based services to serverless services, I got interest into OpenAI recently, and I am building a project that integrate AI into its core.
           <div
             id="socialbtns"
             className="flex gap-10 w-[100%] justify-center items-center"

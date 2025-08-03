@@ -12,7 +12,7 @@ export default function Footer(){
             <motion.div transition={{duration:0.8}} initial={{width:'0px'}} whileInView={{width:'100%'}} id='pageSep' className=' h-[1px] bg-slate-400'></motion.div>
             <div id='footerwrapper' className='flex justify-evenly pt-10'>
                 <motion.div id='trademark' transition={{delay:0.11,duration:0.5}} initial={{top:'-10px',opacity:0}} whileInView={{top:'0px',opacity:1}} className='relative'>
-                Copyright © Ghazi Zabalawi 2024
+                Copyright © Ghazi Zabalawi 2025
                 </motion.div>
                 <div id='icons' className='flex gap-4'>
                     <Link href={'https://www.linkedin.com/in/ghazi-zabalawi-424168219/'}><motion.div  transition={{duration:0.7}} initial={{left:'-20px',opacity:0}} whileInView={{left:0,opacity:1}} className='relative cursor-pointer'><FaLinkedin size='30' ></FaLinkedin></motion.div></Link>
