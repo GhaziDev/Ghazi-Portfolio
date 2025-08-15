@@ -2,8 +2,6 @@ export const dynamic = "force-dynamic";
 import mongoose from "mongoose";
 const dotenv = await import ('dotenv')
 dotenv.config({path:'../../../.env'})
-//import { readFile } from "fs/promises";
-//import path from "path";
 
 import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
 

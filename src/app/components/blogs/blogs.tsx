@@ -21,11 +21,15 @@ export default function Blogs({data,pages}:{data:Array<PartialBlog>,pages:number
     const [selectedPage,setSelectedPage] = useState<number>(1)
     const route = useRouter()
     const [blogs,setBlogs] = useState<Array<PartialBlog>>(data)
+    const [blogDate,setBlogDate] = useState<(date:Date)=>string>(()=>(date:Date)=>'')
 
     useEffect(()=>{
+        setBlogDate(()=>(date:Date)=>dayjs(date).fromNow())
+        console.log(blogDate(new Date()))
         
         fetch(`http://localhost:3000?page=${selectedPage}/`).then((res)=>{
             res.json().then((data)=>{
+                
                 setBlogs(data.data)
             })
         })
@@ -42,6 +46,7 @@ export default function Blogs({data,pages}:{data:Array<PartialBlog>,pages:number
 
         return(
             slicedBlogs?.map((blog:PartialBlog,index:number)=>{
+                console.log(blogDate(blog.date))
             
                 return(
                     <div id='indvBlog' onClick={()=>route.push(`/blog/${blog.slug}`)}  key={index} className=' font-mono bg-box border-outcolor border-[1px]  flex flex-row flex-wrap gap-4 justify-between rounded-[5px] hover:scale-105 transition-all duration-200 w-[700px] box-border cursor-pointer' >
@@ -57,7 +62,7 @@ export default function Blogs({data,pages}:{data:Array<PartialBlog>,pages:number
                             })
                         }
                         </div>
-                        <div suppressHydrationWarning className='text-gray-400 text-[12px]'>Posted {dayjs(blog.date).fromNow()}</div>
+                        <div suppressHydrationWarning className='text-gray-400 text-[12px]'>Posted {blogDate(blog.date)}</div>
                         </div>
 
                         <img src={blog.image} alt={'someimg'} className='object-cover w-[200px] h-[fill] rounded-[5px] ' />

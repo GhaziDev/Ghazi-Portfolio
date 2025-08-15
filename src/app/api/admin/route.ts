@@ -22,7 +22,7 @@ export const POST = async (req:NextRequest) => {
 
         slug: checkSlugExist.length?blog.get('slug')+'-'+checkSlugExist.length.toString():blog.get('slug'),
         description: blog.get('description'),
-        date: new Date(Date.now()), //some number
+        date: new Date(Date.now()), //some number for date epoch
         tags:JSON.parse(blog.get('tags') as string),
         image: `/blog_images/${image.name}`,
     

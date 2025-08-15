@@ -6,8 +6,6 @@ import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import { UserModel } from "@/app/models/User";
 import { User } from "next-auth";
 import { MongoClient } from "mongodb";
-import { readFile } from "fs/promises";
-//import path from "path";
 
 import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
 

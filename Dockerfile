@@ -2,6 +2,10 @@
 # image:tag
 
 # First Stage is used to install the dependencies from the host machine app to the image /app directory
+
+
+
+
 FROM node:22-alpine AS initiate
 ENV PROD='1'
 # set the environment variable PROD to 1, which is used to determine if the app is
@@ -11,48 +15,22 @@ WORKDIR /app
 # copy package.json from the host machine to the /app directory in the image
 COPY package*.json ./
 
-RUN --mount=type=secret,id=CONNECTION_STRING \
-    --mount=type=secret,id=EMAIL_SERVER_HOST \
-    --mount=type=secret,id=EMAIL_SERVER_USER \
-    --mount=type=secret,id=EMAIL_SERVER_PASSWORD \
-    --mount=type=secret,id=EMAIL_SERVER_PORT \
-    --mount=type=secret,id=EMAIL_FROM \
-     --mount=type=secret,id=NEXTAUTH_URL \
-    --mount=type=secret,id=NEXTAUTH_SECRET \
-    export CONNECTION_STRING="$(cat /run/secrets/CONNECTION_STRING)" && \
-    export EMAIL_SERVER_HOST="$(cat /run/secrets/EMAIL_SERVER_HOST)" && \
-    export EMAIL_SERVER_USER="$(cat /run/secrets/EMAIL_SERVER_USER)" && \
-    export EMAIL_SERVER_PASSWORD="$(cat /run/secrets/EMAIL_SERVER_PASSWORD)" && \
-    export EMAIL_FROM="$(cat /run/secrets/EMAIL_FROM)" && \
-    export NEXTAUTH_URL="$(cat /run/secrets/NEXTAUTH_URL)" && \
-    export EMAIL_SERVER_PORT="$(cat /run/secrets/EMAIL_SERVER_PORT)" && \
-    export NEXTAUTH_SECRET="$(cat /run/secrets/NEXTAUTH_SECRET)" && \
-    npm ci
+
+RUN npm ci
 
 
 
 
 # 2nd Stage is used to build the app
 FROM initiate AS build
+
 COPY --from=initiate /app/node_modules ./node_modules
 COPY . .
 # copy the rest of application from the host machine to the /app directory in the image to build the app
-RUN --mount=type=secret,id=CONNECTION_STRING \
-    --mount=type=secret,id=EMAIL_SERVER_HOST \
-    --mount=type=secret,id=EMAIL_SERVER_USER \
-    --mount=type=secret,id=EMAIL_SERVER_PASSWORD \
-    --mount=type=secret,id=EMAIL_SERVER_PORT \
-    --mount=type=secret,id=EMAIL_FROM \
-    --mount=type=secret,id=NEXTAUTH_URL \
-    --mount=type=secret,id=NEXTAUTH_SECRET \
-    export CONNECTION_STRING="$(cat /run/secrets/CONNECTION_STRING)" && \
-    export EMAIL_SERVER_HOST="$(cat /run/secrets/EMAIL_SERVER_HOST)" && \
-    export EMAIL_SERVER_USER="$(cat /run/secrets/EMAIL_SERVER_USER)" && \
-    export EMAIL_SERVER_PASSWORD="$(cat /run/secrets/EMAIL_SERVER_PASSWORD)" && \
-    export EMAIL_FROM="$(cat /run/secrets/EMAIL_FROM)" && \
-    export NEXTAUTH_URL="$(cat /run/secrets/NEXTAUTH_URL)" && \
-    export NEXTAUTH_SECRET="$(cat /run/secrets/NEXTAUTH_SECRET)" && \
-    export EMAIL_SERVER_PORT="$(cat /run/secrets/EMAIL_SERVER_PORT)" && \
+RUN --mount=type=secret,id=AWS_ACCESS_KEY_ID \
+    --mount=type=secret,id=AWS_SECRET_ACCESS_KEY \
+    export AWS_ACCESS_KEY_ID="$(cat /run/secrets/AWS_ACCESS_KEY_ID)" && \
+    export AWS_SECRET_ACCESS_KEY="$(cat /run/secrets/AWS_SECRET_ACCESS_KEY)" && \
     npm run build
 
 

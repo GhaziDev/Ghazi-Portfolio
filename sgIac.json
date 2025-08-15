@@ -1,0 +1,129 @@
+{
+    "Description":"Security Groups for the app infra",
+    "Resources":{
+		"ALBSecurityGroup":{
+			"Type":"AWS::EC2::SecurityGroup",
+			"Properties":{
+				"GroupDescription":"SG for ALB connecting with ECS Task inside a private subnet and to recieve taffic from public internet",
+				"VpcId":{
+					"Ref":"PrivateVPC"
+				}
+			}
+		},
+		"ECSServiceSecurityGroup": {
+			"Type": "AWS::EC2::SecurityGroup",
+			"Properties": {
+				"VpcId": {
+					"Ref": "PrivateVPC"
+				},
+				"GroupDescription": "SG for ECS Service connecting with ALB to receive traffic from outside."
+			},
+			"DependsOn": "ALBSecurityGroup"
+		},
+		"VPCEndpointSecurityGroup":{
+			"Type":"AWS::EC2::SecurityGroup",
+			"Properties":{
+				"VpcId":{
+					"Ref":"PrivateVPC"
+				},
+				"GroupDescription":"SG For VPC Endpoints - allows HTTPS traffic from ECS tasks"
+			}
+		},
+		"ALBSecurityGroupIngressForPublicInternetHTTPS": {
+			"Type": "AWS::EC2::SecurityGroupIngress",
+			"Properties": {
+				"IpProtocol": "tcp",
+				"FromPort": 80,
+				"ToPort": 80,
+				"CidrIp": "0.0.0.0/0",
+				"GroupId":{"Ref":"ALBSecurityGroup"}
+			}
+		},
+
+		"ECSServiceSecurityGroupEgressForHTTPS": {
+    "Type": "AWS::EC2::SecurityGroupEgress",
+    "Properties": {
+        "IpProtocol": "tcp",
+        "FromPort": 443,
+        "ToPort": 443,
+        "CidrIp": "0.0.0.0/0",
+        "GroupId": {"Ref": "ECSServiceSecurityGroup"}
+    }
+},
+		"ALBSecurityGroupEgressForECSService":{
+			"Type":"AWS::EC2::SecurityGroupEgress",
+			"Properties":{
+				"IpProtocol":"tcp",
+				"FromPort":3000,
+				"ToPort":3000,
+				"DestinationSecurityGroupId":{
+					"Ref":"ECSServiceSecurityGroup"
+				},
+				"GroupId": {"Ref":"ALBSecurityGroup"}
+			}
+		},
+		"ECSServiceSecurityGroupIngressForALB": {
+			"Type": "AWS::EC2::SecurityGroupIngress",
+			"Properties": {
+				"IpProtocol": "tcp",
+				"FromPort": 3000,
+				"ToPort": 3000,
+				"SourceSecurityGroupId": {
+					"Ref": "ALBSecurityGroup"
+				},
+				"GroupId":{"Ref":"ECSServiceSecurityGroup"}
+			}
+		},
+		"ECSServiceSecurityGroupEgressForVPCEndpoints":{
+			"Type":"AWS::EC2::SecurityGroupEgress",
+			"Properties":{
+				"IpProtocol":"tcp",
+				"FromPort":443,
+				"ToPort":443,
+				"DestinationSecurityGroupId":{"Ref":"VPCEndpointSecurityGroup"},
+				"GroupId": {"Ref":"ECSServiceSecurityGroup"}
+			}
+		},
+
+		
+		"ECSServiceSecurityGroupEgressForS3PrefixList":{
+			"Type":"AWS::EC2::SecurityGroupEgress",
+			"Properties":{
+				"IpProtocol":"tcp",
+				"FromPort":443,
+				"ToPort":443,
+				"DestinationPrefixListId":"pl-6ca54005",
+				"GroupId": {"Ref":"ECSServiceSecurityGroup"}
+			}
+		},
+		"VPCEndpointSecurityGroupIngressFromECS":{
+			"Type":"AWS::EC2::SecurityGroupIngress",
+			"Properties":{
+				"IpProtocol":"tcp",
+				"FromPort":443,
+				"ToPort":443,
+				"SourceSecurityGroupId":{"Ref":"ECSServiceSecurityGroup"},
+				"GroupId":{"Ref":"VPCEndpointSecurityGroup"}
+			}
+		}
+    },
+
+    "Outputs":{
+    "ALBSecurityGroup":{
+        "Description":"SG for ALB",
+        "Value":{"Ref":"ALBSecurityGroup"},
+        "Name":"ALBSecurityGroup"
+    },
+    "ECSSecurityGroup":{
+        "Description":"SG for ECS",
+        "Value":{"Ref":"ECSServiceSecurityGroup"},
+        "Name":"ECSSecurityGroup"
+    },
+    "VPCEndpointSecurityGroup":{
+        "Description":"SG for VPC Endpoint",
+        "Value":{"Ref":"VPCEndpointSecurityGroup"},
+        "Name":"VPCEndpointSecurityGroup"
+    }
+}
+}
+

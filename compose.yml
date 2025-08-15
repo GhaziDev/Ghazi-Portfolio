@@ -4,43 +4,20 @@ services:
       context: .
       dockerfile: Dockerfile
       secrets:
-      - EMAIL_SERVER_HOST
-      - EMAIL_SERVER_PORT
-      - EMAIL_SERVER_USER
-      - EMAIL_SERVER_PASSWORD
-      - EMAIL_FROM
-      - CONNECTION_STRING
-      - NEXTAUTH_SECRET
-      - NEXTAUTH_URL
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
     environment:
       - PROD='1'
     ports: 
       - "3000:3000"
     
     secrets:
-    - CONNECTION_STRING #providing secrets after the image build because they are needed for access to the container
-    - EMAIL_FROM
-    - EMAIL_SERVER_HOST
-    - EMAIL_SERVER_PASSWORD
-    - EMAIL_SERVER_PORT
-    - EMAIL_SERVER_USER
-    - NEXTAUTH_SECRET
-    - NEXTAUTH_URL
-   
+    - AWS_ACCESS_KEY_ID
+    - AWS_SECRET_ACCESS_KEY
 secrets:
-  EMAIL_SERVER_HOST:
-    file: ./run/secrets/EMAIL_SERVER_HOST
-  EMAIL_SERVER_PORT:
-    file: ./run/secrets/EMAIL_SERVER_PORT
-  EMAIL_SERVER_USER:
-    file: ./run/secrets/EMAIL_SERVER_USER
-  EMAIL_SERVER_PASSWORD:
-    file: ./run/secrets/EMAIL_SERVER_PASSWORD
-  EMAIL_FROM:
-    file: ./run/secrets/EMAIL_FROM
-  CONNECTION_STRING:
-    file: ./run/secrets/CONNECTION_STRING
-  NEXTAUTH_SECRET:
-    file: ./run/secrets/NEXTAUTH_SECRET
-  NEXTAUTH_URL:
-    file: ./run/secrets/NEXTAUTH_URL
+  AWS_ACCESS_KEY_ID:
+    file: ./run/secrets/AWS_ACCESS_KEY_ID
+  AWS_SECRET_ACCESS_KEY:
+    file: ./run/secrets/AWS_SECRET_ACCESS_KEY
+   
+

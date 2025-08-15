@@ -1,7 +1,8 @@
 {
-	"Description": "This template is used to deploy my portfolio in AWS ECS Fargate, Environment of the ECS Fargate service is in a private subnet that is in a private VPC, connection goes in and out through PrivateLink and ALB",
-	"Resources": {
-		"ALBSubnet": {
+    "Description":"Network infrastructure for the app (VPC's, subnets...etc)",
+    "Resources":{
+
+        "ALBSubnet": {
 			"Type": "AWS::EC2::Subnet",
 			"Properties": {
 				"VpcId": {
@@ -47,122 +48,7 @@
 				}
 			}
 		},
-		"ALBSecurityGroupForPublicInternet": {
-			"Type": "AWS::EC2::SecurityGroup",
-			"Properties": {
-				"GroupDescription": "SG for ALB connecting to public internet",
-				"VpcId": {
-					"Ref": "PrivateVPC"
-				}
-			}
-		},
-		"ALBSecurityGroupForECS":{
-			"Type":"AWS::EC2::SecurityGroup",
-			"Properties":{
-				"GroupDescription":"SG for ALB connecting with ECS Task inside a private subnet",
-				"VpcId":{
-					"Ref":"PrivateVPC"
-				}
-			}
-		},
-		"ECSServiceSecurityGroupForALB": {
-			"Type": "AWS::EC2::SecurityGroup",
-			"Properties": {
-				"VpcId": {
-					"Ref": "PrivateVPC"
-				},
-				"GroupDescription": "SG for ECS Service connecting with ALB to receive traffic from outside."
-			},
-			"DependsOn": "ALBSecurityGroupForECS"
-		},
-		"VPCEndpointSecurityGroup":{
-			"Type":"AWS::EC2::SecurityGroup",
-			"Properties":{
-				"VpcId":{
-					"Ref":"PrivateVPC"
-				},
-				"GroupDescription":"SG For VPC Endpoints - allows HTTPS traffic from ECS tasks"
-			}
-		},
-		"ALBSecurityGroupIngressForPublicInternetHTTPS": {
-			"Type": "AWS::EC2::SecurityGroupIngress",
-			"Properties": {
-				"IpProtocol": "tcp",
-				"FromPort": 80,
-				"ToPort": 80,
-				"CidrIp": "0.0.0.0/0",
-				"GroupId":{"Ref":"ALBSecurityGroupForPublicInternet"}
-			}
-		},
-
-		"ECSServiceSecurityGroupEgressForHTTPS": {
-    "Type": "AWS::EC2::SecurityGroupEgress",
-    "Properties": {
-        "IpProtocol": "tcp",
-        "FromPort": 443,
-        "ToPort": 443,
-        "CidrIp": "0.0.0.0/0",
-        "GroupId": {"Ref": "ECSServiceSecurityGroupForALB"}
-    }
-},
-		"ALBSecurityGroupEgressForECSService":{
-			"Type":"AWS::EC2::SecurityGroupEgress",
-			"Properties":{
-				"IpProtocol":"tcp",
-				"FromPort":3000,
-				"ToPort":3000,
-				"DestinationSecurityGroupId":{
-					"Ref":"ECSServiceSecurityGroupForALB"
-				},
-				"GroupId": {"Ref":"ALBSecurityGroupForECS"}
-			}
-		},
-		"ECSServiceSecurityGroupIngressForALB": {
-			"Type": "AWS::EC2::SecurityGroupIngress",
-			"Properties": {
-				"IpProtocol": "tcp",
-				"FromPort": 3000,
-				"ToPort": 3000,
-				"SourceSecurityGroupId": {
-					"Ref": "ALBSecurityGroupForECS"
-				},
-				"GroupId":{"Ref":"ECSServiceSecurityGroupForALB"}
-			}
-		},
-		"ECSServiceSecurityGroupEgressForVPCEndpoints":{
-			"Type":"AWS::EC2::SecurityGroupEgress",
-			"Properties":{
-				"IpProtocol":"tcp",
-				"FromPort":443,
-				"ToPort":443,
-				"DestinationSecurityGroupId":{"Ref":"VPCEndpointSecurityGroup"},
-				"GroupId": {"Ref":"ECSServiceSecurityGroupForALB"}
-			}
-		},
-
-		
-		"ECSServiceSecurityGroupEgressForS3PrefixList":{
-			"Type":"AWS::EC2::SecurityGroupEgress",
-			"Properties":{
-				"IpProtocol":"tcp",
-				"FromPort":443,
-				"ToPort":443,
-				"DestinationPrefixListId":"pl-6ca54005",
-				"GroupId": {"Ref":"ECSServiceSecurityGroupForALB"}
-			}
-		},
-		"VPCEndpointSecurityGroupIngressFromECS":{
-			"Type":"AWS::EC2::SecurityGroupIngress",
-			"Properties":{
-				"IpProtocol":"tcp",
-				"FromPort":443,
-				"ToPort":443,
-				"SourceSecurityGroupId":{"Ref":"ECSServiceSecurityGroupForALB"},
-				"GroupId":{"Ref":"VPCEndpointSecurityGroup"}
-			}
-		},
-
-		"PrivateVPC": {
+    "PrivateVPC": {
 			"Type": "AWS::EC2::VPC",
 			"Properties": {
 				"EnableDnsSupport": true,
@@ -227,19 +113,6 @@
 			}
 		},
 
-		"EC2Db":{
-			"Type":"AWS::EC2::Instance",
-			"Properties":{
-				"AvailabilityZone":"ap-southeast-2a",
-				"SubnetId":{"Ref":"PrivateSubnet"},
-				"InstanceType":"t4g.nano",
-				"ImageId":"ami-0e5409a99c85b78f1",
-				"Tags":[
-					{"Key":"Name","Value":"EC2DB"}
-				]
-			}
-			
-		},
 		"VPCInternetGateway":{
 			"Type" : "AWS::EC2::InternetGateway",
 			"Properties" : {
@@ -420,103 +293,6 @@
 					]
 				}
 			}
-		},
-		"ECSFargateCluster": {
-			"Type": "AWS::ECS::Cluster",
-			"Properties": {
-				"CapacityProviders": [
-					"FARGATE"
-				],
-				"ClusterName": "PortfolioCluster",
-				"DefaultCapacityProviderStrategy": [
-					{
-						"CapacityProvider": "FARGATE",
-						"Weight": 1
-					}
-				]
-			}
-		},
-		"ECSTaskDefinition": {
-			"Type": "AWS::ECS::TaskDefinition",
-			"Properties": {
-				"ContainerDefinitions": [
-					{
-						"Name": "MyPortfolioContainer",
-						"Image": "461634832812.dkr.ecr.ap-southeast-2.amazonaws.com/myportfolio:latest",
-						"PortMappings": [
-							{
-								"ContainerPort": 3000
-							}
-						],
-						"Environment": [
-							{
-								"Name": "PROD",
-								"Value": "1"
-							}
-						],
-						"LogConfiguration": {
-							"LogDriver": "awslogs",
-							"Options": {
-								"mode": "non-blocking",
-								"max-buffer-size": "25m",
-								"awslogs-group": "ecslogs",
-								"awslogs-region": "ap-southeast-2",
-								"awslogs-create-group": "true",
-								"awslogs-stream-prefix": "ecslogstreamprefix"
-							}
-						}
-					}
-				],
-				"Cpu": "256",
-				"Memory": "512",
-				"NetworkMode": "awsvpc",
-                "RequiresCompatibilities":[
-                  "FARGATE"
-                ],
-                "ExecutionRoleArn":"arn:aws:iam::461634832812:role/BetterECSTaskExecutionRole"
-			}
-		},
-		"ECSService": {
-			"Type": "AWS::ECS::Service",
-			"Properties": {
-				"Cluster": {
-					"Ref": "ECSFargateCluster"
-				},
-				"CapacityProviderStrategy": [
-					{
-						"CapacityProvider": "FARGATE",
-						"Weight": 1
-					}
-				],
-				"DesiredCount": 1,
-				"TaskDefinition": {
-					"Ref": "ECSTaskDefinition"
-				},
-				"LoadBalancers": [
-					{
-						"ContainerName": "MyPortfolioContainer",
-						"ContainerPort": 3000,
-						"TargetGroupArn": { "Ref": "TargetGroup" }
-					}
-				],
-				"ServiceName": "MyPortfolioService",
-				"NetworkConfiguration": {
-					"AwsvpcConfiguration": {
-						"AssignPublicIp": "DISABLED",
-						"Subnets": [
-							{
-								"Ref": "PrivateSubnet"
-							}
-						],
-						"SecurityGroups": [
-							{
-								"Ref": "ECSServiceSecurityGroupForALB"
-							}
-						]
-					}
-				}
-			},
-			"DependsOn": ["ALB", "ECSPrivateLinkECRDkr", "ECSPrivateLinkECRApi", "CloudWatchLogsVPCEndpoint", "PrivateLinkForS3ImageLayers", "ECSServiceSecurityGroupEgressForS3PrefixList"]
 		}
-	}
+    }
 }

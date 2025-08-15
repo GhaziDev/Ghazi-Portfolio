@@ -13,6 +13,7 @@
   "dependencies": {
     "@auth/mongodb-adapter": "^3.7.4",
     "@aws-sdk/client-secrets-manager": "^3.859.0",
+    "@aws-sdk/credential-providers": "^3.859.0",
     "@nextui-org/pagination": "^2.0.36",
     "@nextui-org/react": "^2.4.8",
     "@nextui-org/theme": "^2.4.1",
